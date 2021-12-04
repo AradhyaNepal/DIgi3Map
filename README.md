@@ -9,11 +9,11 @@ Self-growth industry is very treading now a days because most people are struggl
 ### 1.1 Problem statement
 In daily life most of the time we have no idea what we should do now to make our day most productive. Or we got a big goal let’s say to work on fitness because we are getting obese, unhealthy, and inactive but we got no idea how to start working on it, or we got motivated for few days to go gym and start extreme diet but later fail because complexity to maintain it. Or we are over focusing on just working out in gym and doing our diet whole day that our productivity in office is getting horrible, reverse also true. Some people might think we need lots of motivation and focus to reach to a goal and maintain it. But I once read a book named Atomic Habit where author recommends just gradual 1 percentage improvement which is ideal for our mind to keep being motivated to work on our goal, and the 1 percent might sound small initially but its later compound to give greater result (Clear, 2018). But still user might find it difficult to work on 1 percent improvement and track their progress, so they need some addictive platform to implement all these ideas. From that book I come up with idea to create an app to better implement the ideas I leaned from that book and adding extra functionality which I felt are needed according to my life.
  In short problem I faced was:
-i)	Boring to work on our self-improvement or in our goals
-ii)	Hard to keep track of our progress.
-iii)	Lots of complexity about how to break big goal into small reachable milestones with constant progress.
-iv)	Confusion about from where to start if we got no aim to reach.
-v)	Overfocusing in one goal while ignoring other area.
+1.	Boring to work on our self-improvement or in our goals
+2.	Hard to keep track of our progress.
+3.	Lots of complexity about how to break big goal into small reachable milestones with constant progress.
+4.	Confusion about from where to start if we got no aim to reach.
+5.	Overfocusing in one goal while ignoring other area.
 
 ### 1.2 Project as a solution	
 To solve the complexities, I come up with this self-productivity app which provide user all required features in easy-to-use mobile platform to track their habits which are divided into small manageable task by the app with lots of features to make the app addictive so that user get hooked to use the app.
