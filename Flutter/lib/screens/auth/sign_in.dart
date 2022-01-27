@@ -8,12 +8,7 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body:Center(
-          child: ElevatedButton(
-            onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SplashPage()));
-            },
-            child: Text("Open Again"),
-          ),
+          child: SizedBox()
         )
     );
   }

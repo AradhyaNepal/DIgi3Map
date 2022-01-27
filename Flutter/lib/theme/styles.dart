@@ -18,4 +18,12 @@ class Styles{
     color: ColorConstant.kBlueColor
   );
 
+  static const TextStyle onBoardingHeading=TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 20,
+  );
+  static const TextStyle onBoardingValue=TextStyle(
+
+  );
+
 }
