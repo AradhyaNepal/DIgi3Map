@@ -1,4 +1,5 @@
 import 'package:digi3map/screens/authentication/views/login.dart';
+import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/onBoarding/view/onBoarding.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,13 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: const Text("Login"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SignUpPage()));
+              },
+              child: const Text("SignUp"),
             ),
           ],
         ),

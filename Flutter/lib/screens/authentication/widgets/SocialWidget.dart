@@ -57,7 +57,7 @@ class SocialWidget extends StatelessWidget {
               Spacer(),
               SvgPicture.asset(AssetsLocation.googleLogo,height: 50,width: 50,),
               SizedBox(width: 10,),
-              SvgPicture.asset(AssetsLocation.facebookLogo,height: 50,width: 50,),
+              SvgPicture.asset(AssetsLocation.facebookLogo,height: 60,width: 60,),
               Spacer()
             ],
           ),

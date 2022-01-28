@@ -74,7 +74,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     ),
                     Constants.kSmallBox,
                     Expanded(
-                      flex: 9,
+                      flex: 8,
                       child: TextFormField(
                         obscureText: !_passwordVisible,
                         maxLength: 100,
@@ -115,6 +115,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 onPressed: (){
                   if(_formKey.currentState!.validate()){
                     _formKey.currentState!.save();
+                    FocusScope.of(context).unfocus();
                     setState(() {
                       _isLoading=true;
                     });
