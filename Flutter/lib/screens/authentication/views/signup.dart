@@ -20,12 +20,12 @@ class _SignUpPageState extends State<SignUpPage> {
     final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Container(
-            height: size.height,
-            width: size.width,
-            padding: Constants.kPagePadding,
+        body: Container(
+          height: size.height,
+          width: size.width,
+          padding: Constants.kPagePaddingNoDown,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -33,35 +33,32 @@ class _SignUpPageState extends State<SignUpPage> {
                 LogoWidget(),
                 Constants.kBigBox,
                 SignUpForm(),
-                Flexible(
-                    child:Row(
-                      children: [
-                        Spacer(),
-                        Text("Already Have Account?",
-                          style:GoogleFonts.openSans(
-                            fontSize: 13
+                Row(
+                  children: [
+                    Spacer(),
+                    Text("Already Have Account?",
+                      style:GoogleFonts.openSans(
+                        fontSize: 13
+                      ),
+                    ),
+                    TextButton(
+                        onPressed: (){
+                          TestingAllNavigation.goToTestingPage(context);
+                        },
+                        child: Text(
+                            "Login",
+                          style: GoogleFonts.openSans(
+                              fontSize: 13,
+                              color: ColorConstant.kBlueColor,
+                              fontWeight: FontWeight.bold
                           ),
-                        ),
-                        TextButton(
-                            onPressed: (){
-                              TestingAllNavigation.goToTestingPage(context);
-                            },
-                            child: Text(
-                                "Login",
-                              style: GoogleFonts.openSans(
-                                  fontSize: 13,
-                                  color: ColorConstant.kBlueColor,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            )
-                        ),
-                        Spacer(),
-                      ],
-                    )
+                        )
+                    ),
+                    Spacer(),
+                  ],
                 ),
-                Flexible(
-                    child: SocialWidget()
-                )
+                SocialWidget(),
+                Constants.kMediumBox
               ],
             ),
           ),

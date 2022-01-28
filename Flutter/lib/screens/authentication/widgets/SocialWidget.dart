@@ -51,16 +51,14 @@ class SocialWidget extends StatelessWidget {
           ),
         ),
         Constants.kSmallBox,
-        Flexible(
-          child: Row(
-            children: [
-              Spacer(),
-              SvgPicture.asset(AssetsLocation.googleLogo,height: 50,width: 50,),
-              SizedBox(width: 10,),
-              SvgPicture.asset(AssetsLocation.facebookLogo,height: 60,width: 60,),
-              Spacer()
-            ],
-          ),
+        Row(
+          children: [
+            Spacer(),
+            SvgPicture.asset(AssetsLocation.googleLogo,height: 50,width: 50,),
+            Spacer(),
+            SvgPicture.asset(AssetsLocation.facebookLogo,height: 60,width: 60,),
+            Spacer()
+          ],
         )
       ],
     );

@@ -17,6 +17,8 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _showConfirmation=false;
   final GlobalKey<FormState> _formKey=GlobalKey();
   String? _emailValue,_passwordValue,_confirmationValue;
+  final FocusNode _passwordFocus=FocusNode();
+  final FocusNode _confirmationFocus=FocusNode();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -41,6 +43,9 @@ class _SignUpFormState extends State<SignUpForm> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (value)=>_emailValue=value,
+                      onFieldSubmitted: (value){
+                        FocusScope.of(context).requestFocus(_passwordFocus);
+                      },
                       validator: (value){
                         if(value!.isEmpty){
                           return "Please Enter Email";
@@ -73,6 +78,10 @@ class _SignUpFormState extends State<SignUpForm> {
                   Expanded(
                     flex: 8,
                     child: TextFormField(
+                      onFieldSubmitted: (value){
+                        FocusScope.of(context).requestFocus(_confirmationFocus);
+                      },
+                      focusNode: _passwordFocus,
                       textInputAction: TextInputAction.next,
                       onSaved: (value)=>_passwordValue=value,
                       validator: (value){
@@ -122,6 +131,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   Expanded(
                     flex: 8,
                     child: TextFormField(
+                      focusNode: _confirmationFocus,
                       obscureText:! _showConfirmation,
                       onSaved: (value)=>_confirmationValue=value,
                       validator: (value){

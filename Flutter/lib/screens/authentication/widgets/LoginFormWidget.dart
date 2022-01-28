@@ -16,6 +16,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   bool _isLoading=false;
   String? _emailValue;
   String? _passwordValue;
+  final FocusNode _passwordNode=FocusNode();
 
   final GlobalKey<FormState> _formKey=GlobalKey();
   @override
@@ -41,6 +42,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                       child: TextFormField(
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
+                        onFieldSubmitted: (value){
+                          FocusScope.of(context).requestFocus(_passwordNode);
+                        },
                         maxLength: 100,
                         validator: (value){
                           if(value!.isEmpty) return "Please Enter Email Address";
@@ -76,6 +80,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     Expanded(
                       flex: 8,
                       child: TextFormField(
+                        focusNode: _passwordNode,
                         obscureText: !_passwordVisible,
                         maxLength: 100,
                         validator: (value){

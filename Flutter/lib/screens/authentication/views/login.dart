@@ -22,12 +22,12 @@ class _LoginPageState extends State<LoginPage> {
     final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Container(
-            height: size.height,
-            width: size.width,
-            padding: Constants.kPagePadding,
+        body: Container(
+          height: size.height,
+          width: size.width,
+          padding: Constants.kPagePaddingNoDown,
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -35,66 +35,65 @@ class _LoginPageState extends State<LoginPage> {
                 LogoWidget(),
                 Constants.kBigBox,
                 LoginFormWidget(),
-                Flexible(
-                  child: Row(
-                    children: [
-                      Spacer(),
-                      TextButton(
-                          onPressed: (){
-                            TestingAllNavigation.goToTestingPage(context);
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                              style:GoogleFonts.roboto(
-                                  color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500
+                Constants.kSmallBox,
+                Row(
+                  children: [
+                    Spacer(),
+                    TextButton(
+                        onPressed: (){
+                          TestingAllNavigation.goToTestingPage(context);
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                            style:GoogleFonts.roboto(
+                                color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
 
-                              )
-                          )
-                      ),
+                            )
+                        )
+                    ),
 
-                    ],
-                  ),
+                  ],
                 ),
 
-                Flexible(
-                  child: Row(
-                    children: [
-                      Spacer(),
-                      Expanded(
-                        flex: 8,
-                        child: FittedBox(
-                          child: Row(
-                            children: [
-                              Text(
-                                "Don't Have An Account?",
-                                style: GoogleFonts.openSans(
-                                    fontSize: 13
-                                ),
+                Row(
+                  children: [
+                    Spacer(),
+                    Expanded(
+                      flex: 8,
+                      child: FittedBox(
+                        child: Row(
+                          children: [
+                            Text(
+                              "Don't Have An Account?",
+                              style: GoogleFonts.openSans(
+                                  fontSize: 13
                               ),
-                              TextButton(
-                                  onPressed: (){
-                                    TestingAllNavigation.goToTestingPage(context);
-                                  },
-                                  child: Text(
-                                    'Sign Up',
-                                    style: GoogleFonts.openSans(
-                                        fontSize: 13,
-                                        color: ColorConstant.kBlueColor,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                              )
-                            ],
-                          ),
+                            ),
+                            TextButton(
+                                onPressed: (){
+                                  TestingAllNavigation.goToTestingPage(context);
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 13,
+                                      color: ColorConstant.kBlueColor,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                )
+                            )
+                          ],
                         ),
                       ),
-                      Spacer(),
-                    ],
-                  ),
+                    ),
+                    Spacer(),
+                  ],
                 ),
-                Flexible(child: SocialWidget())
+                SocialWidget(),
+
+                Constants.kMediumBox
               ],
             ),
           ),

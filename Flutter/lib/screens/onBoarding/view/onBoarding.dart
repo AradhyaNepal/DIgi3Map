@@ -73,6 +73,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   ),
                 ),
               ),
+              Constants.kSmallBox,
 
               CustomBlueButton(
                 onPressed: (){
