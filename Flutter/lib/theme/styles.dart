@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Styles{
   Styles._();
   static const TextStyle logoTextStyle=TextStyle(
-    fontFamily: AssetsLocation.twCenBoldName,
+    fontFamily: AssetsLocation.twCenName,
     fontSize: 40,
     fontWeight: FontWeight.bold,
     color: ColorConstant.kBlueColor
@@ -23,7 +23,10 @@ class Styles{
     fontSize: 20,
   );
   static const TextStyle onBoardingValue=TextStyle(
+    fontFamily: AssetsLocation.twCenName,
+    height: 1.3
 
   );
+
 
 }

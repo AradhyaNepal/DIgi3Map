@@ -1,4 +1,5 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/onBoarding/data/OnBoardingData.dart';
@@ -39,58 +40,64 @@ class _OnBoardingState extends State<OnBoarding> {
           padding: Constants.kPagePaddingNoDown,
           height: size.height,
           width: size.width,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
                   alignment: Alignment.centerLeft,
                   height: 30,
                   child: FittedBox(child: LogoWidget())
-                ),
-                Constants.kSmallBox,
-                ImagesForOnBoarding(
-                    page: page,
-                    pageController:_pageController,
-                    changedFunction: (currentPage){
-                      setState(() {
-                        page=currentPage;
-                      });
+              ),
+              Expanded(
+                flex: 8,
+                child: Center(
+                  child: SingleChildScrollView(
+                    physics:const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Constants.kSmallBox,
+                        ImagesForOnBoarding(
+                            page: page,
+                            pageController:_pageController,
+                            changedFunction: (currentPage){
+                              setState(() {
+                                page=currentPage;
+                              });
 
-                    }
-                ),
-                Constants.kSmallBox,
-                Container(
-                  height: size.height*0.1,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
-                      onPressed: (){
-                        if(page<2){
-                          setState(() {
-                            page++;
-                            _pageController.animateToPage(
-                                page,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeOutCubic
-                            );
-                          });
-                        }else{
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context)=>const TestingAllNavigation()
-                              )
-                          );
-                        }
-                      },
-                      child: Text(page!=2?"Next":"Done")//page starts from 0
+                            }
+                        ),
+                        Constants.kSmallBox,
+                      ],
+                    ),
                   ),
                 ),
-                Constants.kSmallBox,
-              ],
-            ),
+              ),
+
+              CustomBlueButton(
+                onPressed: (){
+                  if(page<2){
+                    setState(() {
+                      page++;
+                      _pageController.animateToPage(
+                          page,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOutCubic
+                      );
+                    });
+                  }else{
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context)=>const TestingAllNavigation()
+                        )
+                    );
+                  }
+                },
+                text: page!=2?"Next":"Done",
+              ),
+              Constants.kSmallBox,
+            ],
           ),
         ),
       ),
@@ -125,7 +132,7 @@ class _ImagesForOnBoardingState extends State<ImagesForOnBoarding> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           height: size.height*0.4,
           width: size.width,
           child: PageView(
@@ -157,6 +164,7 @@ class _ImagesForOnBoardingState extends State<ImagesForOnBoarding> {
         Constants.kSmallBox,
         Text(
           OnBoardingData.dataList[widget.page].value,
+          textAlign: TextAlign.center,
           style: Styles.onBoardingValue,
         ),
 

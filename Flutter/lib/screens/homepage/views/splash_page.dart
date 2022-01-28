@@ -4,7 +4,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/auth/sign_in.dart';
 import 'package:digi3map/screens/homepage/widgets/CustomLinearProgressIndicator.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -52,7 +51,7 @@ class _SplashPageState extends State<SplashPage> {
     return SafeArea(
         child: Scaffold(
           body: Container(
-            height: size.height*0.8,
+            height: size.height,
             padding: Constants.kPagePadding,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
