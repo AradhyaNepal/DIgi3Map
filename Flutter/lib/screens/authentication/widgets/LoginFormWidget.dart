@@ -3,6 +3,7 @@ import 'package:digi3map/common/widgets/CustomCircularIndicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
+import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -51,12 +52,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           return null;
                         },
                         onSaved: (value)=>_emailValue=value,
-                        decoration:InputDecoration(
-                          counterText: "",
-                          hintText: "Email Address",
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none
-                        ) ,
+                        decoration:Styles.getSimpleInputDecoration("Email Address")
                       ),
                     ),
                   ],
@@ -88,12 +84,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           return null;
                         },
                         onSaved: (value)=>_passwordValue=value,
-                        decoration:InputDecoration(
-                          counterText: "",
-                          hintText: "Password",
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none
-                        ) ,
+                        decoration:Styles.getSimpleInputDecoration("Password")
                       ),
                     ),
                     Expanded(

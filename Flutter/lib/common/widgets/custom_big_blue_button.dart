@@ -15,6 +15,7 @@ class CustomBlueButton extends StatelessWidget {
     return  SizedBox(
       height: 65,
       child: ElevatedButton(
+
           style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
           onPressed: onPressed,
           child: Text(

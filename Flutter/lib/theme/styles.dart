@@ -1,6 +1,7 @@
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Styles{
@@ -27,6 +28,42 @@ class Styles{
     height: 1.3
 
   );
+
+  static const TextStyle bigHeading=TextStyle(
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 25
+  );
+
+  static TextStyle forgotPasswordStyle=GoogleFonts.roboto(
+      color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.w500
+
+  );
+
+  static InputDecoration getSimpleInputDecoration(String hintText){
+    return InputDecoration(
+        counterText: "",
+        hintText: hintText,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none
+    );
+
+  }
+  static InputDecoration pinDecoration=InputDecoration(
+      counterText: "",
+      focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(width: 1,color: ColorConstant.kBlueColor),
+          borderRadius: BorderRadius.circular(5)
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(width: 1,color: ColorConstant.greyTextColor),
+          borderRadius: BorderRadius.circular(5)
+      )
+  );
+
+
 
 
 }

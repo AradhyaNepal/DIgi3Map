@@ -1,5 +1,9 @@
+import 'package:digi3map/screens/authentication/views/change_password_oldpass.dart';
+import 'package:digi3map/screens/authentication/views/change_password_pin.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
+import 'package:digi3map/screens/authentication/views/verification_sign_up.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/onBoarding/view/onBoarding.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,7 @@ class TestingAllNavigation extends StatelessWidget {
           ),
         ),
         body: ListView(
+          physics: BouncingScrollPhysics(),
           children: [
             ElevatedButton(
               onPressed: () {
@@ -52,6 +57,34 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const SignUpPage()));
               },
               child: const Text("SignUp"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  VerificationSignUp()));
+              },
+              child: const Text("Verification Sign Up (123456)"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  ForgotPasswordPin()));
+              },
+              child: const Text("Forgot Password (123456)"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  ChangePasswordWithOld()));
+              },
+              child: const Text("Change Password With Old"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  ChangePasswordAfterPin()));
+              },
+              child: const Text("Change Password After Pin"),
             ),
           ],
         ),

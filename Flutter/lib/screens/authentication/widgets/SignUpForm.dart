@@ -3,6 +3,7 @@ import 'package:digi3map/common/widgets/CustomCircularIndicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
+import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -52,11 +53,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        hintText: "Email Address",
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
+                      decoration: Styles.getSimpleInputDecoration("Email Address")
                     ),
                   ),
                 ],
@@ -91,11 +88,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         return null;
                       },
                       obscureText:! _showPassword,
-                      decoration: InputDecoration(
-                        hintText: "Password",
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
+                      decoration: Styles.getSimpleInputDecoration("Password")
                     ),
                   ),
                   Expanded(
@@ -140,11 +133,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        hintText: "Confirm Password",
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
+                      decoration: Styles.getSimpleInputDecoration("Confirm Password"),
                     ),
                   ),
                   Expanded(

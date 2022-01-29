@@ -6,6 +6,7 @@ import 'package:digi3map/screens/authentication/widgets/LoginFormWidget.dart';
 import 'package:digi3map/screens/authentication/widgets/SocialWidget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
+import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -45,12 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           'Forgot Password?',
-                            style:GoogleFonts.roboto(
-                                color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500
-
-                            )
+                            style:Styles.forgotPasswordStyle
                         )
                     ),
 
