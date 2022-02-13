@@ -35,7 +35,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   children: [
                     Expanded(
                         flex:1,
-                        child: Icon(Icons.person_outline,color: ColorConstant.iconColor,)
+                        child: Icon(Icons.person_outline,color: ColorConstant.kIconColor,)
                     ),
                     Constants.kSmallBox,
                     Expanded(
@@ -69,7 +69,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     Expanded(
                         flex:1,
                         child: Icon(
-                          Icons.lock_outline_rounded,color: ColorConstant.iconColor,
+                          Icons.lock_outline_rounded,color: ColorConstant.kIconColor,
                         )
                     ),
                     Constants.kSmallBox,
@@ -97,7 +97,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         },
                         icon: Icon(
                           _passwordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                          color: ColorConstant.iconColor,
+                          color: ColorConstant.kIconColor,
                         ),
                       ),
                     )

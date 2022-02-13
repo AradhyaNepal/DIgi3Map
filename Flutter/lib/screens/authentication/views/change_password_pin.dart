@@ -53,7 +53,7 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Icon(Icons.lock_outline_rounded,color: ColorConstant.iconColor,)
+                            child: Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
                           ),
                           Constants.kSmallBox,
                           Expanded(
@@ -82,7 +82,7 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                                 },
                                 icon: Icon(
                                   _isPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                  color: ColorConstant.iconColor,
+                                  color: ColorConstant.kIconColor,
                                 ),
                               )
                           ),
@@ -102,7 +102,7 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                             flex: 1,
                               child: Icon(
                                 Icons.lock_outline_rounded,
-                                color: ColorConstant.iconColor,
+                                color: ColorConstant.kIconColor,
                               )
                           ),
                           Constants.kSmallBox,
@@ -130,7 +130,7 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                                 },
                                 icon: Icon(
                                   _isConfirmationVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                  color: ColorConstant.iconColor,
+                                  color: ColorConstant.kIconColor,
                                 ),
                               )
                           ),

@@ -4,6 +4,7 @@ import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/views/verification_sign_up.dart';
+import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/onBoarding/view/onBoarding.dart';
 import 'package:flutter/material.dart';
@@ -82,9 +83,16 @@ class TestingAllNavigation extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>  ChangePasswordAfterPin()));
+                    MaterialPageRoute(builder: (context) =>  const ChangePasswordAfterPin()));
               },
               child: const Text("Change Password After Pin"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const DomainList()));
+              },
+              child: const Text("Domain"),
             ),
           ],
         ),

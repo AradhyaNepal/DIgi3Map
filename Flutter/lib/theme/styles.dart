@@ -35,8 +35,33 @@ class Styles{
       fontSize: 25
   );
 
+  static const TextStyle mediumHeading=TextStyle(
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 20
+  );
+  static const TextStyle smallHeading=TextStyle(
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 15
+  );
+
+  static const TextStyle blueHighlight=TextStyle(
+    color: Colors.blue,
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 15
+  );
+
   static TextStyle forgotPasswordStyle=GoogleFonts.roboto(
       color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.w500
+
+  );
+
+  static TextStyle opacityHeadingStyle=GoogleFonts.roboto(
+      color: ColorConstant.kBlueColor.withOpacity(0.5),
       fontSize: 15,
       fontWeight: FontWeight.w500
 
@@ -51,6 +76,29 @@ class Styles{
     );
 
   }
+
+  static InputDecoration getDecorationWithLable(String lable){
+    return  InputDecoration(
+      alignLabelWithHint: true,
+        label: Text(lable),
+        focusedErrorBorder:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(color: Colors.red,width: 1)
+        ),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(color: Colors.red,width: 1)
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(color: Colors.blueAccent,width: 1)
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(color: Colors.black,width: 1)
+        )
+    );
+  }
   static InputDecoration pinDecoration=InputDecoration(
       counterText: "",
       focusedBorder: OutlineInputBorder(
@@ -58,7 +106,7 @@ class Styles{
           borderRadius: BorderRadius.circular(5)
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(width: 1,color: ColorConstant.greyTextColor),
+        borderSide: const BorderSide(width: 1,color: ColorConstant.kGreyTextColor),
           borderRadius: BorderRadius.circular(5)
       )
   );

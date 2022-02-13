@@ -9,4 +9,5 @@ class Constants{
   static const kMediumBox=SizedBox(height: 30,width: 30,);
   static const kBigBox=SizedBox(height: 40,width: 40,);
   static const kSmallBox=SizedBox(height: 20,width: 20,);
+  static const kVerySmallBox=SizedBox(height: 10,width: 10,);
 }

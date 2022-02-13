@@ -8,5 +8,9 @@ class AssetsLocation{
   static const splashPageSoundLocation="audio/bcz_i_keep_running.mp3"; //audio player by default adds assets in the beginning
   static const googleLogo="assets/icons/googlelogo.svg";
   static const facebookLogo="assets/icons/facebooklogo.svg";
+  static const chadImageLocation="assets/images/ouch.png";
+  static const anonymousImageLocation="assets/images/anonymous.png";
+  static const addDomainListLocation="assets/images/addimage.png";
+  static const selectImageLocation="assets/images/selectimage.png";
 }
 

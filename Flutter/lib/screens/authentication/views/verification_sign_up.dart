@@ -47,7 +47,7 @@ class VerificationSignUp extends StatelessWidget {
                             Text(
                               'A 6 - Digit PIN has been sent to your email address, enter it below to continue',
                               style: GoogleFonts.roboto(
-                                color: ColorConstant.greyTextColor
+                                color: ColorConstant.kGreyTextColor
                               ),
                             ),
                             Constants.kSmallBox,

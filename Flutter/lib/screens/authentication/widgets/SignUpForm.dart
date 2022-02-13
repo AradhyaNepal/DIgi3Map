@@ -35,7 +35,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 children: [
                   Expanded(
                     flex: 1,
-                      child: Icon(Icons.person_outline_rounded,color: ColorConstant.iconColor,)
+                      child: Icon(Icons.person_outline_rounded,color: ColorConstant.kIconColor,)
                   ),
                   Constants.kSmallBox,
                   Expanded(
@@ -69,7 +69,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: Icon(Icons.lock_outline_rounded,color: ColorConstant.iconColor,)
+                      child: Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
                   ),
                   Constants.kSmallBox,
                   Expanded(
@@ -101,7 +101,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         },
                         icon: Icon(
                           _showPassword?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                          color: ColorConstant.iconColor,
+                          color: ColorConstant.kIconColor,
                         ),
                       )
                   ),
@@ -118,7 +118,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: Icon(Icons.lock_outline_rounded,color: ColorConstant.iconColor,)
+                      child: Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
                   ),
                   Constants.kSmallBox,
                   Expanded(
@@ -146,7 +146,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         },
                         icon: Icon(
                           _showConfirmation?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                          color: ColorConstant.iconColor,
+                          color: ColorConstant.kIconColor,
                         ),
                       )
                   ),

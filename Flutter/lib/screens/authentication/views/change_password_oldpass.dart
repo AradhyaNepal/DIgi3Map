@@ -60,7 +60,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child:Icon(Icons.lock_outline_rounded,color: ColorConstant.iconColor,)
+                                child:Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
                             ),
                             Constants.kSmallBox,
                             Expanded(
@@ -89,7 +89,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                                   },
                                   icon: Icon(
                                     _oldPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.iconColor,
+                                    color: ColorConstant.kIconColor,
                                   ),
                                 )
                             )
@@ -110,7 +110,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                               flex: 1,
                                 child: Icon(
                                   Icons.lock_outline_rounded,
-                                  color: ColorConstant.iconColor,
+                                  color: ColorConstant.kIconColor,
                                 )
                             ),
                             Constants.kSmallBox,
@@ -141,7 +141,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                                   },
                                   icon: Icon(
                                     _newPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.iconColor,
+                                    color: ColorConstant.kIconColor,
                                   ),
                                 )
                             ),
@@ -162,7 +162,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                               flex: 1,
                                 child: Icon(
                                   Icons.lock_outline_rounded,
-                                  color: ColorConstant.iconColor,
+                                  color: ColorConstant.kIconColor,
                                 )
                             ),
                             Constants.kSmallBox,
@@ -190,7 +190,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                                   },
                                   icon: Icon(
                                     _confirmPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.iconColor,
+                                    color: ColorConstant.kIconColor,
                                   ),
                                 )
                             )
