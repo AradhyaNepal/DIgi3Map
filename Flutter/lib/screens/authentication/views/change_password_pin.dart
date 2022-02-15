@@ -1,8 +1,8 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/CustomCircularIndicator.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
 import 'package:digi3map/testing_all_navigation.dart';
-import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,6 @@ class ChangePasswordAfterPin extends StatefulWidget {
 
 class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
   final FocusNode _confirmationFocusNode=FocusNode();
-  String? _newPasswordValue,_confirmPasswordValue;
-  bool _isPasswordVisible=false,_isConfirmationVisible=false;
   bool _isLoading=false;
   final GlobalKey<FormState> _formKey=GlobalKey();
   @override
@@ -38,109 +36,26 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                   Constants.kBigBox,
                   Constants.kBigBox,
                   Constants.kBigBox,
-                  Text(
+                  const Text(
                       "Change Password",
                     style: Styles.bigHeading,
                   ),
                   Constants.kBigBox,
 
-                  Card(
-                    margin: const EdgeInsets.all(0),
-                    elevation: 3,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
-                          ),
-                          Constants.kSmallBox,
-                          Expanded(
-                            flex: 8,
-                            child: TextFormField(
-                              obscureText: !_isPasswordVisible,
-                              onSaved: (value)=>_newPasswordValue=value,
-                              validator: (value){
-                                if(value!.isEmpty) return "Please Enter New Password";
-                                return null;
-                              },
-                              textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (value){
-                                FocusScope.of(context).requestFocus(_confirmationFocusNode);
-                              },
-                              decoration: Styles.getSimpleInputDecoration("New Password"),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: (){
-                                  setState(() {
-                                    _isPasswordVisible=!_isPasswordVisible;
-                                  });
-                                },
-                                icon: Icon(
-                                  _isPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                  color: ColorConstant.kIconColor,
-                                ),
-                              )
-                          ),
-                        ],
-                      ),
-                    ),
+                  PasswordForm(
+                      nextNode: _confirmationFocusNode,
+                      valueProvider: ValueNotifier(null),
+                      heading: "New Password"
                   ),
                   Constants.kSmallBox,
-                  Card(
-                    margin: const EdgeInsets.all(0),
-                    elevation: 3,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                              child: Icon(
-                                Icons.lock_outline_rounded,
-                                color: ColorConstant.kIconColor,
-                              )
-                          ),
-                          Constants.kSmallBox,
-                          Expanded(
-                            flex: 8,
-                              child: TextFormField(
-                                obscureText: !_isConfirmationVisible,
-                                focusNode: _confirmationFocusNode,
-                                textInputAction: TextInputAction.done,
-                                onSaved: (value)=>_confirmPasswordValue=value,
-                                validator: (value){
-                                  if(value!.isEmpty) return "Please Enter Confirmation";
-                                  return null;
-                                },
-                                decoration: Styles.getSimpleInputDecoration("Confirmation Password"),
-                              )
-                          ),
-                          Expanded(
-                            flex: 1,
-                              child: IconButton(
-                                onPressed: (){
-                                  setState(() {
-                                    _isConfirmationVisible=!_isConfirmationVisible;
-                                  });
-                                },
-                                icon: Icon(
-                                  _isConfirmationVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                  color: ColorConstant.kIconColor,
-                                ),
-                              )
-                          ),
-                        ],
-                      ),
-                    ),
+                  PasswordForm(
+                      focusNode: _confirmationFocusNode,
+                      valueProvider: ValueNotifier(null),
+                      heading: "Confirm Password"
                   ),
 
                   Constants.kBigBox,
-                  _isLoading?CustomCircularIndicator():CustomBlueButton(
+                  _isLoading?const CustomCircularIndicator():CustomBlueButton(
                       text: "Change Password",
                       onPressed: (){
                         if(_formKey.currentState!.validate()){
@@ -149,7 +64,7 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                           setState(() {
                             _isLoading=true;
                           });
-                          Future.delayed(Duration(seconds: 2),(){
+                          Future.delayed(const Duration(seconds: 2),(){
                             TestingAllNavigation.goToTestingPage(context);
                           });
                         }

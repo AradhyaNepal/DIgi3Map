@@ -1,9 +1,7 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
-import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/authentication/widgets/LoginFormWidget.dart';
-import 'package:digi3map/screens/authentication/widgets/SocialWidget.dart';
+import 'package:digi3map/screens/authentication/widgets/login_form_widget.dart';
+import 'package:digi3map/screens/authentication/widgets/social_widget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -28,18 +26,18 @@ class _LoginPageState extends State<LoginPage> {
           width: size.width,
           padding: Constants.kPagePaddingNoDown,
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Constants.kBigBox,
-                LogoWidget(),
+                const LogoWidget(),
                 Constants.kBigBox,
-                LoginFormWidget(),
+                const LoginFormWidget(),
                 Constants.kSmallBox,
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
                         onPressed: (){
                           TestingAllNavigation.goToTestingPage(context);
@@ -55,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     Expanded(
                       flex: 8,
                       child: FittedBox(
@@ -84,10 +82,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
-                SocialWidget(),
+                const SocialWidget(),
 
                 Constants.kMediumBox
               ],

@@ -5,10 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomBlueButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  CustomBlueButton({
+  const CustomBlueButton({
     required this.text,
     required this.onPressed,
-  });
+    Key? key
+  }):super(key: key);
 
   @override
   Widget build(BuildContext context) {

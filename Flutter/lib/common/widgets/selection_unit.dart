@@ -13,18 +13,19 @@ class SelectionUnit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isBig=selectionUnitSize==SelectionUnitSize.big;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3),
-        border: Border.all(color:Color(0xFF1F54C3) ,width: 1),
-        color: isSelected?Color(0xFFE6DBFA):null
+        border: Border.all(color:const Color(0xFF1F54C3) ,width: 1),
+        color: isSelected?const Color(0xFFE6DBFA):null
       ),
       margin: const EdgeInsets.symmetric(vertical: 4,horizontal: 5),
-      padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: isBig?10:5,horizontal: isBig?15:10),
       child: Text(
         value,
         style: TextStyle(
-          color: Color(0xFF1F54C3),
+          color: const Color(0xFF1F54C3),
           fontWeight: isSelected?FontWeight.bold:null,
           fontSize:getSize()
         ),
@@ -36,6 +37,6 @@ class SelectionUnit extends StatelessWidget {
     if(selectionUnitSize==SelectionUnitSize.small){
       return 13;
     }
-    return 15;
+    return 18;
   }
 }

@@ -12,5 +12,9 @@ class AssetsLocation{
   static const anonymousImageLocation="assets/images/anonymous.png";
   static const addDomainListLocation="assets/images/addimage.png";
   static const selectImageLocation="assets/images/selectimage.png";
+  static const tickIconLocation="assets/icons/tick.svg";
+  static const coinIconLocation="assets/icons/coins.svg";
+  static const mileStoneDummyLocation="assets/images/milestone_dummy.png";
+  static const studyDummyLocation="assets/images/studydummy.png";
 }
 

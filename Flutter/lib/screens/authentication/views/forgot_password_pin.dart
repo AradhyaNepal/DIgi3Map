@@ -1,8 +1,8 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/authentication/provides/PinValueProvider.dart';
-import 'package:digi3map/screens/authentication/widgets/PinWidget.dart';
+import 'package:digi3map/screens/authentication/provides/pin_value_provider.dart';
+import 'package:digi3map/screens/authentication/widgets/pin_widget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 class ForgotPasswordPin extends StatelessWidget {
   final ValueNotifier<List<String>> _pinValue=ValueNotifier([]);
   final GlobalKey<FormState> formKey=GlobalKey();
+
+  ForgotPasswordPin({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -21,14 +23,14 @@ class ForgotPasswordPin extends StatelessWidget {
         child: Scaffold(
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Container(
+            child:  SizedBox(
               width: size.width,
               height: size.height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding: Constants.kPagePadding,
                     child: Card(
@@ -38,7 +40,7 @@ class ForgotPasswordPin extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
+                            const Text(
                               "Forgot Password",
                               style: TextStyle(
                                   fontFamily: AssetsLocation.twCenName,
@@ -60,11 +62,7 @@ class ForgotPasswordPin extends StatelessWidget {
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      PinWidget(
-                                        pinValue: _pinValue,
-                                        pinValueProvider: pinValueProvider,
-
-                                      ),
+                                      child??SizedBox(),
                                       Constants.kSmallBox,
                                       IgnorePointer(
                                         ignoring: !pinValueProvider.isCorrectValueToContinue,
@@ -77,14 +75,17 @@ class ForgotPasswordPin extends StatelessWidget {
                                       ),
                                     ],
                                   );
-                                }
+                                },
+                              child: PinWidget(
+                                pinValue: _pinValue,
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),

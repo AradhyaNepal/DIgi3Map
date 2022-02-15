@@ -1,8 +1,7 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/domain_crud/widget/imagepicker.dart';
+import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/password_to_edit_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_heading_editable_widget.dart';
@@ -29,15 +28,15 @@ class DomainProfilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Domain Detail',
                   style: Styles.bigHeading,
                 ),
                 Constants.kSmallBox,
                 CustomImagePicker(imageLocation: pickedImage),
                 Constants.kVerySmallBox,
-                ProfileHeadingEditableWidget(),
-                ProfileEditableDescriptionWidget(),
+                const ProfileHeadingEditableWidget(),
+                const ProfileEditableDescriptionWidget(),
                 Constants.kMediumBox,
                 Text(
                     'Habits (Max 2)',
@@ -46,11 +45,11 @@ class DomainProfilePage extends StatelessWidget {
                 Constants.kVerySmallBox,
                 Wrap(
                   children: [
-                    SelectionCollection(valuesList: ['Fitness']),
+                    const SelectionCollection(valuesList: ['Fitness']),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                         onPressed: (){},
-                        child: Text('Add Another')
+                        child: const Text('Add Another')
                     )
                   ],
                 ),
@@ -63,7 +62,7 @@ class DomainProfilePage extends StatelessWidget {
                 Card(
                   margin: const EdgeInsets.all(0),
                   child: Row(
-                    children: [
+                    children: const [
                       Expanded(
                         flex:3,
                           child: FocusWidget(
@@ -92,17 +91,17 @@ class DomainProfilePage extends StatelessWidget {
                           onPressed: (){
                             showPasswordModal(context);
                           },
-                          child: Text('Delete')
+                          child: const Text('Delete')
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Expanded(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                           onPressed: (){
                             showPasswordModal(context);
                           },
-                          child: Text('Save')
+                          child: const Text('Save')
                       ),
                     )
                   ],
@@ -120,7 +119,7 @@ class DomainProfilePage extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context){
-          return PasswordToEditWidget();
+          return const PasswordToEditWidget();
         }
     );
   }

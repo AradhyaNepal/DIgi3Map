@@ -45,7 +45,7 @@ class DomainListIntroWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5)
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-                      child: Text(
+                      child: const Text(
                           "Dummy",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,

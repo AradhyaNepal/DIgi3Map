@@ -1,7 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
-import 'package:digi3map/screens/authentication/widgets/SignUpForm.dart';
-import 'package:digi3map/screens/authentication/widgets/SocialWidget.dart';
+import 'package:digi3map/screens/authentication/widgets/signup_form.dart';
+import 'package:digi3map/screens/authentication/widgets/social_widget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +30,12 @@ class _SignUpPageState extends State<SignUpPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Constants.kBigBox,
-                LogoWidget(),
+                const LogoWidget(),
                 Constants.kBigBox,
-                SignUpForm(),
+                const SignUpForm(),
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     Text("Already Have Account?",
                       style:GoogleFonts.openSans(
                         fontSize: 13
@@ -54,10 +54,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         )
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
-                SocialWidget(),
+                const SocialWidget(),
                 Constants.kMediumBox
               ],
             ),

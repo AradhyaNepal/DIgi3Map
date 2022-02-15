@@ -1,8 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
-import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/authentication/provides/PinValueProvider.dart';
-import 'package:digi3map/screens/authentication/widgets/PinWidget.dart';
+import 'package:digi3map/screens/authentication/provides/pin_value_provider.dart';
+import 'package:digi3map/screens/authentication/widgets/pin_widget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -13,6 +12,8 @@ import 'package:provider/provider.dart';
 class VerificationSignUp extends StatelessWidget {
   final ValueNotifier<List<String>> _pinValue=ValueNotifier([]);
   final GlobalKey<FormState> formKey=GlobalKey();
+
+  VerificationSignUp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -29,7 +30,7 @@ class VerificationSignUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding: Constants.kPagePadding,
                     child: Card(
@@ -39,7 +40,7 @@ class VerificationSignUp extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
+                            const Text(
                               "Verification",
                               style: Styles.bigHeading
                             ),
@@ -57,11 +58,7 @@ class VerificationSignUp extends StatelessWidget {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                    PinWidget(
-                                      pinValue: _pinValue,
-                                      pinValueProvider: pinValueProvider,
-
-                                    ),
+                                    child??SizedBox(),
                                     Constants.kSmallBox,
                                     IgnorePointer(
                                       ignoring: !pinValueProvider.isCorrectValueToContinue,
@@ -74,14 +71,17 @@ class VerificationSignUp extends StatelessWidget {
                                     ),
                                   ],
                                 );
-                              }
-                            )
+                              },
+                              child: PinWidget(
+                                pinValue: _pinValue,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),

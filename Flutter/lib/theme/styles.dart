@@ -1,6 +1,5 @@
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/theme/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +12,10 @@ class Styles{
     color: ColorConstant.kBlueColor
   );
 
+  static const TextStyle lightWhiteTextStyle=TextStyle(
+      color: ColorConstant.kLightWhiteColor,
+      fontWeight: FontWeight.bold
+  );
   static const TextStyle subLogoTextStyle=TextStyle(
     fontFamily: AssetsLocation.segoescName,
     fontSize: 20,
@@ -34,6 +37,7 @@ class Styles{
       fontWeight: FontWeight.bold,
       fontSize: 25
   );
+
 
   static const TextStyle mediumHeading=TextStyle(
       fontFamily: AssetsLocation.twCenName,
@@ -83,19 +87,19 @@ class Styles{
         label: Text(lable),
         focusedErrorBorder:  OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.red,width: 1)
+            borderSide: const BorderSide(color: Colors.red,width: 1)
         ),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.red,width: 1)
+            borderSide: const BorderSide(color: Colors.red,width: 1)
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.blueAccent,width: 1)
+            borderSide: const BorderSide(color: Colors.blueAccent,width: 1)
         ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: Colors.black,width: 1)
+            borderSide: const BorderSide(color: Colors.black,width: 1)
         )
     );
   }

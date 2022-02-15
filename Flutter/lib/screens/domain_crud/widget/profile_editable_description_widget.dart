@@ -1,4 +1,4 @@
-import 'package:digi3map/common/classes/TextCalculator.dart';
+import 'package:digi3map/common/classes/text_calculator.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -9,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ProfileEditableDescriptionWidget extends StatefulWidget {
   final String description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non";
-  final TextStyle textStyle=TextStyle();
+  final TextStyle textStyle=const TextStyle();
   final double boxConstraintHeight=50;
-  ProfileEditableDescriptionWidget({Key? key}) : super(key: key);
+  const ProfileEditableDescriptionWidget({Key? key}) : super(key: key);
 
   @override
   _ProfileEditableDescriptionWidgetState createState() => _ProfileEditableDescriptionWidgetState();
@@ -54,7 +54,7 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
                 'Description',
                 style: Styles.opacityHeadingStyle
             ),
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             IconButton(
               onPressed: (){
                 if(forEditing){
@@ -96,7 +96,7 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
                   alignment : Alignment.topLeft ,
                   curve: Curves.easeOutCubic,
                   duration: const Duration(milliseconds: 500),
-                  child: new Text(
+                  child: Text(
                     description,
                     maxLines: (showMoreLessAnimation==false || _loadMoreTextIsSelected)?150:_textCalculatorResult.constraintLines,
                     overflow: TextOverflow.ellipsis,
@@ -113,7 +113,7 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
                     ),
                   ),
                 ],
-              ):SizedBox()
+              ):const SizedBox()
             ],
           ),
         ),

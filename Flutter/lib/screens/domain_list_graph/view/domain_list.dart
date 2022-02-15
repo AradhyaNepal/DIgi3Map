@@ -24,7 +24,7 @@ class DomainList extends StatelessWidget {
                     'Your 5 Domains',
                   style: Styles.bigHeading,
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -58,9 +58,9 @@ class DomainList extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Row(
-                  children: [
+                  children: const [
                     Expanded(
                       child: AddDomainListWidget()
                     ),
@@ -68,7 +68,7 @@ class DomainList extends StatelessWidget {
                     Spacer(),
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
               ],
             ),
           ),

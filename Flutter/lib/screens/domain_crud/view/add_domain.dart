@@ -1,8 +1,8 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/CustomSnackBar.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
-import 'package:digi3map/screens/domain_crud/widget/imagepicker.dart';
+import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class AddDomain extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text('Add Domain',style: Styles.bigHeading,),
+                        const Text('Add Domain',style: Styles.bigHeading,),
                         Constants.kMediumBox,
                         CustomImagePicker(imageLocation: _imageLocation,),
                         Constants.kSmallBox,
@@ -56,7 +56,7 @@ class AddDomain extends StatelessWidget {
                         Constants.kSmallBox,
                         Text('Priority Value',style: Styles.forgotPasswordStyle,),
                         Constants.kVerySmallBox,
-                        SelectionCollection(valuesList: ['High','Low','Medium']),
+                        const SelectionCollection(valuesList: ['High','Low','Medium']),
                         Constants.kSmallBox,
                         CustomBlueButton(
                             text: 'Add',

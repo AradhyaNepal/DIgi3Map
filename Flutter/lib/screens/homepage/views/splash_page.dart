@@ -4,15 +4,17 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/homepage/widgets/CustomLinearProgressIndicator.dart';
+import 'package:digi3map/screens/homepage/widgets/custom_linear_progress_indicator.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
 
-  AudioCache player = AudioCache();
-  int totalDuration=10;
+  final AudioCache player = AudioCache();
+  final int totalDuration=10;
+
+  SplashPage({Key? key}) : super(key: key);
 
 
 
@@ -56,7 +58,7 @@ class _SplashPageState extends State<SplashPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
+                const Flexible(
                     child: LogoWidget()
                 ),
                 const Text(
@@ -77,7 +79,6 @@ class _SplashPageState extends State<SplashPage> {
                       _cancelPressed.value=true;
                     });
                     _timer.cancel();
-                    print("ouch you touched me!!");
                     navigateToAnotherPage();
                   },
                   icon: const FittedBox(

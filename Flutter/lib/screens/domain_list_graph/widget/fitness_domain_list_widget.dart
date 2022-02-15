@@ -10,7 +10,6 @@ class FitnessDomainListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("I was here:Fitness");
     final size=MediaQuery.of(context).size;
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
@@ -25,7 +24,7 @@ class FitnessDomainListWidget extends StatelessWidget {
             Expanded(
               flex: 3,
                 child: Column(
-                  children: [
+                  children:const  [
                     SizedBox(height: 43,),
                     FittedBox(
                       child: Text(
@@ -53,7 +52,7 @@ class FitnessDomainListWidget extends StatelessWidget {
                       top: 0,
                       right: 0,
                       child: Column(
-                        children: [
+                        children:const  [
                           SelectionUnit(isSelected: true,value: 'Diet',),
                           SelectionUnit(isSelected: true,value: "Workout",),
                         ],
@@ -62,7 +61,7 @@ class FitnessDomainListWidget extends StatelessWidget {
                   ],
                 )
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             )
           ],

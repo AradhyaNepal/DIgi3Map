@@ -4,9 +4,15 @@ import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/views/verification_sign_up.dart';
+import 'package:digi3map/screens/diet/view/customize_body_detail.dart';
+import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
+import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
-import 'package:digi3map/screens/onBoarding/view/onBoarding.dart';
+import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
+import 'package:digi3map/screens/milestone/view/milestone_page.dart';
+import 'package:digi3map/screens/on_boarding/view/on_boarding.dart';
+import 'package:digi3map/screens/study_page/study_page.dart';
 import 'package:flutter/material.dart';
 
 class TestingAllNavigation extends StatelessWidget {
@@ -22,14 +28,14 @@ class TestingAllNavigation extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Testing All Navigation"),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
         body: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             ElevatedButton(
               onPressed: () {
@@ -76,7 +82,7 @@ class TestingAllNavigation extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>  ChangePasswordWithOld()));
+                    MaterialPageRoute(builder: (context) =>  const ChangePasswordWithOld()));
               },
               child: const Text("Change Password With Old"),
             ),
@@ -93,6 +99,49 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const DomainList()));
               },
               child: const Text("Domain"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const EnergyFilterTestingWidget()));
+              },
+              child: const Text("Energy Filter"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const RandomTodoAdd()));
+              },
+              child: const Text("Random Todo Add"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const DomainGraph()));
+              },
+              child: const Text("Domain Graph"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CustomBodyDetails()));
+              },
+              child: const Text("Custom Body Details"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MileStonePage()));
+              },
+              child: const Text("Milestone Page"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const StudyPage()));
+              },
+              child: const Text("Study Page"),
             ),
           ],
         ),

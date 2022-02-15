@@ -3,7 +3,13 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeadingEditableWidget extends StatefulWidget {
-  const ProfileHeadingEditableWidget({Key? key}) : super(key: key);
+  final String value;
+  final bool bigHighlight;
+  const ProfileHeadingEditableWidget({
+    this.value="Dummy",
+    this.bigHighlight=false,
+    Key? key
+  }) : super(key: key);
 
   @override
   _ProfileHeadingEditableWidgetState createState() => _ProfileHeadingEditableWidgetState();
@@ -16,6 +22,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
   @override
   void initState() {
     super.initState();
+    heading=widget.value;
     textEditingController.text=heading;
   }
   @override
@@ -26,9 +33,8 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding");
     final size=MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,10 +47,10 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
                 ):Text(
               heading,
               textAlign: TextAlign.center,
-              style: Styles.bigHeading,
+              style: widget.bigHighlight?Styles.bigHeading:Styles.smallHeading,
             ),
           ),
-          SizedBox(width: 10,),
+          const SizedBox(width: 10,),
           IconButton(
             onPressed: (){
               if(forEditing){
@@ -59,11 +65,11 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
               setState((){});
             },
             icon: forEditing?
-            Icon(
+            const Icon(
               Icons.save_alt_rounded,
               color: ColorConstant.kIconColor,
             ):
-            Icon(
+            const Icon(
               Icons.edit,
               color: ColorConstant.kIconColor,
             ),

@@ -1,19 +1,19 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/CustomCircularIndicator.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
 import 'package:digi3map/testing_all_navigation.dart';
-import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordWithOld extends StatefulWidget {
+  const ChangePasswordWithOld({Key? key}) : super(key: key);
+
   @override
   State<ChangePasswordWithOld> createState() => _ChangePasswordWithOldState();
 }
 
 class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
-  bool _oldPasswordVisible=false,_confirmPasswordVisible=false,_newPasswordVisible=false;
-  String? _oldPasswordValue,_newPasswordValue,_confirmationValue;
   final FocusNode _passwordNode=FocusNode();
   final FocusNode _confirmationNode=FocusNode();
   bool _pageLoading=false;
@@ -40,7 +40,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
             physics: const BouncingScrollPhysics(),
             child: Form(
               key: _formKey,
-              child: Container(
+              child: SizedBox(
                 width: size.width,
                 height: size.height,
                 child: Column(
@@ -48,158 +48,28 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                   children: [
                     Constants.kBigBox,
                     Constants.kBigBox,
-                    Text("Change Password",style: Styles.bigHeading,),
-
+                    const Text("Change Password",style: Styles.bigHeading,),
                     Constants.kSmallBox,
-                    Card(
-                      elevation: 3,
-                      margin: EdgeInsets.all(0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child:Icon(Icons.lock_outline_rounded,color: ColorConstant.kIconColor,)
-                            ),
-                            Constants.kSmallBox,
-                            Expanded(
-                              flex:8,
-                              child: TextFormField(
-                                onFieldSubmitted: (value){
-                                  FocusScope.of(context).requestFocus(_passwordNode);
-                                },
-                                textInputAction: TextInputAction.next,
-                                obscureText: !_oldPasswordVisible,
-                                validator: (value){
-                                  if(value!.isEmpty) return "Please Enter Old Password";
-                                  return null;
-                                },
-                                onSaved: (value)=>_oldPasswordValue=value,
-                                decoration: Styles.getSimpleInputDecoration("Old password"),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child:IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      _oldPasswordVisible=!_oldPasswordVisible;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    _oldPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.kIconColor,
-                                  ),
-                                )
-                            )
-                          ],
-                        ),
-                      ),
+                    PasswordForm(
+                        nextNode:_passwordNode,
+                        valueProvider: ValueNotifier(null),
+                        heading: "Old Password"
                     ),
                     Constants.kSmallBox,
-                    Card(
-                      elevation: 3,
-
-                      margin: EdgeInsets.all(0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                                child: Icon(
-                                  Icons.lock_outline_rounded,
-                                  color: ColorConstant.kIconColor,
-                                )
-                            ),
-                            Constants.kSmallBox,
-                            Expanded(
-                              flex:8,
-                              child: TextFormField(
-                                focusNode: _passwordNode,
-                                textInputAction: TextInputAction.next,
-                                onFieldSubmitted: (value){
-                                  FocusScope.of(context).requestFocus(_confirmationNode);
-                                },
-                                onSaved: (value)=>_newPasswordValue=value,
-                                validator: (value){
-                                  if(value!.isEmpty) return "Please Enter New Password";
-                                  return null;
-                                },
-                                obscureText: !_newPasswordVisible,
-                                decoration: Styles.getSimpleInputDecoration("New Password"),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      _newPasswordVisible=!_newPasswordVisible;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    _newPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.kIconColor,
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
+                    PasswordForm(
+                        focusNode: _passwordNode,
+                        nextNode: _confirmationNode,
+                        valueProvider: ValueNotifier(null),
+                        heading: "New Password"
                     ),
-
                     Constants.kSmallBox,
-                    Card(
-                      elevation: 3,
-                      margin: EdgeInsets.all(0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                                child: Icon(
-                                  Icons.lock_outline_rounded,
-                                  color: ColorConstant.kIconColor,
-                                )
-                            ),
-                            Constants.kSmallBox,
-                            Expanded(
-                              flex:8,
-                              child: TextFormField(
-                                focusNode: _confirmationNode,
-                                textInputAction: TextInputAction.done,
-                                obscureText: !_confirmPasswordVisible,
-                                onSaved: (value)=>_confirmationValue=value,
-                                validator: (value){
-                                  if(value!.isEmpty) return "Please Enter Confirmation Password";
-                                  return null;
-                                },
-                                decoration: Styles.getSimpleInputDecoration("Confirmation Password"),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                                child: IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      _confirmPasswordVisible=!_confirmPasswordVisible;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    _confirmPasswordVisible?Icons.visibility_off_outlined:Icons.visibility_outlined,
-                                    color: ColorConstant.kIconColor,
-                                  ),
-                                )
-                            )
-                          ],
-                        ),
-                      ),
+                    PasswordForm(
+                        focusNode: _confirmationNode,
+                        valueProvider: ValueNotifier(null),
+                        heading: "Confirm Password"
                     ),
                     Constants.kMediumBox,
-                    _pageLoading?CustomCircularIndicator():CustomBlueButton(
+                    _pageLoading?const CustomCircularIndicator():CustomBlueButton(
                         text: "Change Password",
                         onPressed: (){
                           if(_formKey.currentState!.validate()){
@@ -208,7 +78,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                             setState(() {
                               _pageLoading=true;
                             });
-                            Future.delayed(Duration(seconds: 1),(){
+                            Future.delayed(const Duration(seconds: 1),(){
                               TestingAllNavigation.goToTestingPage(context);
                             });
                           }
@@ -218,7 +88,7 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
                     Flexible(
                       child: Row(
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           TextButton(
                             onPressed: (){
                               TestingAllNavigation.goToTestingPage(context);

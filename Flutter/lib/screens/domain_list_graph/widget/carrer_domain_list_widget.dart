@@ -25,7 +25,7 @@ class CareerDomainListWidget extends StatelessWidget {
               flex: 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     FittedBox(
                       child: Text(
                           'Career',
@@ -51,7 +51,7 @@ class CareerDomainListWidget extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                      children:const  [
                         SelectionUnit(isSelected: true, value: "FYP UI"),
                         SelectionUnit(isSelected: true, value: "Dart Binge"),
                       ],
