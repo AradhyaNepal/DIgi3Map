@@ -47,7 +47,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
                 ):Text(
               heading,
               textAlign: TextAlign.center,
-              style: widget.bigHighlight?Styles.bigHeading:Styles.smallHeading,
+              style: widget.bigHighlight?Styles.bigHeading:Styles.mediumHeading,
             ),
           ),
           const SizedBox(width: 10,),

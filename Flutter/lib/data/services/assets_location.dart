@@ -1,5 +1,5 @@
 class AssetsLocation{
-  static const reverseFlashLocation="assets/images/image1.png";
+  static const reverseFlashLocation="assets/images/splashpage.png";
   static const onBoarding1="assets/images/onboarding1.png";
   static const onBoarding2="assets/images/onboarding2.png";
   static const onBoarding3="assets/images/onboarding3.png";
@@ -16,5 +16,17 @@ class AssetsLocation{
   static const coinIconLocation="assets/icons/coins.svg";
   static const mileStoneDummyLocation="assets/images/milestone_dummy.png";
   static const studyDummyLocation="assets/images/studydummy.png";
+  static const trophyIconLocation="assets/icons/trophy.svg";
+  static const deathImageLocation="assets/images/death.png";
+  static const sanityImageLocation="assets/images/sanity.png";
+  static const vengeanceImageLocation="assets/images/vengence.png";
+  static const passionImageLocation="assets/images/passion.png";
+  static const hopeImageLocation="assets/images/hope.png";
+  static const deathAudioLocation="audio/death.mp3";
+  static const sanityAudioLocation="audio/sanity.mp3";
+  static const vengeanceAudioLocation="audio/vengeance.mp3";
+  static const passionAudioLocation="audio/passion.mp3";
+  static const hopeAudioLocation="audio/hope.mp3";
+  static const userDummyProfileLocation="assets/images/profile.png";
 }
 

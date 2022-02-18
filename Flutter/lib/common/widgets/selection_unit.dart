@@ -21,7 +21,7 @@ class SelectionUnit extends StatelessWidget {
         color: isSelected?const Color(0xFFE6DBFA):null
       ),
       margin: const EdgeInsets.symmetric(vertical: 4,horizontal: 5),
-      padding: EdgeInsets.symmetric(vertical: isBig?10:5,horizontal: isBig?15:10),
+      padding: EdgeInsets.symmetric(vertical: isBig?7:5,horizontal: isBig?12:10),
       child: Text(
         value,
         style: TextStyle(
@@ -37,6 +37,6 @@ class SelectionUnit extends StatelessWidget {
     if(selectionUnitSize==SelectionUnitSize.small){
       return 13;
     }
-    return 18;
+    return 15;
   }
 }
