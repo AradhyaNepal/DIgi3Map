@@ -40,10 +40,15 @@ class UserSelfProfile extends StatelessWidget {
                     children: [
                       Constants.kSmallBox,
                       CustomImagePicker(imageLocation: ValueNotifier(AssetsLocation.userDummyProfileLocation)),
-                      ProfileHeadingEditableWidget(),
+                      ProfileHeadingEditableWidget(bigHighlight: true,),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Followers Count: 10",
+                          style: Styles.mediumHeading,
+                        ),
+                      ),
                       ScoreWidget(),
-                      FollowerWidget(),
-                      Constants.kVerySmallBox,
                       AnonymousWidget(),
                       ProfileEditableDescriptionWidget(),
                       Text(
@@ -53,7 +58,7 @@ class UserSelfProfile extends StatelessWidget {
                       Constants.kVerySmallBox,
                       SelectableText("aradhya.1221@gmail.com"),
                       Constants.kSmallBox,
-                      SocialsWidget(),
+                      EditableSocialWidget(),
                       Constants.kSmallBox,
                       Text(
                           "Current Effect",
@@ -323,16 +328,16 @@ class ActivatedEffect extends StatelessWidget {
 }
 
 
-class SocialsWidget extends StatefulWidget {
-  const SocialsWidget({
+class EditableSocialWidget extends StatefulWidget {
+  const EditableSocialWidget({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SocialsWidget> createState() => _SocialsWidgetState();
+  State<EditableSocialWidget> createState() => _EditableSocialWidgetState();
 }
 
-class _SocialsWidgetState extends State<SocialsWidget> {
+class _EditableSocialWidgetState extends State<EditableSocialWidget> {
   final List<SocialModel> socialsWidgetList=[];
   final TextEditingController platformController=TextEditingController();
   final TextEditingController usernameController=TextEditingController();
@@ -437,34 +442,6 @@ class _SocialsWidgetState extends State<SocialsWidget> {
   }
 }
 
-class FollowerWidget extends StatelessWidget {
-  const FollowerWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-              "Followers: 10",
-            style: Styles.mediumHeading,
-          ),
-
-
-          Text(
-            "*Only Number",
-            style: Styles.opacityHeadingStyle,
-
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class AnonymousWidget extends StatefulWidget {
 
@@ -483,19 +460,11 @@ class _AnonymousWidgetState extends State<AnonymousWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Column(
-          children: [
-
-            Text(
-              "Anonymous Mode",
-              style: Styles.blueHighlight,
-            ),
-            Constants.kVerySmallBox,
-            Text(
-              "Enabled"
-            )
-          ],
+        Text(
+          "Anonymous Mode",
+          style: Styles.blueHighlight,
         ),
+        Constants.kVerySmallBox,
         Switch(
             value: enabled,
             onChanged: (value){
@@ -541,6 +510,7 @@ class ScoreWidget extends StatelessWidget {
         TextButton(
             onPressed: (){
               showModalBottomSheet(
+                isScrollControlled: true,
                   context: context,
                   builder: (context){
                     return TimeFilterWidget();

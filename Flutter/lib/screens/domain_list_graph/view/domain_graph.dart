@@ -39,6 +39,7 @@ class DomainGraph extends StatelessWidget {
                     TextButton(
                         onPressed: (){
                           showModalBottomSheet(
+                            isScrollControlled: true,
                               context: context,
                               builder: (context){
                                 return const TimeFilterWidget();

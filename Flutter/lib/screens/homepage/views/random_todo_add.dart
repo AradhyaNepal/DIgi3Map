@@ -32,7 +32,7 @@ class RandomTodoAdd extends StatelessWidget {
                 Constants.kSmallBox,
                 CustomImagePicker(imageLocation: ValueNotifier(null)),
                 Constants.kVerySmallBox,
-                const ProfileHeadingEditableWidget(),
+                const ProfileHeadingEditableWidget(bigHighlight: true,),
                 const ProfileEditableDescriptionWidget(),
                 Constants.kVerySmallBox,
                 Text(

@@ -8,10 +8,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class ProfileEditableDescriptionWidget extends StatefulWidget {
-  final String description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non";
-  final TextStyle textStyle=const TextStyle();
+  final String description;
+  final TextStyle textStyle;
   final double boxConstraintHeight=50;
-  const ProfileEditableDescriptionWidget({Key? key}) : super(key: key);
+  final bool editable;
+  final bool isMessage;
+  const ProfileEditableDescriptionWidget({
+    this.description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non",
+    this.isMessage=false,
+    this.editable=true,
+    this.textStyle=const TextStyle(),
+    Key? key
+  }) : super(key: key);
 
   @override
   _ProfileEditableDescriptionWidgetState createState() => _ProfileEditableDescriptionWidgetState();
@@ -50,12 +58,12 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
         Constants.kVerySmallBox,
         Row(
           children: [
-            Text(
+            widget.isMessage?SizedBox():Text(
                 'Description',
                 style: Styles.opacityHeadingStyle
             ),
-            const SizedBox(width: 10,),
-            IconButton(
+            widget.isMessage?SizedBox():const SizedBox(width: 10,),
+            (!widget.editable || widget.isMessage)?SizedBox():IconButton(
               onPressed: (){
                 if(forEditing){
                   if(_textEditingController.text.isEmpty){

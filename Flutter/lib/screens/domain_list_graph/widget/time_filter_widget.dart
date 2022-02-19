@@ -6,7 +6,7 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class TimeFilterWidget extends StatelessWidget {
-  const TimeFilterWidget({
+   const TimeFilterWidget({
     Key? key,
   }) : super(key: key);
 
@@ -17,37 +17,41 @@ class TimeFilterWidget extends StatelessWidget {
     double keyboardPadding=MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: Constants.kPagePadding,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Time Frame',
-              style: Styles.bigHeading,
-            ),
-            Constants.kVerySmallBox,
-            const ProfileHeadingEditableWidget(
-              bigHighlight: false,
-              value: "11/11/2021 - 11/11/2022",
-            ),
-            Constants.kVerySmallBox,
-            const SelectionCollection(
-                valuesList: [
-                  'Leaderboard',
-                  'Monthly',
-                  'Custom'
-                ]
-            ),
-            Constants.kVerySmallBox,
-            CustomBlueButton(
-                text: "Apply",
-                onPressed: (){
-                  Navigator.pop(context);
-                }
-            ),
-            SizedBox(height: keyboardPadding,),
-          ],
+      child: Padding(
+        padding: EdgeInsets.only(bottom: keyboardPadding),
+        child: SingleChildScrollView(
+          physics:const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Time Frame',
+                style: Styles.bigHeading,
+              ),
+              Constants.kVerySmallBox,
+              const ProfileHeadingEditableWidget(
+                leftAlign: true,
+                bigHighlight: false,
+                value: "11/11/2021 - 11/11/2022",
+              ),
+              Constants.kVerySmallBox,
+              const SelectionCollection(
+                  valuesList: [
+                    'Leaderboard',
+                    'Monthly',
+                    'Custom'
+                  ]
+              ),
+              Constants.kVerySmallBox,
+              CustomBlueButton(
+                  text: "Apply",
+                  onPressed: (){
+                    Navigator.pop(context);
+                  }
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -35,7 +35,7 @@ class DomainProfilePage extends StatelessWidget {
                 Constants.kSmallBox,
                 CustomImagePicker(imageLocation: pickedImage),
                 Constants.kVerySmallBox,
-                const ProfileHeadingEditableWidget(),
+                const ProfileHeadingEditableWidget(bigHighlight: true,),
                 const ProfileEditableDescriptionWidget(),
                 Constants.kMediumBox,
                 Text(

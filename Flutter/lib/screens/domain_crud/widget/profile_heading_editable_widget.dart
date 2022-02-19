@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 class ProfileHeadingEditableWidget extends StatefulWidget {
   final String value;
   final bool bigHighlight;
+  final bool leftAlign;
   const ProfileHeadingEditableWidget({
     this.value="Dummy",
-    this.bigHighlight=false,
+    this.leftAlign=false,
+    this.bigHighlight=true,
     Key? key
   }) : super(key: key);
 
@@ -37,7 +39,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
     return SizedBox(
       width: size.width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: widget.leftAlign?MainAxisAlignment.start:MainAxisAlignment.center,
         children: [
           Flexible(
             child: forEditing?
@@ -46,8 +48,8 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
                   decoration: Styles.getDecorationWithLable("Edit"),
                 ):Text(
               heading,
-              textAlign: TextAlign.center,
-              style: widget.bigHighlight?Styles.bigHeading:Styles.mediumHeading,
+              textAlign: widget.leftAlign?TextAlign.left:TextAlign.center,
+              style: widget.bigHighlight?Styles.mediumHeading:Styles.smallHeading,
             ),
           ),
           const SizedBox(width: 10,),

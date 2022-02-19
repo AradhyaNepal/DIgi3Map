@@ -60,7 +60,7 @@ class EffectData{
         name: "Last Smile?",
         symbolicName: "Symbol of Hope",
         description: "What am I supposed to do, just let me die?",
-        trophy: 3,
+        trophy: 2,
         soundLocation: AssetsLocation.hopeAudioLocation
     ),
   ];
