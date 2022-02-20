@@ -6,7 +6,11 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class PasswordToEditWidget extends StatefulWidget {
-  const PasswordToEditWidget({Key? key}) : super(key: key);
+  final String purpose;
+  const PasswordToEditWidget({
+    required this.purpose,
+    Key? key
+  }) : super(key: key);
 
   @override
   State<PasswordToEditWidget> createState() => _PasswordToEditWidgetState();
@@ -39,8 +43,8 @@ class _PasswordToEditWidgetState extends State<PasswordToEditWidget> {
                     style: Styles.bigHeading,
                   ),
                   Constants.kVerySmallBox,
-                  const Text(
-                    "Domain is Sensitive Data to change.",
+                  Text(
+                    widget.purpose,
                     style: Styles.smallHeading,
                   ),
                   Constants.kVerySmallBox,

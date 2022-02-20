@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/milestone/widgets/milestone_widget.dart';
-import 'package:digi3map/screens/milestone/widgets/total_coins_widget.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/milestone_widget.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/total_coins_widget.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';

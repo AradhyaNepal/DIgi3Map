@@ -1,4 +1,4 @@
-import 'package:digi3map/screens/milestone/widgets/coin_value_widget.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/coin_value_widget.dart';
 import 'package:flutter/material.dart';
 
 class TotalCoinsWidget extends StatelessWidget {

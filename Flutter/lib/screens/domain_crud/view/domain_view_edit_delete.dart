@@ -119,7 +119,7 @@ class DomainProfilePage extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context){
-          return const PasswordToEditWidget();
+          return const PasswordToEditWidget(purpose: "Domain is Sensitive Data to change.",);
         }
     );
   }

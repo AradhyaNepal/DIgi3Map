@@ -56,6 +56,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
                     "Effect Chat Testing",
                   style: Styles.bigHeading,
                 ),
+                Constants.kSmallBox,
                 Expanded(
                   child: ListView.builder(
                     reverse: true,
@@ -67,9 +68,9 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
                   ),
                 ),
                 Container(
-                  height: 75,
+                  height: 65,
                   margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(30),
@@ -90,7 +91,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
                               counterText: "",
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none
-                              
+
                             ),
                             controller: _controller,
                           )

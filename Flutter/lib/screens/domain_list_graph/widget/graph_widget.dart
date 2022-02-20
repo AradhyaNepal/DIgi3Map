@@ -4,36 +4,53 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class GraphWidget extends StatelessWidget {
+  final List<String> xAxisStringList;
+  final List<int> yAxisIntList;
+  final bool forCoin;
+  final int? defaultMin;
+  final int units;
   const GraphWidget({
+    this.units=5,
+    this.defaultMin,
+    required this.xAxisStringList,
+    required this.yAxisIntList,
+    this.forCoin=false,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<String> domainsName=['Fitness','Career','Commander','Minion','Bunu'];
-    final List<int> domainsProgress=[35,25,12,75,23];
+    Map<String,int> result=findMinimumMaximum();
+    int min=defaultMin??((result[minKey]??0)-10);
+    int max=result[maxKey]??0;
+    int gap=(max-min)~/units;
     return Column(
       children: [
         Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Expanded(
-                flex: 1,
-                child: GraphLable(),
+              GraphLable(
+                gap: gap,
+                max: max,
+                min: min,
               ),
+              SizedBox(width: 5,),
               Expanded(
                 flex: 8,
                 child: Row(
                   children: [
-                    for (int value in domainsProgress)
+                    for (int value in yAxisIntList)
                       Expanded(
                         flex: 3,
                         child: Row(
                           children: [
                             Expanded(
                                 flex:2,
-                                child: SingleUnit(graphValueFinal:value)
+                                child: SingleUnit(
+                                  forCoin: forCoin,
+                                    graphValueFinal:value
+                                )
                             ),
                             const Spacer(),
                           ],
@@ -53,16 +70,16 @@ class GraphWidget extends StatelessWidget {
               flex: 8,
               child: Row(
                 children: [
-                  for(int i=0; i<domainsName.length;i++)
+                  for(int i=0; i<xAxisStringList.length;i++)
                     Expanded(
                       child: Row(
                         children: [
                           Expanded(
                             flex: 2,
                             child: Tooltip(
-                              message: domainsName[i] ,
+                              message: xAxisStringList[i] ,
                               child: Text(
-                                  domainsName[i],
+                                  xAxisStringList[i],
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 style: Styles.lightWhiteTextStyle,
@@ -83,5 +100,28 @@ class GraphWidget extends StatelessWidget {
         const SizedBox(height: 10,),
       ],
     );
+  }
+
+
+  final String minKey="min";
+  final String maxKey="max";
+  Map<String,int> findMinimumMaximum(){
+
+    int max=0;
+    for(int a in yAxisIntList){
+      if(a>max){
+        max=a;
+      }
+    }
+    int min=max;
+    for(int a in yAxisIntList){
+      if(a<min){
+        min=a;
+      }
+    }
+    return {
+      minKey:min,
+      maxKey:max
+    };
   }
 }

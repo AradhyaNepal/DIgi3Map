@@ -1,4 +1,5 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/graph_time_widget.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/graph_index.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/graph_widget.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/time_filter_widget.dart';
@@ -28,48 +29,22 @@ class DomainGraph extends StatelessWidget {
                   style: Styles.bigHeading,
                 ),
                 Constants.kSmallBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'Time Frame',
-                      style: Styles.smallHeading,
-                    ),
-                    Constants.kVerySmallBox,
-                    TextButton(
-                        onPressed: (){
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                              context: context,
-                              builder: (context){
-                                return const TimeFilterWidget();
-                              }
-                          );
-                        },
-                        child: const Text(
-                            'Filter',
-                          style: Styles.blueHighlight,
-                        )
-                    )
-                  ],
-                ),
-                const Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    '11/11/2021 - 11/12/2022',
-                    style: Styles.smallHeading,
-                  ),
-                ),
+                const GraphTimeFrame(),
                 Constants.kSmallBox,
                 Container(
                   height: 500,
                   width: size.width,
+                  padding: const EdgeInsets.all(10),
                   color: ColorConstant.kLightBlackColor,
                   child: Column(
                     children: const [
                       GraphIndex(),
                       Expanded(
-                        child: GraphWidget(),
+                        child: GraphWidget(
+                          defaultMin: 0,
+                          xAxisStringList:['Fitness','Career','Commander','Minion','Bunu'],
+                          yAxisIntList: [50,25,24,56,100],
+                        ),
                       ),
                     ],
                   ),
@@ -84,9 +59,6 @@ class DomainGraph extends StatelessWidget {
   
 
 }
-
-
-
 
 
 

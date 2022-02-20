@@ -9,10 +9,13 @@ import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.dart';
+import 'package:digi3map/screens/habits/view/habits_create.dart';
+import 'package:digi3map/screens/habits/view/habits_read_delete_update.dart';
 import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
-import 'package:digi3map/screens/milestone/view/milestone_page.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
 import 'package:digi3map/screens/on_boarding/view/on_boarding.dart';
 import 'package:digi3map/screens/study_page/view/study_page.dart';
 import 'package:digi3map/screens/user_profile/view/user_others_profile.dart';
@@ -204,6 +207,30 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.hope)));
               },
               child: const Text("Hope Effect Page"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HabitsReadDeleteUpdate()));
+              },
+              child: const Text("Habits Detail"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddHabits()));
+              },
+              child: const Text("Habits Add"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HabitsGraph()));
+              },
+              child: const Text("Habits Graph"),
             ),
           ],
         ),

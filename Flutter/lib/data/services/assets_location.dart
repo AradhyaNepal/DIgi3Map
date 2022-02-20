@@ -28,5 +28,6 @@ class AssetsLocation{
   static const passionAudioLocation="audio/passion.mp3";
   static const hopeAudioLocation="audio/hope.mp3";
   static const userDummyProfileLocation="assets/images/profile.png";
+  static const workoutImageLocation="assets/images/workout_image.png";
 }
 

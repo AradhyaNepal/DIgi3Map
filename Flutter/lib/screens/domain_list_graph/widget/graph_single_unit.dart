@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SingleUnit extends StatelessWidget {
+  final bool forCoin;
   const SingleUnit({
+    required this.forCoin,
     Key? key,
     required this.graphValueFinal,
   }) : super(key: key);
@@ -18,7 +20,7 @@ class SingleUnit extends StatelessWidget {
     int totalValue=101;
     if(graphValue>100) graphValue=100;
     if(graphValue<0) graphValue=0;
-    bool isBalanced=graphValue>=20 && graphValue<=30;
+    bool isBalanced=(graphValue>=20 && graphValue<=30)||forCoin;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -40,7 +42,7 @@ class SingleUnit extends StatelessWidget {
               ),
               Positioned.fill(
                   child: Center(
-                    child: isBalanced?SvgPicture.asset(AssetsLocation.tickIconLocation):const Icon(Icons.close,color: Colors.red,),
+                    child: forCoin?SizedBox():isBalanced?SvgPicture.asset(AssetsLocation.tickIconLocation):const Icon(Icons.close,color: Colors.red,),
                   )
               )
             ],
