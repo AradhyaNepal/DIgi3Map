@@ -1,6 +1,5 @@
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/theme/colors.dart';
-import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class BasicEffect extends StatelessWidget {

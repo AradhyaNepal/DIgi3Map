@@ -8,11 +8,7 @@ import 'package:digi3map/screens/diet/view/customize_body_detail.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
-import 'package:digi3map/screens/group_portle/view/death_testing_page.dart';
-import 'package:digi3map/screens/group_portle/view/hope_testing_page.dart';
-import 'package:digi3map/screens/group_portle/view/lighting_testing_page.dart';
-import 'package:digi3map/screens/group_portle/view/passion_testing_page.dart';
-import 'package:digi3map/screens/group_portle/view/vengence_testing_page.dart';
+import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
 import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
@@ -176,7 +172,7 @@ class TestingAllNavigation extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const DeathTestingPage()));
+                    MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.death)));
               },
               child: const Text("Death Effect Page"),
             ),
@@ -184,28 +180,28 @@ class TestingAllNavigation extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LightingTestingPage()));
+                    MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.sanity)));
               },
               child: const Text("Sanity Effect Page"),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const VengenceTestingPage()));
+                    MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.vengeance)));
               },
               child: const Text("Vengeance Effect Page"),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const PassionTestingPage()));
+                    MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.passion)));
               },
               child: const Text("Passion Effect Page"),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HopeTestingPage()));
+                    MaterialPageRoute(builder: (context) => const EffectTestingPage(effectType: EffectType.hope)));
               },
               child: const Text("Hope Effect Page"),
             ),
