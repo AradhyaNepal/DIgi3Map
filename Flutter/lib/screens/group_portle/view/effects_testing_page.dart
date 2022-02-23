@@ -4,6 +4,7 @@ import 'package:digi3map/screens/group_portle/widget/death_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/hope_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/lighting_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/passion_effect.dart';
+import 'package:digi3map/screens/group_portle/widget/send_message_widget.dart';
 import 'package:digi3map/screens/group_portle/widget/vengeance_effect.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -67,47 +68,11 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
                     },
                   ),
                 ),
-                Container(
-                  height: 65,
-                  margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: TextField(
-                            keyboardType: TextInputType.multiline,
-                            textInputAction: TextInputAction.done,
-                            onSubmitted: (value){
-                              addInToList();
-                            },
-                            maxLines: 100,
-                            maxLength: 254,
-                            decoration: InputDecoration(
-                              hintText: "Type Your Message Here....",
-                              counterText: "",
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none
-
-                            ),
-                            controller: _controller,
-                          )
-                      ),
-                      IconButton(
-                          onPressed: (){
-                            addInToList();
-                          },
-                          icon: Icon(
-                              Icons.send,
-                            color: ColorConstant.kBlueColor,
-                          )
-                      )
-                    ],
-                  ),
+                SendMessageWidget(
+                  addToList: addInToList,
+                  controller: _controller,
                 )
+
               ],
             ),
           ),
@@ -209,10 +174,10 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
 
     }
     _messageWidget=[
-      effectWidgetLeft,
+      effectWidgetRight,
       BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "",leftAlign: true,),
       BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "",leftAlign: false),
-      effectWidgetRight,
+      effectWidgetLeft,
       ..._messageWidget,
     ];
     _controller.text="";
