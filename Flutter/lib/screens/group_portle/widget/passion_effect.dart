@@ -25,31 +25,53 @@ class PassionEffect extends StatefulWidget {
   State<PassionEffect> createState() => _PassionEffectState();
 }
 
-class _PassionEffectState extends State<PassionEffect> with SingleTickerProviderStateMixin {
+class _PassionEffectState extends State<PassionEffect> with TickerProviderStateMixin {
   final normalRadius=const Radius.circular(10);
   final Random random=Random();
 
   final spikeRadius=const Radius.circular(2);
 
   final imageSize=50.0;
-  late final Animation animation;
+  late final Animation colorAnimation;
+  late final Animation sizeAnimation;
   @override
   void initState() {
     super.initState();
-    animation=Tween(
+    colorAnimation=Tween(
       begin: 0.0,
       end: 100.0,
     ).animate(AnimationController(
       duration: const Duration(seconds: 20),
       vsync: this,
     )..repeat());
+    sizeAnimation=Tween(
+      begin: 0.6,
+      end: 1,
+    ).animate(AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat(reverse: true));
   }
 
   @override
   Widget build(BuildContext context) {
 
     return AnimatedBuilder(
-        animation: animation,
+      child: AnimatedBuilder(
+        animation: sizeAnimation,
+        builder: (context,child) {
+          return Opacity(
+            opacity: 0.4,
+            child: Transform(
+              transform: Matrix4.identity()..scale(sizeAnimation.value),
+              child: Image.asset(
+                  AssetsLocation.passionImageLocation
+              ),
+            ),
+          );
+        }
+      ),
+        animation: colorAnimation,
         builder: (context,child) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 0),
@@ -60,7 +82,7 @@ class _PassionEffectState extends State<PassionEffect> with SingleTickerProvider
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                          transform: GradientRotation((animation.value+animation.value/2)/2),
+                          transform: GradientRotation((colorAnimation.value+colorAnimation.value/2)/2),
                           colors: ColorConstant.kPassionColors
 
                       ),
@@ -76,9 +98,7 @@ class _PassionEffectState extends State<PassionEffect> with SingleTickerProvider
                       children: [
                         Expanded(
                             flex: 2,
-                            child: Image.asset(
-                                AssetsLocation.passionImageLocation
-                            )
+                            child: child??SizedBox()
                         ),
                         SizedBox(width: 5,),
                         Expanded(

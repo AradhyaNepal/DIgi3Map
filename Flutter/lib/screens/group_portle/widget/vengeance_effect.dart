@@ -25,7 +25,7 @@ class VengeanceEffect extends StatefulWidget {
   State<VengeanceEffect> createState() => _VengeanceEffectState();
 }
 
-class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProviderStateMixin {
+class _VengeanceEffectState extends State<VengeanceEffect> with TickerProviderStateMixin {
   final Random random=Random();
   final normalRadius=const Radius.circular(10);
 
@@ -33,7 +33,8 @@ class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProv
 
   final imageSize=50.0;
   late final AnimationController controller;
-  late final Animation animation;
+  late final Animation colorAnimation;
+  late final Animation sizeAnimation;
   @override
   void initState() {
     super.initState();
@@ -41,11 +42,19 @@ class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProv
         vsync: this,
         duration: const Duration(seconds: 120)
     );
-    animation=Tween(
+    colorAnimation=Tween(
       begin: 0.0,
       end: 360.0,
     ).animate(controller);
     controller.repeat();
+
+    sizeAnimation=Tween(
+      begin: 0.7,
+      end: 1.3,
+    ).animate(AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true));
   }
   @override
   void dispose() {
@@ -57,7 +66,21 @@ class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProv
   Widget build(BuildContext context) {
 
     return AnimatedBuilder(
-      animation: animation,
+        child:AnimatedBuilder(
+            animation: sizeAnimation,
+            builder: (context,child) {
+              return Opacity(
+                opacity: 0.3,
+                child: Transform(
+                  transform: Matrix4.identity()..scale(sizeAnimation.value),
+                  child: Image.asset(
+                      AssetsLocation.vengeanceImageLocation
+                  ),
+                ),
+              );
+            }
+        ),
+      animation: colorAnimation,
       builder: (context,child) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 0),
@@ -68,7 +91,7 @@ class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProv
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: SweepGradient(
-                      transform: GradientRotation(animation.value),
+                      transform: GradientRotation(colorAnimation.value),
                         colors: ColorConstant.kVengeanceColors
 
                     ),
@@ -84,9 +107,7 @@ class _VengeanceEffectState extends State<VengeanceEffect> with SingleTickerProv
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Image.asset(
-                              AssetsLocation.vengeanceImageLocation
-                          )
+                          child:child??SizedBox()
                       ),
                       SizedBox(width: 5,),
                       Expanded(
