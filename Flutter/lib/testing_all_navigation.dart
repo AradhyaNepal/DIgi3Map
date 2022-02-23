@@ -5,6 +5,7 @@ import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/views/verification_sign_up.dart';
 import 'package:digi3map/screens/diet/view/customize_body_detail.dart';
+import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
@@ -240,6 +241,13 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HabitChain()));
               },
               child: const Text("Habit Chain"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const DietPage()));
+              },
+              child: const Text("Diet Page"),
             ),
           ],
         ),

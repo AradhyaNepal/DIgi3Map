@@ -90,11 +90,7 @@ class HabitChain extends StatelessWidget {
                           ],
                         ),
                         Constants.kSmallBox,
-                        Divider(
-                          thickness: 1,
-                          color: Colors.black,
-                        ),
-                        Constants.kSmallBox,
+
                         BrokenChainWidget(brokenChainDays: brokenChainDays),
 
                       ],

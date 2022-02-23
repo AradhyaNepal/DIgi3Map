@@ -30,5 +30,9 @@ class AssetsLocation{
   static const userDummyProfileLocation="assets/images/profile.png";
   static const workoutImageLocation="assets/images/workout_image.png";
   static const chainImageLocation="assets/images/chain_image.png";
+  static const noJunkImageLocation="assets/images/no_junk.png";
+  static const breakfastImageLocation="assets/images/breakfast.png";
+  static const snacksImageLocation="assets/images/snacks.jpg";
+  static const dinnerImageLocation="assets/images/dinner.jpg";
 }
 

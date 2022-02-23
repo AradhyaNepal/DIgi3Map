@@ -7,7 +7,7 @@ class PinValueProvider extends ChangeNotifier{
   final List<String> _valueList=["","","","","",""];
   void updateList(int index,String value){
     _valueList[index]=value;
-    //notifyListeners();
+    notifyListeners();
   }
 
   bool get allValueEntered{

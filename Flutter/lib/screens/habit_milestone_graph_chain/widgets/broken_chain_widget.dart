@@ -14,8 +14,15 @@ class BrokenChainWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return brokenChainDays.length==0?SizedBox():
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Divider(
+          thickness: 1,
+          color: Colors.black,
+        ),
+        Constants.kSmallBox,
         Text(
           "Broken Chain",
           style: Styles.smallHeading,
