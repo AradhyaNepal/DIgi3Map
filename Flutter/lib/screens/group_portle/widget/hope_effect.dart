@@ -64,8 +64,8 @@ class _HopeEffectState extends State<HopeEffect> with TickerProviderStateMixin {
             builder: (context,child) {
               return Opacity(
                 opacity: 0.2,
-                child: Transform(
-                  transform: Matrix4.identity()..scale(sizeAnimation.value),
+                child: Transform.scale(
+                  scale: sizeAnimation.value,
                   child: Image.asset(
                       AssetsLocation.hopeImageLocation
                   ),

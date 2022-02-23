@@ -47,7 +47,7 @@ class HabitChain extends StatelessWidget {
                       children: [
                         Text(
                             "Current Chain",
-                          style: Styles.smallHeading,
+                          style: Styles.mediumHeading,
                         ),
                         Constants.kSmallBox,
                         MultipleChainWidget(

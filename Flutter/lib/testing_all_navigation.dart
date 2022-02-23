@@ -9,6 +9,7 @@ import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
+import 'package:digi3map/screens/group_portle/view/congratulation_page.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_chain_page.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.dart';
@@ -248,6 +249,13 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const DietPage()));
               },
               child: const Text("Diet Page"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CongratulationPage()));
+              },
+              child: const Text("Congratulation Page"),
             ),
           ],
         ),

@@ -71,8 +71,9 @@ class _VengeanceEffectState extends State<VengeanceEffect> with TickerProviderSt
             builder: (context,child) {
               return Opacity(
                 opacity: 0.3,
-                child: Transform(
-                  transform: Matrix4.identity()..scale(sizeAnimation.value),
+                child: Transform.scale(
+
+                  scale: sizeAnimation.value,
                   child: Image.asset(
                       AssetsLocation.vengeanceImageLocation
                   ),

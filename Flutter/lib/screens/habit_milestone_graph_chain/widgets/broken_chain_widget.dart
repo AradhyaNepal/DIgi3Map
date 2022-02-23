@@ -25,7 +25,7 @@ class BrokenChainWidget extends StatelessWidget {
         Constants.kSmallBox,
         Text(
           "Broken Chain",
-          style: Styles.smallHeading,
+          style: Styles.mediumHeading,
         ),
         Constants.kSmallBox,
         for(int i=0;i<brokenChainDays.length;i++)

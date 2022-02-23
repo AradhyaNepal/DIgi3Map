@@ -48,7 +48,7 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
       begin: 0.6,
       end: 1,
     ).animate(AnimationController(
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 3),
       vsync: this,
     )..repeat(reverse: true));
   }
@@ -62,8 +62,9 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
         builder: (context,child) {
           return Opacity(
             opacity: 0.4,
-            child: Transform(
-              transform: Matrix4.identity()..scale(sizeAnimation.value),
+            child: Transform.scale(
+
+              scale: sizeAnimation.value,
               child: Image.asset(
                   AssetsLocation.passionImageLocation
               ),
