@@ -12,6 +12,7 @@ import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
 import 'package:digi3map/screens/group_portle/view/congratulation_page.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
 import 'package:digi3map/screens/group_portle/view/group_chat.dart';
+import 'package:digi3map/screens/group_portle/widget/user_popup_testing.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_chain_page.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.dart';
 import 'package:digi3map/screens/habits/view/habits_create.dart';
@@ -265,6 +266,15 @@ class TestingAllNavigation extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => GroupChat()));
               },
               child: const Text("Group Chat"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserProfilePopupTesting(
+                    )));
+              },
+              child: const Text("Effect Profile Popup Page"),
             ),
           ],
         ),

@@ -6,7 +6,6 @@ import 'package:digi3map/screens/group_portle/widget/lighting_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/passion_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/send_message_widget.dart';
 import 'package:digi3map/screens/group_portle/widget/vengeance_effect.dart';
-import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -81,6 +80,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
   }
 
   void addInToList(){
+    FocusScope.of(context).unfocus();
     Widget? effectWidgetLeft;
     Widget? effectWidgetRight;
     switch(widget.effectType){

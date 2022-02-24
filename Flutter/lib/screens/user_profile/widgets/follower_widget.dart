@@ -17,6 +17,8 @@ class _FollowerWidgetState extends State<FollowerWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(

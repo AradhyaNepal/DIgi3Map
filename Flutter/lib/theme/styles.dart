@@ -38,6 +38,13 @@ class Styles{
       fontSize: 25
   );
 
+  static const TextStyle bigWhiteHeading=TextStyle(
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 25,
+      color: Colors.white
+  );
+
 
   static const TextStyle mediumHeading=TextStyle(
       fontFamily: AssetsLocation.twCenName,
