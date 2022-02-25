@@ -9,9 +9,14 @@ import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
+import 'package:digi3map/screens/fitness_page/view/fitness_edit.dart';
+import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
+import 'package:digi3map/screens/fitness_page/view/workout_doing.dart';
 import 'package:digi3map/screens/group_portle/view/congratulation_page.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
+import 'package:digi3map/screens/group_portle/view/friendly_competition.dart';
 import 'package:digi3map/screens/group_portle/view/group_chat.dart';
+import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
 import 'package:digi3map/screens/group_portle/widget/user_popup_testing.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_chain_page.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.dart';
@@ -275,6 +280,55 @@ class TestingAllNavigation extends StatelessWidget {
                     )));
               },
               child: const Text("Effect Profile Popup Page"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LeaderboardInGroup(
+                    )));
+              },
+              child: const Text("Leaderboard Winner"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FriendlyCompetition(
+                    )));
+              },
+              child: const Text("Friendly Winner"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FitnessPage()));
+              },
+              child: const Text("Fitness Page"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FitnessEditAdd()));
+              },
+              child: const Text("Edit Workout"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FitnessEditAdd(forAdding: true,)));
+              },
+              child: const Text("Add Workout"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WorkoutDoing()));
+              },
+              child: const Text("Workout Doing"),
             ),
           ],
         ),

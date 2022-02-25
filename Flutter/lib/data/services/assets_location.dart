@@ -34,5 +34,7 @@ class AssetsLocation{
   static const breakfastImageLocation="assets/images/breakfast.png";
   static const snacksImageLocation="assets/images/snacks.jpg";
   static const dinnerImageLocation="assets/images/dinner.jpg";
+  static const deadLiftImageLocation="assets/images/deadlift.png";
+  static const calfImageLocation="assets/images/calf.png";
 }
 

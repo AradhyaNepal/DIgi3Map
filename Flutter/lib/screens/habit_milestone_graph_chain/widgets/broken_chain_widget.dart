@@ -23,7 +23,7 @@ class BrokenChainWidget extends StatelessWidget {
           color: Colors.black,
         ),
         Constants.kSmallBox,
-        Text(
+        const Text(
           "Broken Chain",
           style: Styles.mediumHeading,
         ),

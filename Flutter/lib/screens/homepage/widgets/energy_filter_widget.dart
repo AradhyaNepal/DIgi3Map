@@ -37,7 +37,7 @@ class EnergyFilterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -63,7 +63,6 @@ class EnergyFilterWidget extends StatelessWidget {
                 Navigator.pop(context);
               }
           ),
-          Constants.kSmallBox,
         ],
       ),
     );

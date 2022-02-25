@@ -14,6 +14,10 @@ class ColorConstant{
   static const Color kMessageRight=Color(0xFF007EF4);
   static const Color kMessageLeft=Color(0xFF2B2B2B);
   static const Color kGroupBlackColor=Color(0xFF1C1B1B);
+  static const List<Color> kTopPlayerColors=[
+    Color(0xFF7F57C2),
+    Color(0xFFA849BD),
+  ];
   static const List<Color> kVengeanceColors=[
     Colors.red,
     Colors.deepOrange,

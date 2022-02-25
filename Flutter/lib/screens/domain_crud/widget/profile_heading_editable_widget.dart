@@ -6,7 +6,9 @@ class ProfileHeadingEditableWidget extends StatefulWidget {
   final String value;
   final bool bigHighlight;
   final bool leftAlign;
+  final bool openedByDefault;
   const ProfileHeadingEditableWidget({
+    this.openedByDefault=false,
     this.value="Dummy",
     this.leftAlign=false,
     this.bigHighlight=true,
@@ -18,13 +20,19 @@ class ProfileHeadingEditableWidget extends StatefulWidget {
 }
 
 class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWidget> {
+  bool firstAdding=true;
   bool forEditing=false;
   String heading="Dummy";
   final TextEditingController textEditingController=TextEditingController();
   @override
   void initState() {
     super.initState();
-    heading=widget.value;
+    if(widget.openedByDefault){
+      heading="";
+      forEditing=true;
+    }else{
+      heading=widget.value;
+    }
     textEditingController.text=heading;
   }
   @override
@@ -45,7 +53,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
             child: forEditing?
                 TextField(
                   controller: textEditingController,
-                  decoration: Styles.getDecorationWithLable("Edit"),
+                  decoration: Styles.getDecorationWithLable((widget.openedByDefault && firstAdding)?"Add":"Edit"),
                 ):Text(
               heading,
               textAlign: widget.leftAlign?TextAlign.left:TextAlign.center,
@@ -59,6 +67,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
                 if(textEditingController.text.isEmpty){
                   return;
                 }
+                firstAdding=false;
                 heading=textEditingController.text;
               }else{
                 textEditingController.text=heading;

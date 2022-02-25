@@ -19,59 +19,61 @@ class GroupCall extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return ChangeNotifierProvider.value(
       value: provider,
-      child: Scaffold(
-        body: Container(
-          height: size.height,
-          width: size.width,
-          color: ColorConstant.kGroupBlackColor,
-          padding: Constants.kPagePadding,
-          child: Column(
-            children: [
-              Text(
-                "Active Players",
-                style: Styles.bigWhiteHeading
-              ),
-              Spacer(),
-              PlayersCallListWidget(),
-              PlayersCallListWidget(),
-              Spacer(flex: 2,),
-              Text(
-                "Group Call",
-                style: Styles.bigWhiteHeading,
-              ),
-
-              Constants.kVerySmallBox,
-              Text(
-                  "03:41",
-                style: TextStyle(
-                  color: Colors.white
+      child: SafeArea(
+        child: Scaffold(
+          body: Container(
+            height: size.height,
+            width: size.width,
+            color: ColorConstant.kGroupBlackColor,
+            padding: Constants.kPagePadding,
+            child: Column(
+              children: [
+                const Text(
+                  "Active Players",
+                  style: Styles.bigWhiteHeading
                 ),
-              ),
-              Constants.kSmallBox,
-              Consumer<GroupChatProvider>(
-                builder: (context,provider,child) {
-                  return GestureDetector(
-                    onTap: (){
-                      print("Clicked");
-                      provider.callEnded();
-                      Navigator.pop(context);
-                    },
-                    child: ClipOval(
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        color: Colors.red,
-                        child: Icon(
-                          Icons.phone,
-                          color: Colors.white,
+                Spacer(),
+                PlayersCallListWidget(),
+                PlayersCallListWidget(),
+                Spacer(flex: 2,),
+                Text(
+                  "Group Call",
+                  style: Styles.bigWhiteHeading,
+                ),
+
+                Constants.kVerySmallBox,
+                Text(
+                    "03:41",
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                ),
+                Constants.kSmallBox,
+                Consumer<GroupChatProvider>(
+                  builder: (context,provider,child) {
+                    return GestureDetector(
+                      onTap: (){
+                        print("Clicked");
+                        provider.callEnded();
+                        Navigator.pop(context);
+                      },
+                      child: ClipOval(
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          color: Colors.red,
+                          child: Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }
-              ),
-              Constants.kMediumBox,
-            ],
+                    );
+                  }
+                ),
+                Constants.kMediumBox,
+              ],
+            ),
           ),
         ),
       ),
