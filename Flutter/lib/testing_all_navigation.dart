@@ -22,6 +22,7 @@ import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_chain_p
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.dart';
 import 'package:digi3map/screens/habits/view/habits_create.dart';
 import 'package:digi3map/screens/habits/view/habits_read_delete_update.dart';
+import 'package:digi3map/screens/homepage/views/homepage.dart';
 import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
@@ -54,6 +55,13 @@ class TestingAllNavigation extends StatelessWidget {
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              },
+              child: const Text("Homepage"),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
@@ -330,6 +338,7 @@ class TestingAllNavigation extends StatelessWidget {
               },
               child: const Text("Workout Doing"),
             ),
+
           ],
         ),
       ),
