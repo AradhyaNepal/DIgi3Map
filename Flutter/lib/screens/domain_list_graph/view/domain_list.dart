@@ -13,64 +13,74 @@ class DomainList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: Constants.kPagePaddingNoDown,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                    'Your 5 Domains',
-                  style: Styles.bigHeading,
+        body: Padding(
+          padding: Constants.kPagePaddingNoDown,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Your 5 Domains',
+                style: Styles.bigHeading,
+              ),
+              const SizedBox(height: 10,),
+              const SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: const [
+                  Flexible(
+                      child: Text(
+                        '(Total 100%)',
+                        style: Styles.smallHeading,
+                      )
+                  ),
+                  Flexible(
+                      child: Text(
+                        'Open Graph >>',
+                        style: Styles.blueHighlight,
+                      )
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      const FitnessDomainListWidget(),
+                      const CareerDomainListWidget(),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: const [
+                          Expanded(
+                            child: DomainListIntroWidget()
+                          ),
+                          SizedBox(width: 10,),
+                          Expanded(
+                            child: AddDomainListWidget()
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: const [
+                          Expanded(
+                            child: AddDomainListWidget()
+                          ),
+                          SizedBox(width: 5,),
+                          Spacer(),
+                        ],
+                      ),
+                      const SizedBox(height: 20,),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: const [
-                    Flexible(
-                        child: Text(
-                            '(Total 100%)',
-                          style: Styles.smallHeading,
-                        )
-                    ),
-                    Flexible(
-                        child: Text(
-                            'Open Graph >>',
-                          style: Styles.blueHighlight,
-                        )
-                    ),
-                  ],
-                ),
-                const FitnessDomainListWidget(),
-                const CareerDomainListWidget(),
-                const SizedBox(height: 10,),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: DomainListIntroWidget()
-                    ),
-                    SizedBox(width: 10,),
-                    Expanded(
-                      child: AddDomainListWidget()
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10,),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: AddDomainListWidget()
-                    ),
-                    SizedBox(width: 5,),
-                    Spacer(),
-                  ],
-                ),
-                const SizedBox(height: 20,),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

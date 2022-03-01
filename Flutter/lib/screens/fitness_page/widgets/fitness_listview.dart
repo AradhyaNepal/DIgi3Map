@@ -1,6 +1,7 @@
 
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FitnessListView extends StatelessWidget {

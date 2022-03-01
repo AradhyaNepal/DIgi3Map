@@ -1,4 +1,6 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/group_portle/widget/leaderboard_drawer.dart';
 import 'package:digi3map/screens/group_portle/widget/leaderboard_winner_points.dart';
 import 'package:digi3map/screens/group_portle/widget/others_leaderboard_widget.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -12,6 +14,19 @@ class LeaderboardInGroup extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        endDrawer: Drawer(child: LeaderBoardDrawer()),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title:  SizedBox(
+              height: 30,
+              width: 100,
+              child: FittedBox(
+                  child: LogoWidget()
+              )
+          ),
+        ),
         body: Container(
           height: size.height,
           width: size.width,

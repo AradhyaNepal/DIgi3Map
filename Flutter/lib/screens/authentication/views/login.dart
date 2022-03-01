@@ -1,5 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
+import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/widgets/login_form_widget.dart';
 import 'package:digi3map/screens/authentication/widgets/social_widget.dart';
 import 'package:digi3map/testing_all_navigation.dart';
@@ -40,7 +42,8 @@ class _LoginPageState extends State<LoginPage> {
                     const Spacer(),
                     TextButton(
                         onPressed: (){
-                          TestingAllNavigation.goToTestingPage(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => ForgotPasswordPin()));
                         },
                         child: Text(
                           'Forgot Password?',
@@ -67,7 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             TextButton(
                                 onPressed: (){
-                                  TestingAllNavigation.goToTestingPage(context);
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder: (context) => const SignUpPage()));
                                 },
                                 child: Text(
                                   'Sign Up',

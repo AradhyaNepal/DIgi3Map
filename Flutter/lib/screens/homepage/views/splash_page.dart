@@ -4,7 +4,11 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
+import 'package:digi3map/screens/homepage/provides/play_sound_pref.dart';
+import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:digi3map/screens/homepage/widgets/custom_linear_progress_indicator.dart';
+import 'package:digi3map/screens/on_boarding/view/on_boarding.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +16,7 @@ import 'package:flutter/material.dart';
 class SplashPage extends StatefulWidget {
 
   final AudioCache player = AudioCache();
-  final int totalDuration=10;
+  final int totalDuration=3;
 
   SplashPage({Key? key}) : super(key: key);
 
@@ -27,24 +31,28 @@ class _SplashPageState extends State<SplashPage> {
   late Timer _timer;
   final ValueNotifier<bool> _cancelPressed=ValueNotifier(false);
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
 
-    widget.player.play(AssetsLocation.splashPageSoundLocation);
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      _timer=Timer(Duration(seconds: widget.totalDuration),(){
-        navigateToAnotherPage();
-      });
-    });
-
+    navigateSetup();
 
     super.initState();
   }
 
-  void navigateToAnotherPage(){
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context)=>const TestingAllNavigation()));
+  void navigateSetup() async{
+    bool isLogged=await IsLoggedValue.getIsLogged();
+    PlaySoundPrefs playSoundPrefs=PlaySoundPrefs();
+    bool playSound=await playSoundPrefs.playSound();
+    if(playSound) widget.player.play(AssetsLocation.splashPageSoundLocation);
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      _timer=Timer(Duration(seconds: widget.totalDuration),(){
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context)=>isLogged?HomePage():OnBoarding()));
+      });
+    });
   }
+
+
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -79,7 +87,8 @@ class _SplashPageState extends State<SplashPage> {
                       _cancelPressed.value=true;
                     });
                     _timer.cancel();
-                    navigateToAnotherPage();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context)=>const TestingAllNavigation()));
                   },
                   icon: const FittedBox(
                     child: Icon(

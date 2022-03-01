@@ -4,6 +4,7 @@ import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/data/models/on_boarding_data.dart';
+import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/on_boarding/widgets/image_for_onboarding.dart';
 import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
@@ -92,7 +93,7 @@ class _OnBoardingState extends State<OnBoarding> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context)=>const TestingAllNavigation()
+                            builder: (context)=>const LoginPage()
                         )
                     );
                   }

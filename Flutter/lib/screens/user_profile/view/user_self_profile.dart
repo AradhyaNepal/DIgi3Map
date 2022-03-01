@@ -42,7 +42,9 @@ class UserSelfProfile extends StatelessWidget {
                     children: [
                       Constants.kSmallBox,
                       CustomImagePicker(imageLocation: ValueNotifier(AssetsLocation.userDummyProfileLocation)),
-                      ProfileHeadingEditableWidget(bigHighlight: true,),
+                      Constants.kVerySmallBox,
+                      ProfileHeadingEditableWidget(value:"Aaradhya",bigHighlight: true,),
+                      Constants.kVerySmallBox,
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -52,7 +54,10 @@ class UserSelfProfile extends StatelessWidget {
                       ),
                       ScoreWidget(),
                       AnonymousWidget(),
+
                       ProfileEditableDescriptionWidget(),
+
+                      Constants.kVerySmallBox,
                       Text(
                           "Email",
                         style: Styles.opacityHeadingStyle,

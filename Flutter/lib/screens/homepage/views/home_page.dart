@@ -1,0 +1,90 @@
+import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
+import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
+import 'package:digi3map/screens/homepage/views/home_task.dart';
+import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
+import 'package:digi3map/theme/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var _currentPage = 0;
+  List<Widget> screens = [
+    HomeTask(),
+    LeaderboardInGroup(),
+    DomainList(),
+    MileStonePage(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+
+        body: screens[_currentPage],
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          currentIndex: _currentPage,
+          backgroundColor: Colors.white,
+
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: ColorConstant.kBlueColor,
+          unselectedItemColor: Colors.grey.withOpacity(0.6),
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
+
+          onTap: (selectedPage) {
+
+            setState(() {
+              _currentPage=selectedPage;
+            });
+
+
+          },
+          selectedIconTheme: IconThemeData(color: ColorConstant.kBlueColor),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.gamepad
+              ),
+              label: "Compete",
+            ),
+
+
+            BottomNavigationBarItem(
+              icon: Icon(
+                  FontAwesomeIcons.chartBar
+              ),
+              label: "Domains",
+            ),
+            BottomNavigationBarItem(
+              icon: Container(
+                margin: EdgeInsets.only(bottom: 5),
+                child: Icon(
+                  FontAwesomeIcons.clipboardList
+
+
+                ),
+              ),
+              label: "Milestone",
+
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
