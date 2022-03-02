@@ -24,19 +24,10 @@ class DietWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "${diet.id})",
-                      style: Styles.mediumHeading,
-                    ),
-                    Card(
-                      child: Image.asset(
-                          diet.image
-                      ),
-                    ),
-                  ],
+                child: Card(
+                  child: Image.asset(
+                      diet.image
+                  ),
                 )
             ),
             SizedBox(width: 5,),
@@ -56,13 +47,27 @@ class DietWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-              diet.name,
-            style: Styles.smallHeading,
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                    "${diet.id}) ${diet.name}",
+                  style: Styles.mediumHeading,
+                ),
+              ),
+              IconButton(
+                onPressed: (){},
+                icon: Icon(
+                  Icons.edit,
+                  color: ColorConstant.kIconColor,
+                ),
+              )
+            ],
           ),
           Text(
             diet.description
           ),
+          Constants.kSmallBox,
           FailedSuccessDietWidget(),
 
         ],
@@ -72,11 +77,24 @@ class DietWidget extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            diet.name,
-            style: Styles.smallHeading,
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  "${diet.id}) ${diet.name}",
+                  style: Styles.mediumHeading,
+                ),
+              ),
+              IconButton(
+                onPressed: (){},
+                icon: Icon(
+                  Icons.edit,
+                  color: ColorConstant.kIconColor,
+                ),
+              ),
+            ],
           ),
-          Constants.kSmallBox,
+
           Text("Protein Intake:${diet.protein}"),
           Text("Fat Intake:${diet.fat}"),
           Text("Carbs Intake:${diet.carbs}"),

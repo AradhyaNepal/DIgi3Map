@@ -1,5 +1,6 @@
 
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
@@ -108,43 +109,7 @@ class LeaderBoardDrawer extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context){
-                            return  AlertDialog(
-                              title: Text(
-                                  "Log Out",//,
-                                  style:Styles.mediumHeading
-                              ),
-                              content: Text(
-                                "Do You Really Want To Log Out",//,
-
-                              ),
-                              actions: [
-                                TextButton(
-                                    onPressed:(){
-                                      Navigator.pop(context,true);//true is value
-                                    },
-
-                                    child: Text(
-                                      'Yes',
-                                      style: TextStyle(
-                                          color: ColorConstant.kBlueColor,
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                    )
-                                ),
-                                TextButton(
-                                    onPressed: (){
-                                      Navigator.pop(context,false);//false is value
-                                    },
-                                    child: Text(
-                                      'No',
-                                      style: TextStyle(
-                                        fontWeight:FontWeight.w600,
-                                        color:Colors.grey.withOpacity(0.5),
-                                      ),
-                                    )
-                                ),
-                              ],
-                            );
+                            return  CustomAlertDialog(heading: "Log Out",subText:  "Do You Really Want To Log Out",);
                           }
                       ).then((value) {
                         if (value==true) {

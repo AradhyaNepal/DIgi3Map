@@ -1,11 +1,15 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/password_to_edit_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_heading_editable_widget.dart';
+import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/focus_widget.dart';
+import 'package:digi3map/screens/fitness_page/view/fitness_edit.dart';
+import 'package:digi3map/screens/habits/view/habits_create.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +52,10 @@ class DomainProfilePage extends StatelessWidget {
                     const SelectionCollection(valuesList: ['Fitness']),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>AddHabits()));
+                        },
                         child: const Text('Add Another')
                     )
                   ],
@@ -62,7 +69,7 @@ class DomainProfilePage extends StatelessWidget {
                 Card(
                   margin: const EdgeInsets.all(0),
                   child: Row(
-                    children: const [
+                    children: [
                       Expanded(
                         flex:3,
                           child: FocusWidget(
@@ -72,10 +79,17 @@ class DomainProfilePage extends StatelessWidget {
                       Spacer(),
                       Expanded(
                         flex: 4,
-                          child: Text(
-                            'Open Graph >>',
-                            textAlign: TextAlign.right,
-                            style: Styles.blueHighlight,
+                          child: TextButton(
+                            onPressed: (){
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>  DomainGraph()));
+                            },
+                            child: Text(
+                              'Open Graph >>',
+                              textAlign: TextAlign.right,
+                              style: Styles.blueHighlight,
+                            ),
                           )
                       ),
                       SizedBox(width: 10,)
@@ -99,7 +113,8 @@ class DomainProfilePage extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                           onPressed: (){
-                            showPasswordModal(context);
+                            CustomSnackBar.showSnackBar(context, "Successfully Saved");
+                           Navigator.pop(context);
                           },
                           child: const Text('Save')
                       ),

@@ -14,7 +14,8 @@ class SendMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
+      constraints: BoxConstraints(maxHeight: 65),
+
       margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
       decoration: BoxDecoration(

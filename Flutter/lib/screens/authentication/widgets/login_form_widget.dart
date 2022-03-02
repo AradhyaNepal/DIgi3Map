@@ -6,9 +6,6 @@ import 'package:digi3map/screens/authentication/widgets/custom_textfield.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
 import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/home_page.dart';
-import 'package:digi3map/testing_all_navigation.dart';
-import 'package:digi3map/theme/colors.dart';
-import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class LoginFormWidget extends StatefulWidget {

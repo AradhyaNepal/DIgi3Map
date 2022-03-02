@@ -72,9 +72,16 @@ class ShopEffectsItemWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Align(
-                              alignment:Alignment.centerRight,
-                              child: IconButton(
+
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "Symbol of ${effectModel.symbolicName}",
+                                  style: Styles.mediumHeading,
+                                ),
+                              ),
+                              IconButton(
                                 onPressed: (){
                                   PlayAudio.playAudio(effectModel.soundLocation);
                                 },
@@ -82,11 +89,7 @@ class ShopEffectsItemWidget extends StatelessWidget {
                                     Icons.volume_up_outlined
                                 ),
                               )
-                          ),
-                          Constants.kVerySmallBox,
-                          Text(
-                            "Symbol of ${effectModel.symbolicName}",
-                            style: Styles.mediumHeading,
+                            ],
                           ),
                           Constants.kVerySmallBox,
                           Text(

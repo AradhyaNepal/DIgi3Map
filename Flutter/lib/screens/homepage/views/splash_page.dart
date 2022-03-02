@@ -9,7 +9,6 @@ import 'package:digi3map/screens/homepage/provides/play_sound_pref.dart';
 import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:digi3map/screens/homepage/widgets/custom_linear_progress_indicator.dart';
 import 'package:digi3map/screens/on_boarding/view/on_boarding.dart';
-import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -81,21 +80,7 @@ class _SplashPageState extends State<SplashPage> {
                   cancelPressed: _cancelPressed,
                 ),
                 Constants.kSmallBox,
-                IconButton(
-                  onPressed:(){
-                    setState(() {
-                      _cancelPressed.value=true;
-                    });
-                    _timer.cancel();
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context)=>const TestingAllNavigation()));
-                  },
-                  icon: const FittedBox(
-                    child: Icon(
-                        Icons.skip_next
-                    ),
-                  ),
-                ),
+
               ]
             )
           ),

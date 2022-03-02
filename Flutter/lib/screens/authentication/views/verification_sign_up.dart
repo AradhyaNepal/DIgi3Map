@@ -1,8 +1,10 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/screens/authentication/provides/pin_value_provider.dart';
 import 'package:digi3map/screens/authentication/widgets/pin_widget.dart';
-import 'package:digi3map/testing_all_navigation.dart';
+import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
+import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +67,10 @@ class VerificationSignUp extends StatelessWidget {
                                       child: CustomBlueButton(
                                           text: pinValueProvider.buttonValue,//"Done",
                                           onPressed: (){
-                                            TestingAllNavigation.goToTestingPage(context);
+                                            CustomSnackBar.showSnackBar(context, "Successfully Created New Account");
+                                            IsLoggedValue.loggedIn();
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context) =>  HomePage()));
                                           }
                                       ),
                                     ),

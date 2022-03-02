@@ -43,7 +43,7 @@ class _EditableSocialWidgetState extends State<EditableSocialWidget> {
               Expanded(
                   child: SelectableText(
                     socialsWidgetList[i].platform,
-                    style: Styles.mediumHeading,
+                    style: Styles.smallHeading,
                   )
               ),
               SizedBox(width: 5,),

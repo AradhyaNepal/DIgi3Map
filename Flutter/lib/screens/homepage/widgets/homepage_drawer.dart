@@ -1,14 +1,13 @@
 
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/authentication/views/change_password_oldpass.dart';
 import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/play_sound_switch.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
-import 'package:digi3map/screens/user_profile/widgets/anonymous_widget.dart';
-import 'package:digi3map/theme/colors.dart';
-import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class HomePageDrawer extends StatelessWidget {
@@ -82,8 +81,7 @@ class HomePageDrawer extends StatelessWidget {
                   elevation: 5,
                   child: InkWell(
                     onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>  UserSelfProfile()));
+
                     },
                     child: ListTile(
                       leading: Icon(
@@ -104,46 +102,26 @@ class HomePageDrawer extends StatelessWidget {
                   elevation: 5,
                   child: InkWell(
                     onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>  ChangePasswordWithOld()));
+                    },
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.password,
+                        color: Colors.grey.withOpacity(0.4),
+                      ),
+                      title: Text("Change Password"),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 5,
+                  child: InkWell(
+                    onTap: (){
                       showDialog(
                           context: context,
                           builder: (context){
-                            return  AlertDialog(
-                              title: Text(
-                                  "Log Out",//,
-                                  style:Styles.mediumHeading
-                              ),
-                              content: Text(
-                                "Do You Really Want To Log Out",//,
-
-                              ),
-                              actions: [
-                                TextButton(
-                                    onPressed:(){
-                                      Navigator.pop(context,true);//true is value
-                                    },
-
-                                    child: Text(
-                                      'Yes',
-                                      style: TextStyle(
-                                          color: ColorConstant.kBlueColor,
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                    )
-                                ),
-                                TextButton(
-                                    onPressed: (){
-                                      Navigator.pop(context,false);//false is value
-                                    },
-                                    child: Text(
-                                      'No',
-                                      style: TextStyle(
-                                        fontWeight:FontWeight.w600,
-                                        color:Colors.grey.withOpacity(0.5),
-                                      ),
-                                    )
-                                ),
-                              ],
-                            );
+                            return  CustomAlertDialog(heading: "Log Out",subText:  "Do You Really Want To Log Out",);
                           }
                       ).then((value) {
                         if (value==true) {
@@ -174,4 +152,3 @@ class HomePageDrawer extends StatelessWidget {
     );
   }
 }
-

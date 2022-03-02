@@ -29,7 +29,7 @@ class StudyWidget extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 2,
                     child: Card(
                       margin: const EdgeInsets.all(0),
                       child: Padding(
@@ -47,9 +47,22 @@ class StudyWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          'NOS Course Work',
-                          style: Styles.mediumHeading,
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                '$number) NOS Course Work',
+                                style: Styles.mediumHeading,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: (){},
+                              icon: Icon(
+                                Icons.edit,
+                                color: ColorConstant.kIconColor,
+                              ),
+                            )
+                          ],
                         ),
                         Constants.kVerySmallBox,
                         Text(
@@ -69,36 +82,35 @@ class StudyWidget extends StatelessWidget {
                             "Set 3: 40 min Study"
                         ),
                         Constants.kVerySmallBox,
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
-                            onPressed: (){},
-                            child: Text("Start")
+                        Row(
+                          children: [
+                            Expanded(
+                              child: FittedBox(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                                    onPressed: (){},
+                                    child: Text("Failed")
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 5,),
+                            Expanded(
+                              child: FittedBox(
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    child: Text("Start")
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),
                   ),
-                  Spacer()
                 ],
               ),
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Text(
-                  "$number)",
-                  style: Styles.bigHeading,
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child:  IconButton(
-                  onPressed: (){},
-                  icon: Icon(
-                    Icons.edit,
-                    color: ColorConstant.kIconColor,
-                  ),
-                ),
-              ),
+
+
             ],
           ),
         ),

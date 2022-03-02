@@ -1,8 +1,8 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
-import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -40,73 +40,66 @@ class _ChangePasswordWithOldState extends State<ChangePasswordWithOld> {
             physics: const BouncingScrollPhysics(),
             child: Form(
               key: _formKey,
-              child: SizedBox(
-                width: size.width,
-                height: size.height,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Constants.kBigBox,
-                    Constants.kBigBox,
-                    const Text("Change Password",style: Styles.bigHeading,),
-                    Constants.kSmallBox,
-                    PasswordForm(
-                        nextNode:_passwordNode,
-                        valueProvider: ValueNotifier(null),
-                        heading: "Old Password"
-                    ),
-                    Constants.kSmallBox,
-                    PasswordForm(
-                        focusNode: _passwordNode,
-                        nextNode: _confirmationNode,
-                        valueProvider: ValueNotifier(null),
-                        heading: "New Password"
-                    ),
-                    Constants.kSmallBox,
-                    PasswordForm(
-                        focusNode: _confirmationNode,
-                        valueProvider: ValueNotifier(null),
-                        heading: "Confirm Password"
-                    ),
-                    Constants.kMediumBox,
-                    _pageLoading?const CustomCircularIndicator():CustomBlueButton(
-                        text: "Change Password",
-                        onPressed: (){
-                          if(_formKey.currentState!.validate()){
-                            _formKey.currentState!.save();
-                            FocusScope.of(context).unfocus();
-                            setState(() {
-                              _pageLoading=true;
-                            });
-                            Future.delayed(const Duration(seconds: 1),(){
-                              TestingAllNavigation.goToTestingPage(context);
-                            });
-                          }
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Constants.kBigBox,
+                  Constants.kBigBox,
+                  const Text("Change Password",style: Styles.bigHeading,),
+                  Constants.kSmallBox,
+                  PasswordForm(
+                      nextNode:_passwordNode,
+                      valueProvider: ValueNotifier(null),
+                      heading: "Old Password"
+                  ),
+                  Constants.kSmallBox,
+                  PasswordForm(
+                      focusNode: _passwordNode,
+                      nextNode: _confirmationNode,
+                      valueProvider: ValueNotifier(null),
+                      heading: "New Password"
+                  ),
+                  Constants.kSmallBox,
+                  PasswordForm(
+                      focusNode: _confirmationNode,
+                      valueProvider: ValueNotifier(null),
+                      heading: "Confirm Password"
+                  ),
+                  Constants.kMediumBox,
+                  _pageLoading?const CustomCircularIndicator():CustomBlueButton(
+                      text: "Change Password",
+                      onPressed: (){
+                        if(_formKey.currentState!.validate()){
+                          _formKey.currentState!.save();
+                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            _pageLoading=true;
+                          });
+                          Navigator.pop(context);
                         }
-                    ),
-                    Constants.kSmallBox,
-                    Flexible(
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          TextButton(
-                            onPressed: (){
-                              TestingAllNavigation.goToTestingPage(context);
-                            },
-                            child: Text(
-                                "Forgot Password",
-                              style: Styles.forgotPasswordStyle ,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                      }
+                  ),
+                  Constants.kSmallBox,
+                  Row(
+                    children: [
+                      const Spacer(),
+                      TextButton(
+                        onPressed: (){
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => ForgotPasswordPin()));
+                        },
+                        child: Text(
+                            "Forgot Password",
+                          style: Styles.forgotPasswordStyle ,
+                        ),
+                      )
+                    ],
+                  ),
 
-                    Constants.kBigBox,
-                    Constants.kBigBox,
+                  Constants.kBigBox,
+                  Constants.kBigBox,
 
-                  ],
-                ),
+                ],
               ),
             ),
           ),

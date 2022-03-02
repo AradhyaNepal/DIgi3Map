@@ -1,8 +1,8 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
-import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +65,8 @@ class _ChangePasswordAfterPinState extends State<ChangePasswordAfterPin> {
                             _isLoading=true;
                           });
                           Future.delayed(const Duration(seconds: 2),(){
-                            TestingAllNavigation.goToTestingPage(context);
+                            CustomSnackBar.showSnackBar(context, "Password Successfully Changed");
+                            Navigator.pop(context);
                           });
                         }
                       }

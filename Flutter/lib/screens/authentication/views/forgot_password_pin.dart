@@ -2,8 +2,8 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/authentication/provides/pin_value_provider.dart';
+import 'package:digi3map/screens/authentication/views/change_password_pin.dart';
 import 'package:digi3map/screens/authentication/widgets/pin_widget.dart';
-import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,7 +69,8 @@ class ForgotPasswordPin extends StatelessWidget {
                                         child: CustomBlueButton(
                                             text: pinValueProvider.buttonValue,//"Done",
                                             onPressed: (){
-                                              TestingAllNavigation.goToTestingPage(context);
+                                              Navigator.pushReplacement(context,
+                                                  MaterialPageRoute(builder: (context) => ChangePasswordAfterPin()));
                                             }
                                         ),
                                       ),

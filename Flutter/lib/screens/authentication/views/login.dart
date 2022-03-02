@@ -4,7 +4,6 @@ import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/widgets/login_form_widget.dart';
 import 'package:digi3map/screens/authentication/widgets/social_widget.dart';
-import 'package:digi3map/testing_all_navigation.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';

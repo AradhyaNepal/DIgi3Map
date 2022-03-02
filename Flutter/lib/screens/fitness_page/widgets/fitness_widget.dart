@@ -1,5 +1,9 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/common/widgets/selection_unit.dart';
+import 'package:digi3map/screens/fitness_page/view/fitness_edit.dart';
+import 'package:digi3map/screens/fitness_page/view/workout_doing.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +61,10 @@ class FitnessWidget extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => FitnessEditAdd()));
+                              },
                               icon: Icon(
                                 Icons.edit,
                                 color: ColorConstant.kIconColor,
@@ -88,7 +95,12 @@ class FitnessWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      SelectionCollection(valuesList: musclesTargeted),
+                      Wrap(
+                        children: [
+                          for(String value in musclesTargeted)
+                            SelectionUnit(isSelected:true, value: value)
+                        ],
+                      ),
                       Constants.kVerySmallBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +108,14 @@ class FitnessWidget extends StatelessWidget {
                           Flexible(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(primary: Colors.red),
-                                onPressed: (){},
+                                onPressed: (){
+                                  showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return  CustomAlertDialog(heading: "Skip",subText:  "Do You Really Want To Skip",);
+                                      }
+                                  );
+                                },
                                 child: Text(
                                   "Skip",
                                   style: Styles.mediumHeading,
@@ -106,7 +125,10 @@ class FitnessWidget extends StatelessWidget {
                           SizedBox(width: 5,),
                           Flexible(
                             child: ElevatedButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => const WorkoutDoing()));
+                                },
                                 child: Text(
                                   "Start",
                                   style: Styles.mediumHeading,

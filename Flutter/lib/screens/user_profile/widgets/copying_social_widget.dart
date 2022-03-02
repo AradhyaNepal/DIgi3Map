@@ -32,7 +32,7 @@ class CopyingSocialWidget extends StatelessWidget {
               Expanded(
                   child: SelectableText(
                     list[i].platform,
-                    style: Styles.mediumHeading,
+                    style: Styles.smallHeading,
                   )
               ),
               Expanded(

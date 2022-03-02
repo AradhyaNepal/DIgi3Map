@@ -27,18 +27,29 @@ class DietPage extends StatelessWidget {
               Constants.kSmallBox,
               DietHeaderWidget(),
               Expanded(
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    for(int i=0;i<DietData.dietData.length;i++)
-                    DietWidget(diet: DietData.dietData[i],)
-                  ],
-                ),
+                child: DietListView(),
               )
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class DietListView extends StatelessWidget {
+  const DietListView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      children: [
+        for(int i=0;i<DietData.dietData.length;i++)
+        DietWidget(diet: DietData.dietData[i],)
+      ],
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/group_portle/widget/user_popup_testing.dart';
+import 'package:digi3map/screens/user_profile/widgets/anonymous_widget.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -68,11 +70,22 @@ class BasicEffect extends StatelessWidget {
               SizedBox(width: leftAlign?0:30,),
             ],
           ),
-          ClipOval(
-            child: Image.asset(
-              AssetsLocation.userDummyProfileLocation,
-              height: 30,
-              width: 30,
+          GestureDetector(
+            onTap: (){
+              showDialog(
+
+                  context: context,
+                  builder: (_){
+                    return leftAlign?NormalGroupWidget():AnonyGroupWidget();
+                  }
+              );
+            },
+            child: ClipOval(
+              child: Image.asset(
+                AssetsLocation.userDummyProfileLocation,
+                height: 30,
+                width: 30,
+              ),
             ),
           )
 

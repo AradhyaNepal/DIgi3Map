@@ -1,6 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
 import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
@@ -8,15 +9,21 @@ import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
 import 'package:digi3map/screens/homepage/widgets/homepage_drawer.dart';
+import 'package:digi3map/screens/study_page/view/study_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 
-class HomeTask extends StatelessWidget {
+class HomeTask extends StatefulWidget {
   HomeTask({Key? key}) : super(key: key);
 
+  @override
+  State<HomeTask> createState() => _HomeTaskState();
+}
 
+class _HomeTaskState extends State<HomeTask> {
+  int pageNumber=1;
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -77,14 +84,14 @@ class HomeTask extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                                "Workout",
+                                pageNumber==0?"Diet":pageNumber==1?"Workout":"Study",
                               style: Styles.mediumHeading,
                             ),
                           ),
                           TextButton(
                               onPressed: (){
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) =>  const FitnessPage()));
+                                    MaterialPageRoute(builder: (context) => pageNumber==0?DietPage():pageNumber==1?FitnessPage():StudyPage()));
 
                               },
                               child: Text(
@@ -95,14 +102,18 @@ class HomeTask extends StatelessWidget {
                       ),
                       Constants.kVerySmallBox,
                       Expanded(
-                          child: FitnessListView()
+                          child:  pageNumber==0?DietListView():pageNumber==1?FitnessListView():StudyListView(),
                       ),
                       Constants.kVerySmallBox,
                       Row(
                         children: [
                           Expanded(
-                              child: ElevatedButton(
-                                onPressed: (){},
+                              child:pageNumber==0?SizedBox(): ElevatedButton(
+                                onPressed: (){
+                                  setState(() {
+                                    pageNumber--;
+                                  });
+                                },
                                 child: Text(
                                   "Previous",
                                   style: Styles.smallHeading,
@@ -129,8 +140,12 @@ class HomeTask extends StatelessWidget {
                           ),
                           SizedBox(width: 10,),
                           Expanded(
-                              child: ElevatedButton(
-                                onPressed: (){},
+                              child: pageNumber==2?SizedBox():ElevatedButton(
+                                onPressed: (){
+                                  setState(() {
+                                    pageNumber++;
+                                  });
+                                },
                                 child: Text(
                                   "Next",
                                   style: Styles.smallHeading,

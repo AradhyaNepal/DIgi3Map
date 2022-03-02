@@ -17,7 +17,6 @@ class JoinCallWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal:Constants.kPaddingValue),
       padding: const EdgeInsets.all(20),
 
       child: Row(

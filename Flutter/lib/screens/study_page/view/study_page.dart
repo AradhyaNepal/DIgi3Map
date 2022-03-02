@@ -30,13 +30,7 @@ class StudyPage extends StatelessWidget {
               HeadingWidget(),
               Constants.kVerySmallBox,
               Expanded(
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    for(int i=1;i<25;i++)
-                      StudyWidget(number: i,)
-                  ],
-                ),
+                child: StudyListView(),
                 ),
                 ]
               )
@@ -44,5 +38,22 @@ class StudyPage extends StatelessWidget {
         ),
       );
 
+  }
+}
+
+class StudyListView extends StatelessWidget {
+  const StudyListView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      children: [
+        for(int i=1;i<25;i++)
+          StudyWidget(number: i,)
+      ],
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/screens/group_portle/provider/group_chat_provider.dart';
 import 'package:digi3map/screens/group_portle/widget/basic_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/group_chat_top_view.dart';
@@ -16,6 +17,13 @@ class GroupChat extends StatefulWidget {
 
 class _GroupChatState extends State<GroupChat> {
   List<BasicEffect> chatMessage=[];
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      addToList();
+    });
+    super.initState();
+  }
 
   final TextEditingController _controller=TextEditingController();
 
@@ -34,20 +42,33 @@ class _GroupChatState extends State<GroupChat> {
               children: [
                 GroupChatTopView(),
                 Expanded(
-                  child: ListView.builder(
-                      reverse: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: chatMessage.length,
-                      itemBuilder: (context,index){
-                        return chatMessage[index];
-                    }
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal:Constants.kPaddingValue/2),
+                    child: Column(
+
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+
+                        Expanded(
+                          child: ListView.builder(
+                              reverse: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: chatMessage.length,
+                              itemBuilder: (context,index){
+                                return chatMessage[index];
+                              }
+                          ),
+                        ),
+                        Consumer<GroupChatProvider>(
+                            builder: (context,provider,child){
+                              return provider.callIsOn?JoinCallWidget():SizedBox();
+                            }
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Consumer<GroupChatProvider>(
-                    builder: (context,provider,child){
-                      return provider.callIsOn?JoinCallWidget():SizedBox();
-                    }
-                ),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:0,horizontal: 10),
                   child: SendMessageWidget(

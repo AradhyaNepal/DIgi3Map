@@ -1,5 +1,6 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -48,9 +49,13 @@ class _PasswordToEditWidgetState extends State<PasswordToEditWidget> {
                     style: Styles.smallHeading,
                   ),
                   Constants.kVerySmallBox,
-                  PasswordForm(
-                      valueProvider: ValueNotifier(null),
-                      heading: "Password"
+                  Form(
+                    key: _formKey,
+                    child: PasswordForm(
+
+                        valueProvider: ValueNotifier(null),
+                        heading: "Password"
+                    ),
                   ),
                   Constants.kVerySmallBox,
                   Row(
@@ -59,6 +64,10 @@ class _PasswordToEditWidgetState extends State<PasswordToEditWidget> {
                       TextButton(
                           onPressed: (){
 
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>  ForgotPasswordPin(
+
+                                )));
                           },
                           child: Text(
                             'Forgot Password',

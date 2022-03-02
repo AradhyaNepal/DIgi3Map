@@ -17,85 +17,47 @@ class HabitsGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          height: size.height,
-          width: size.width,
-          padding: Constants.kPagePaddingNoDown,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                  "Habits Graph",
-                style: Styles.bigHeading,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Workout",
-                    style: Styles.mediumHeading,
-                  ),
-                  SizedBox(width: 5,),
-                  TextButton(
-                      onPressed: (){},
-                      child: Text("Open Page")
-                  )
-                ],
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      GraphTimeFrame(),
-                      Constants.kSmallBox,
-                      Container(
-                        height: 500,
-                        width: size.width,
-                        color: ColorConstant.kLightBlackColor,
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(AssetsLocation.coinIconLocation),
-                            SizedBox(width: 5,),
-                            Expanded(
-                              child: GraphWidget(
-                                units: 10,
-                                forCoin: true,
-                                yAxisIntList: [10,100,120,5,50],
-                                xAxisStringList: ['1 Jan','15 Jan','1 Feb','15 Feb','1 March'],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Constants.kSmallBox,
-                      Text(
-                        "Milestone",
-                        style: Styles.opacityHeadingStyle,
-                      ),
-                      Constants.kVerySmallBox,
-                      MileStoneWidget(progressValue: 12),
-                      Constants.kVerySmallBox,
-                      Text(
-                        "Chain",
-                        style: Styles.opacityHeadingStyle,
-                      ),
-                      Constants.kVerySmallBox,
-                      OpenChainNavigationWidget(),
-                      Constants.kMediumBox
-
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+            "Graph",
+          style: Styles.opacityHeadingStyle,
         ),
-      ),
+        GraphTimeFrame(),
+        Constants.kSmallBox,
+        Container(
+          height: 500,
+          width: size.width,
+          color: ColorConstant.kLightBlackColor,
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(AssetsLocation.coinIconLocation),
+              SizedBox(width: 5,),
+              Expanded(
+                child: GraphWidget(
+                  units: 10,
+                  forCoin: true,
+                  yAxisIntList: [10,100,120,5,50],
+                  xAxisStringList: ['1 Jan','15 Jan','1 Feb','15 Feb','1 March'],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Constants.kSmallBox,
+        Text(
+          "Milestone",
+          style: Styles.opacityHeadingStyle,
+        ),
+        Constants.kVerySmallBox,
+        MileStoneWidget(progressValue: 12,showNavigator: false,),
+        Constants.kVerySmallBox,
+
+
+      ],
     );
   }
 }

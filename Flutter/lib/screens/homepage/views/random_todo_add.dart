@@ -1,6 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_heading_editable_widget.dart';
@@ -32,8 +33,25 @@ class RandomTodoAdd extends StatelessWidget {
                 Constants.kSmallBox,
                 CustomImagePicker(imageLocation: ValueNotifier(null)),
                 Constants.kVerySmallBox,
-                const ProfileHeadingEditableWidget(bigHighlight: true,),
-                const ProfileEditableDescriptionWidget(),
+                TextFormField(
+                    validator: (value){
+                      if(value!.isEmpty) return "Please Enter Domain Name";
+                      return null;
+                    },
+                    maxLength: 50,
+                    decoration:Styles.getDecorationWithLable("Name")
+                ),
+                Constants.kVerySmallBox,
+                TextFormField(
+                  maxLength:1000 ,
+                  maxLines: 3,
+                  keyboardType:TextInputType.multiline,
+                  decoration:Styles.getDecorationWithLable("Description"),
+                  validator: (value){
+                    if(value!.isEmpty) return "Please Enter Domain Description";
+                    return null;
+                  },
+                ),
                 Constants.kVerySmallBox,
                 Text(
                   'Domain',
@@ -42,12 +60,15 @@ class RandomTodoAdd extends StatelessWidget {
                 Constants.kVerySmallBox,
                 Row(
                   children: [
-                    const SelectionCollection(valuesList: ['Fitness','Commander']),
+                    const SelectionCollection(valuesList: ['Fitness','Commander'],unSelectable: true,),
                     ElevatedButton(
                         style:ElevatedButton.styleFrom(
                             primary: ColorConstant.kBlueColor
                         ) ,
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => AddDomain()));
+                        },
                         child: const Text("Add")
                     )
                   ],
@@ -65,7 +86,7 @@ class RandomTodoAdd extends StatelessWidget {
                 ),
 
                 Constants.kVerySmallBox,
-                const SelectionCollection(valuesList: ['High','Medium','Low']),
+                const SelectionCollection(valuesList: ['High','Medium','Low'],unSelectable: true,),
 
                 Constants.kSmallBox,
                 CustomBlueButton(

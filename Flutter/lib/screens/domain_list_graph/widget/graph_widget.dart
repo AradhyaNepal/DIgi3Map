@@ -76,8 +76,7 @@ class GraphWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 2,
-                            child: Tooltip(
-                              message: xAxisStringList[i] ,
+                            child: FittedBox(
                               child: Text(
                                   xAxisStringList[i],
                                 textAlign: TextAlign.center,

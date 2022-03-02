@@ -1,4 +1,5 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/add_domain_list_widget.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/carrer_domain_list_widget.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/domain_list_intro_widget.dart';
@@ -28,7 +29,7 @@ class DomainList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
-                children: const [
+                children: [
                   Flexible(
                       child: Text(
                         '(Total 100%)',
@@ -36,14 +37,20 @@ class DomainList extends StatelessWidget {
                       )
                   ),
                   Flexible(
-                      child: Text(
-                        'Open Graph >>',
-                        style: Styles.blueHighlight,
+                      child: TextButton(
+                        onPressed: (){
+
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>  DomainGraph()));
+                        },
+                        child: Text(
+                          'Open Graph >>',
+                          style: Styles.blueHighlight,
+                        ),
                       )
                   ),
                 ],
               ),
-              const SizedBox(height: 10,),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),

@@ -1,4 +1,5 @@
 
+import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_chain_page.dart';
 import 'package:digi3map/screens/habits/widgets/habits_focus_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,15 @@ class OpenChainNavigationWidget extends StatelessWidget {
           Spacer(),
           Expanded(
               flex: 4,
-              child: Text(
-                'Open Chain >>',
-                textAlign: TextAlign.right,
-                style: Styles.blueHighlight,
+              child: TextButton(
+                onPressed: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) =>  HabitChain()));
+                },
+                child: Text(
+                  'Open Chain >>',
+                  textAlign: TextAlign.right,
+                ),
               )
           ),
           SizedBox(width: 10,)

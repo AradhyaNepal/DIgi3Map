@@ -1,14 +1,9 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
-import 'package:digi3map/common/widgets/custom_snackbar.dart';
+import 'package:digi3map/screens/authentication/views/verification_sign_up.dart';
 import 'package:digi3map/screens/authentication/widgets/custom_textfield.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
-import 'package:digi3map/screens/homepage/views/home_page.dart';
-import 'package:digi3map/testing_all_navigation.dart';
-import 'package:digi3map/theme/colors.dart';
-import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -59,10 +54,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     _isLoading=true;
                   });
                   Future.delayed(const Duration(seconds: 2),(){
-                    CustomSnackBar.showSnackBar(context, "Successfully Created New Account");
-                    IsLoggedValue.loggedIn();
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => const HomePage()));
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>  VerificationSignUp()));
                   });
                 }
 

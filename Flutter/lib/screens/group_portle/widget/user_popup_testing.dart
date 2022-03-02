@@ -1,6 +1,8 @@
 
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/user_profile/view/user_others_profile.dart';
 import 'package:digi3map/screens/user_profile/widgets/follower_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,6 +58,7 @@ class AnonyGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           padding: const EdgeInsets.all(15),
@@ -77,7 +80,7 @@ class AnonyGroupWidget extends StatelessWidget {
                 children: [
                   Text(
                     "Group Score : 500",
-                    style: Styles.mediumHeading,
+                    style: Styles.smallHeading,
                   ),
                   SizedBox(width: 5,),
                   SvgPicture.asset(
@@ -89,13 +92,19 @@ class AnonyGroupWidget extends StatelessWidget {
               ),
               Text(
                 "Rank: 5th",
-                style: Styles.mediumHeading,
+                style: Styles.smallHeading,
               ),
-              Constants.kSmallBox,
               FollowerWidget(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: (){},
+                  onPressed: (){
+                  showDialog(
+                      context: context,
+                      builder: (context){
+                        return CustomAlertDialog(heading: "Report", subText: "Do You Really Want To Report The User");
+                      }
+                  );
+                  },
                   child: Text("Report")
               )
 
@@ -108,7 +117,7 @@ class AnonyGroupWidget extends StatelessWidget {
               topRight: normalBorder,
               topLeft: normalBorder,
               bottomRight: normalBorder,
-              bottomLeft: spikeBorder,
+              bottomLeft: normalBorder,
             )
 
           ),
@@ -131,7 +140,9 @@ class NormalGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+
         Container(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -148,7 +159,7 @@ class NormalGroupWidget extends StatelessWidget {
                 children: [
                   Text(
                     "Group Score : 500",
-                    style: Styles.mediumHeading,
+                    style: Styles.smallHeading,
                   ),
                   SizedBox(width: 5,),
                   SvgPicture.asset(
@@ -160,16 +171,27 @@ class NormalGroupWidget extends StatelessWidget {
               ),
               Text(
                 "Rank: 5th",
-                style: Styles.mediumHeading,
+                style: Styles.smallHeading,
               ),
-              Constants.kSmallBox,
+              FollowerWidget(),
               ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UserOtherProfile(
+                        )));
+                  },
                   child: Text("View Profile")
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: (){},
+                  onPressed: (){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return CustomAlertDialog(heading: "Report", subText: "Do You Really Want To Report The User");
+                        }
+                    );
+                  },
                   child: Text("Report")
               ),
 
@@ -182,7 +204,7 @@ class NormalGroupWidget extends StatelessWidget {
                 topRight: normalBorder,
                 topLeft: normalBorder,
                 bottomRight: normalBorder,
-                bottomLeft: spikeBorder,
+                bottomLeft: normalBorder,
               )
 
           ),
@@ -203,61 +225,68 @@ class NormalLeaderBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+    final size=MediaQuery.of(context).size;
+    return Padding(
+      padding:EdgeInsets.only(top: size.height*0.3),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
 
-              Text(
-                "Kiran Acharya",
-                style: Styles.bigHeading,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Group Score : 500",
-                    style: Styles.mediumHeading,
-                  ),
-                  SizedBox(width: 5,),
-                  SvgPicture.asset(
-                    AssetsLocation.coinIconLocation,
-                    height: 30,
-                    width: 30,
-                  )
-                ],
-              ),
-              Text(
-                "Rank: 5th",
-                style: Styles.mediumHeading,
-              ),
+                Text(
+                  "Kiran Acharya",
+                  style: Styles.bigHeading,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Group Score : 500",
+                      style: Styles.smallHeading,
+                    ),
+                    SizedBox(width: 5,),
+                    SvgPicture.asset(
+                      AssetsLocation.coinIconLocation,
+                      height: 30,
+                      width: 30,
+                    )
+                  ],
+                ),
+                Text(
+                  "Rank: 5th",
+                  style: Styles.smallHeading,
+                ),
 
-              Constants.kSmallBox,
-              FollowerWidget(),
-              ElevatedButton(
-                  onPressed: (){},
-                  child: Text("View Profile")
-              ),
+                FollowerWidget(),
+                ElevatedButton(
+                    onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => UserOtherProfile(
+                          )));
+                    },
+                    child: Text("View Profile")
+                ),
 
 
-            ],
-          ),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topRight: normalBorder,
-                topLeft: normalBorder,
-                bottomRight: normalBorder,
-                bottomLeft: spikeBorder,
-              )
+              ],
+            ),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: normalBorder,
+                  topLeft: normalBorder,
+                  bottomRight: normalBorder,
+                  bottomLeft: normalBorder,
+                )
 
-          ),
-        )
-      ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -274,63 +303,65 @@ class AnonymousLeaderBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
 
-              Text(
-                "Anonymoys User",
-                style: Styles.bigHeading,
-              ),
-              Constants.kVerySmallBox,
-              Text(
-                "Kiran Acharya",
-                style: Styles.mediumHeading,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Group Score : 500",
-                    style: Styles.mediumHeading,
-                  ),
-                  SizedBox(width: 5,),
-                  SvgPicture.asset(
-                    AssetsLocation.coinIconLocation,
-                    height: 30,
-                    width: 30,
-                  )
-                ],
-              ),
-              Text(
-                "Rank: 5th",
-                style: Styles.mediumHeading,
-              ),
+                Text(
+                  "Anonymoys User",
+                  style: Styles.bigHeading,
+                ),
+                Constants.kVerySmallBox,
+                Text(
+                  "Kiran Acharya",
+                  style: Styles.mediumHeading,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Group Score : 500",
+                      style: Styles.smallHeading,
+                    ),
+                    SizedBox(width: 5,),
+                    SvgPicture.asset(
+                      AssetsLocation.coinIconLocation,
+                      height: 30,
+                      width: 30,
+                    )
+                  ],
+                ),
+                Text(
+                  "Rank: 5th",
+                  style: Styles.smallHeading,
+                ),
 
-              Constants.kSmallBox,
-              FollowerWidget(),
-
+                FollowerWidget(),
 
 
-            ],
-          ),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topRight: normalBorder,
-                topLeft: normalBorder,
-                bottomRight: normalBorder,
-                bottomLeft: spikeBorder,
-              )
 
-          ),
-        )
-      ],
+              ],
+            ),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: normalBorder,
+                  topLeft: normalBorder,
+                  bottomRight: normalBorder,
+                  bottomLeft: normalBorder,
+                )
+
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 class SelectionCollection extends StatefulWidget {
   final List<String> valuesList;
+  final bool unSelectable;
   const SelectionCollection({
     required this.valuesList,
+    this.unSelectable=false,
     Key? key
   }) : super(key: key);
 
@@ -22,7 +24,13 @@ class _SelectionCollectionState extends State<SelectionCollection> {
           GestureDetector(
             onTap: (){
               setState(() {
-                selectedIndex=i;
+                if(selectedIndex==i && widget.unSelectable){
+                  selectedIndex=-1;
+                }
+                else{
+                  selectedIndex=i;
+                }
+
               });
             },
               child: SelectionUnit(

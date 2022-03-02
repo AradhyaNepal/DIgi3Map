@@ -2,15 +2,9 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
-import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/data/models/on_boarding_data.dart';
 import 'package:digi3map/screens/authentication/views/login.dart';
 import 'package:digi3map/screens/on_boarding/widgets/image_for_onboarding.dart';
-import 'package:digi3map/testing_all_navigation.dart';
-import 'package:digi3map/theme/colors.dart';
-import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({Key? key}) : super(key: key);
