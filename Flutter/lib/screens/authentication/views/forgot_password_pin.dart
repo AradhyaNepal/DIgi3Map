@@ -41,7 +41,7 @@ class ForgotPasswordPin extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const Text(
-                              "Forgot Password",
+                              "Forgot Password(123456)",
                               style: TextStyle(
                                   fontFamily: AssetsLocation.twCenName,
                                   fontWeight: FontWeight.bold,

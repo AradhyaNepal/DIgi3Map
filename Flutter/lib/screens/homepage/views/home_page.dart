@@ -2,10 +2,8 @@ import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
 import 'package:digi3map/screens/homepage/views/home_task.dart';
-import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,14 +69,7 @@ class _HomePageState extends State<HomePage> {
               label: "Domains",
             ),
             BottomNavigationBarItem(
-              icon: Container(
-                margin: EdgeInsets.only(bottom: 5),
-                child: Icon(
-                  FontAwesomeIcons.clipboardList
-
-
-                ),
-              ),
+              icon: Icon(FontAwesomeIcons.bitcoin),
               label: "Milestone",
 
             ),

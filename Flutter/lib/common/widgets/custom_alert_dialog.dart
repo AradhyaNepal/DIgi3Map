@@ -27,7 +27,7 @@ class CustomAlertDialog extends StatelessWidget {
               Navigator.pop(context,true);//true is value
             },
 
-            child: Text(
+            child: const Text(
               'Yes',
               style: TextStyle(
                   color: ColorConstant.kBlueColor,

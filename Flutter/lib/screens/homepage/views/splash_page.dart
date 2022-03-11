@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
+import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/homepage/provides/play_sound_pref.dart';
 import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:digi3map/screens/homepage/widgets/custom_linear_progress_indicator.dart';
@@ -39,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void navigateSetup() async{
-    bool isLogged=await IsLoggedValue.getIsLogged();
+    bool isLogged=await Auth().isLogged();
     PlaySoundPrefs playSoundPrefs=PlaySoundPrefs();
     bool playSound=await playSoundPrefs.playSound();
     if(playSound) widget.player.play(AssetsLocation.splashPageSoundLocation);

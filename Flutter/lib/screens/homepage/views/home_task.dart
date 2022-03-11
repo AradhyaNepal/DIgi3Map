@@ -1,12 +1,9 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/random_todo_add.dart';
-import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
 import 'package:digi3map/screens/homepage/widgets/homepage_drawer.dart';
 import 'package:digi3map/screens/study_page/view/study_page.dart';

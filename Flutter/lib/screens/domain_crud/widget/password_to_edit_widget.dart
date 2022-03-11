@@ -1,5 +1,6 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_email.dart';
 import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
 import 'package:digi3map/theme/colors.dart';
@@ -65,7 +66,7 @@ class _PasswordToEditWidgetState extends State<PasswordToEditWidget> {
                           onPressed: (){
 
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context) =>  ForgotPasswordPin(
+                                MaterialPageRoute(builder: (context) =>  ForgotPasswordEmail(
 
                                 )));
                           },

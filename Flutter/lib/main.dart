@@ -1,9 +1,11 @@
+import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main(){
-  runApp(MainPage());
+  runApp(const MainPage());
 }
 
 class MainPage extends StatelessWidget {
@@ -15,10 +17,17 @@ class MainPage extends StatelessWidget {
     return MaterialApp(
       title: "Digi3Map",
       theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.light().copyWith(primary:ColorConstant.kBlueColor,secondary: ColorConstant.kBlueColor),
+        colorScheme: const ColorScheme.light().copyWith(primary:ColorConstant.kBlueColor,secondary: ColorConstant.kBlueColor),
 
       ),
-      home: SplashPage(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context)=>Auth()
+          ),
+        ],
+        child: SplashPage(),
+      ),
     );
   }
 }

@@ -3,8 +3,8 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/authentication/views/change_password_oldpass.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/play_sound_switch.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
@@ -126,7 +126,7 @@ class HomePageDrawer extends StatelessWidget {
                       ).then((value) {
                         if (value==true) {
                           CustomSnackBar.showSnackBar(context, "Successfully Logged Out");
-                          IsLoggedValue.loggedOut();
+                          Auth().logOut();
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) =>  SplashPage()));
                         }

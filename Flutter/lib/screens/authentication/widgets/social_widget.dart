@@ -3,6 +3,7 @@ import 'package:digi3map/data/services/assets_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SocialWidget extends StatelessWidget {
   const SocialWidget({Key? key}) : super(key: key);
@@ -54,9 +55,31 @@ class SocialWidget extends StatelessWidget {
         Row(
           children: [
             const Spacer(),
-            SvgPicture.asset(AssetsLocation.googleLogo,height: 50,width: 50,),
+            GestureDetector(
+              onTap: () async{
+                try {
+                  GoogleSignIn _googleSignIn = GoogleSignIn(
+                    clientId:"110609789327-33bhghodo8kdd8v4763lecjgbaoc7khu.apps.googleusercontent.com"
+                  );
+                  await _googleSignIn.signIn().then((value) {
+                    if(value!=null) print(value.id);
+                  });
+                } catch (error) {
+                  print(error);
+                }
+              },
+              child: SvgPicture.asset(
+                AssetsLocation.googleLogo,
+                height: 50,
+                width: 50,
+              ),
+            ),
             const Spacer(),
-            SvgPicture.asset(AssetsLocation.facebookLogo,height: 60,width: 60,),
+            SvgPicture.asset(
+              AssetsLocation.facebookLogo,
+              height: 60,
+              width: 60,
+            ),
             const Spacer()
           ],
         )

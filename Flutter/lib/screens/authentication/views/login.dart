@@ -1,5 +1,6 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/screens/authentication/views/forgot_password_email.dart';
 import 'package:digi3map/screens/authentication/views/forgot_password_pin.dart';
 import 'package:digi3map/screens/authentication/views/signup.dart';
 import 'package:digi3map/screens/authentication/widgets/login_form_widget.dart';
@@ -42,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextButton(
                         onPressed: (){
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => ForgotPasswordPin()));
+                              MaterialPageRoute(builder: (context) => ForgotPasswordEmail()));
                         },
                         child: Text(
                           'Forgot Password?',

@@ -1,12 +1,14 @@
+import 'package:digi3map/common/classes/HttpException.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
+import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/authentication/widgets/custom_textfield.dart';
 import 'package:digi3map/screens/authentication/widgets/password_textfield.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({Key? key}) : super(key: key);
@@ -17,6 +19,9 @@ class LoginFormWidget extends StatefulWidget {
 }
 
 class _LoginFormWidgetState extends State<LoginFormWidget> {
+  final ValueNotifier<String?> _emailValue=ValueNotifier(null);
+  final ValueNotifier<String?> _passwordValue=ValueNotifier(null);
+
   bool _isLoading=false;
   final FocusNode _passwordNode=FocusNode();
 
@@ -29,13 +34,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             CustomTextfield(
-                valueNotifier: ValueNotifier(null),
+              heading: "Username",
+                valueNotifier: _emailValue,
                 nextNode: _passwordNode
             ),
             Constants.kSmallBox,
             PasswordForm(
               focusNode: _passwordNode,
-                valueProvider: ValueNotifier(null),
+                valueProvider: _passwordValue,
                 heading: "Password"
             ),
             Constants.kSmallBox,
@@ -48,17 +54,33 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     setState(() {
                       _isLoading=true;
                     });
-                    Future.delayed(const Duration(seconds: 2),(){
-                      CustomSnackBar.showSnackBar(context, "Successfully Logged In");
-                      IsLoggedValue.loggedIn();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => const HomePage()));
-                    });
+                    login(_emailValue.value??"", _passwordValue.value??"");
+
+
                   }
                 }
             ),
           ],
         )
     );
+  }
+
+  void login(String email,String password) async{
+    await Auth().login(email, password).then((value) {
+      CustomSnackBar.showSnackBar(context, "Successfully Logged In");
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomePage()));
+
+    }).onError((error, stackTrace) {
+      CustomSnackBar.showSnackBar(context, error.toString());
+      print(stackTrace);
+      setState(() {
+        _isLoading=false;
+      });
+    });
+
+
+
+
   }
 }

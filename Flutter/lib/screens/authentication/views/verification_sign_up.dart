@@ -3,7 +3,6 @@ import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/screens/authentication/provides/pin_value_provider.dart';
 import 'package:digi3map/screens/authentication/widgets/pin_widget.dart';
-import 'package:digi3map/screens/homepage/provides/isLoggedValue.dart';
 import 'package:digi3map/screens/homepage/views/home_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -43,7 +42,7 @@ class VerificationSignUp extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const Text(
-                              "Verification",
+                              "Verification(123456)",
                               style: Styles.bigHeading
                             ),
                             Constants.kSmallBox,
@@ -68,7 +67,7 @@ class VerificationSignUp extends StatelessWidget {
                                           text: pinValueProvider.buttonValue,//"Done",
                                           onPressed: (){
                                             CustomSnackBar.showSnackBar(context, "Successfully Created New Account");
-                                            IsLoggedValue.loggedIn();
+                                            //IsLoggedValue.loggedIn();
                                             Navigator.push(context,
                                                 MaterialPageRoute(builder: (context) =>  HomePage()));
                                           }

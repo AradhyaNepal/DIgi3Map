@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
   final ValueNotifier<String?> valueNotifier;
-  final FocusNode nextNode;
+  final FocusNode? nextNode;
+  final String heading;
+  final IconData icon;
   const CustomTextfield({
+    this.icon=Icons.person_outline_rounded,
+    required this.heading,
     required this.valueNotifier,
-    required this.nextNode,
+    this.nextNode,
     Key? key
   }) : super(key: key);
 
@@ -20,9 +24,9 @@ class CustomTextfield extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
                 flex: 1,
-                child: Icon(Icons.person_outline_rounded,color: ColorConstant.kIconColor,)
+                child: Icon(icon,color: ColorConstant.kIconColor,)
             ),
             Constants.kSmallBox,
             Expanded(
@@ -36,11 +40,11 @@ class CustomTextfield extends StatelessWidget {
                   },
                   validator: (value){
                     if(value!.isEmpty){
-                      return "Please Enter Email";
+                      return "Please Enter $heading}";
                     }
                     return null;
                   },
-                  decoration: Styles.getSimpleInputDecoration("Email Address")
+                  decoration: Styles.getSimpleInputDecoration(heading)
               ),
             ),
           ],
