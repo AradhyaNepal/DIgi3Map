@@ -15,14 +15,14 @@ class ScoreWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "Monthly Score:",
           style: TextStyle(
               fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(width: 5,),
-        Text(
+        const SizedBox(width: 5,),
+        const Text(
           "500",
           style: TextStyle(
               fontWeight: FontWeight.bold

@@ -35,25 +35,32 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.a2.digi3map.digi3map"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21//flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     signingConfigs{
+        debug{
+            keyAlias 'keyDebug'
+            keyPassword 'key123'
+            storeFile file('keyDebug.jks')
+            storePassword 'key123'
+        }
         release{
-            keyAlias 'googlekey'
-            keyPassword 'password'
-            storeFile file('key2.jks')
-            storePassword 'password'
+            keyAlias 'keyRelease'
+            keyPassword 'key123'
+            storeFile file('keyRelease.jks')
+            storePassword 'key123'
         }
     }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }

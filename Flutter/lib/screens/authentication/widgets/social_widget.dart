@@ -1,12 +1,22 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SocialWidget extends StatelessWidget {
+class SocialWidget extends StatefulWidget {
   const SocialWidget({Key? key}) : super(key: key);
+
+  @override
+  State<SocialWidget> createState() => _SocialWidgetState();
+}
+
+class _SocialWidgetState extends State<SocialWidget> {
+  bool facebookLoading=false;
+  bool googleLoading=false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +65,39 @@ class SocialWidget extends StatelessWidget {
         Row(
           children: [
             const Spacer(),
-            GestureDetector(
+            googleLoading?CustomCircularIndicator():GestureDetector(
               onTap: () async{
-                try {
-                  GoogleSignIn _googleSignIn = GoogleSignIn(
-                    clientId:"110609789327-33bhghodo8kdd8v4763lecjgbaoc7khu.apps.googleusercontent.com"
-                  );
+                setState(() {
+                  googleLoading=true;
+                });
+                 //try {
+                  GoogleSignIn _googleSignIn = GoogleSignIn();
+                  bool signedIn=await _googleSignIn.isSignedIn();
+                  if(signedIn){
+                    print("Signed Out");
+                    await _googleSignIn.signOut();
+                  }
                   await _googleSignIn.signIn().then((value) {
-                    if(value!=null) print(value.id);
+                    try{
+                      value!.authentication.then((googleKey){
+                        print("Token ${googleKey.accessToken}");
+                        print("Token id ${googleKey.idToken}");
+                        print("Display Name ${_googleSignIn.currentUser!.displayName}");
+                      }).catchError((err){
+                        print('inner error');
+                      });
+                    }catch(e){
+
+                    }
+
                   });
-                } catch (error) {
-                  print(error);
-                }
+                // } catch (error) {
+                //
+                //   print(error);
+                // }
+                setState(() {
+                  googleLoading=false;
+                });
               },
               child: SvgPicture.asset(
                 AssetsLocation.googleLogo,
@@ -75,10 +106,29 @@ class SocialWidget extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            SvgPicture.asset(
-              AssetsLocation.facebookLogo,
-              height: 60,
-              width: 60,
+            facebookLoading?CustomCircularIndicator():GestureDetector(
+              onTap: () async{
+                setState(() {
+                  facebookLoading=true;
+                });
+                final LoginResult result = await FacebookAuth.instance.login();
+                if (result.status == LoginStatus.success) {
+                  final AccessToken accessToken = result.accessToken!;
+                  print("Token ${accessToken.token}");
+
+                } else {
+                  print(result.status);
+                  print(result.message);
+                }
+                setState(() {
+                  facebookLoading=false;
+                });
+              },
+              child: SvgPicture.asset(
+                AssetsLocation.facebookLogo,
+                height: 60,
+                width: 60,
+              ),
             ),
             const Spacer()
           ],

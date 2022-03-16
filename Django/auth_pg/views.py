@@ -20,7 +20,7 @@ def login_api(request):
     serializer.is_valid(raise_exception=True)
     user=serializer.validated_data["user"]
 
-    created,token=AuthToken.objects.create(user)
+    _,token=AuthToken.objects.create(user)
 
     return Response({
         'user_info':{

@@ -24,5 +24,8 @@ from auth_pg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('auth_pg.urls'))
+    path('api/',include('auth_pg.urls')),
+    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
+    path('',include('domain.urls')),
+    path('',include('habit.urls')),
 ]

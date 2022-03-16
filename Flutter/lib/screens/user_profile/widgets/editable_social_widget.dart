@@ -73,12 +73,12 @@ class _EditableSocialWidgetState extends State<EditableSocialWidget> {
             Expanded(
                 child: TextField(
                   controller: platformController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Platform"
                   ),
                 )
             ),
-            SizedBox(width: 5,),
+            const SizedBox(width: 5,),
             Expanded(
                 child: TextField(
                   controller: usernameController,

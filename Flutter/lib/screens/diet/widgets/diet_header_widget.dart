@@ -22,12 +22,12 @@ class DietHeaderWidget extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const CustomBodyDetails()));
               },
-              child: Text(
+              child: const Text(
                   "Customize Body Details"
               ),
             )
         ),
-        SizedBox(width: 5,),
+        const SizedBox(width: 5,),
         Flexible(
             flex: 2,
             child: TextButton(
@@ -39,7 +39,7 @@ class DietHeaderWidget extends StatelessWidget {
                     }
                 );
               },
-              child: Text(
+              child: const Text(
                   "Energy Filter"
               ),
             )
