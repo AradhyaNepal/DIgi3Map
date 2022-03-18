@@ -3,13 +3,13 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeadingEditableWidget extends StatefulWidget {
-  final String value;
+  final ValueNotifier<String> value;
   final bool bigHighlight;
   final bool leftAlign;
   final bool openedByDefault;
-  const ProfileHeadingEditableWidget({
+  ProfileHeadingEditableWidget({
     this.openedByDefault=false,
-    this.value="Dummy",
+    required this.value,
     this.leftAlign=false,
     this.bigHighlight=true,
     Key? key
@@ -31,7 +31,7 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
       heading="";
       forEditing=true;
     }else{
-      heading=widget.value;
+      heading=widget.value.value;
     }
     textEditingController.text=heading;
   }
@@ -69,6 +69,8 @@ class _ProfileHeadingEditableWidgetState extends State<ProfileHeadingEditableWid
                 }
                 firstAdding=false;
                 heading=textEditingController.text;
+                widget.value.value=heading;
+                print("Inside DOmain name ${widget.value.value}");
               }else{
                 textEditingController.text=heading;
               }

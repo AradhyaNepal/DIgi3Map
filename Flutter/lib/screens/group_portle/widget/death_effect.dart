@@ -84,7 +84,7 @@ class DeathEffect extends StatelessWidget {
                           ProfileEditableDescriptionWidget(
                             editable: false,
                             isMessage: true,
-                            description: message,
+                            description: ValueNotifier(message),
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w500
                             ),

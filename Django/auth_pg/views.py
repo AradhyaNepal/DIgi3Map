@@ -44,7 +44,7 @@ def get_user_data(request):
         },
         })
 
-    return Response({"error":"error"},status=400)
+    return Response({"error":"User not authenticated"},status=400)
 
 @api_view(['POST'])
 def register_api(request):

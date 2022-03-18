@@ -21,6 +21,8 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework.routers import DefaultRouter
 from auth_pg import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,5 @@ urlpatterns = [
     path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
     path('',include('domain.urls')),
     path('',include('habit.urls')),
+    *static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ]

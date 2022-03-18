@@ -1,16 +1,35 @@
+import 'dart:developer';
+
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/data/services/services_names.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AddDomain extends StatelessWidget {
+class AddDomain extends StatefulWidget {
 
-  AddDomain({Key? key}) : super(key: key);
+  final DomainProvider provider;
+  AddDomain({required this.provider,Key? key}) : super(key: key);
+
+  @override
+  State<AddDomain> createState() => _AddDomainState();
+}
+
+class _AddDomainState extends State<AddDomain> {
   final GlobalKey<FormState> _formKey=GlobalKey();
+
   final ValueNotifier<String?> _imageLocation=ValueNotifier(null);
+
+  String? name, description;
+  bool isLoading=false;
+  final ValueNotifier<String> priority=ValueNotifier("Low");
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +58,7 @@ class AddDomain extends StatelessWidget {
                             if(value!.isEmpty) return "Please Enter Domain Name";
                             return null;
                           },
+                            onSaved: (value)=>name=value,
                           maxLength: 50,
                           decoration:Styles.getDecorationWithLable("Name")
                         ),
@@ -46,6 +66,7 @@ class AddDomain extends StatelessWidget {
                         TextFormField(
                           maxLength:1000 ,
                             maxLines: 3,
+                            onSaved: (value)=>description=value,
                             keyboardType:TextInputType.multiline,
                             decoration:Styles.getDecorationWithLable("Description"),
                           validator: (value){
@@ -56,17 +77,46 @@ class AddDomain extends StatelessWidget {
                         Constants.kSmallBox,
                         Text('Priority Value',style: Styles.forgotPasswordStyle,),
                         Constants.kVerySmallBox,
-                        const SelectionCollection(valuesList: ['High','Low','Medium']),
+                        SelectionCollection(
+                            valuesList: ['High','Low','Medium'],
+                          value: priority,
+                        ),
                         Constants.kSmallBox,
-                        CustomBlueButton(
+                        isLoading?CustomCircularIndicator():CustomBlueButton(
                             text: 'Add',
-                            onPressed: (){
+                            onPressed: () async{
                               if(_formKey.currentState!.validate()){
+                                _formKey.currentState!.save();
                                 if(_imageLocation.value==null){
                                   CustomSnackBar.showSnackBar(context, "Please Pick Domain Image");
                                   return;
                                 }
-                                Navigator.pop(context);
+                                setState(() {
+                                  isLoading=true;
+                                });
+                                final sharedPref=await SharedPreferences.getInstance();
+                                await widget.provider.addEditDomain(
+                                  Domain(
+                                      imagePath: _imageLocation.value??"",
+                                      userId: sharedPref.getInt(Service.userId)??0,
+                                      domainName:name??"",
+                                      description: description??"",
+                                      priority: priority.value,
+                                  )
+                                ).then((value) {
+                                  CustomSnackBar.showSnackBar(context, "Domain Added");
+                                  setState(() {
+                                    isLoading=false;
+                                  });
+                                  Navigator.pop(context);
+                                })
+                                .onError((error, stackTrace) {
+                                  setState(() {
+                                    isLoading=false;
+                                    CustomSnackBar.showSnackBar(context, error.toString());
+                                  });
+                                });
+
                               }
                             }
                         ),

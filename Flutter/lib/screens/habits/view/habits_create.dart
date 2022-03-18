@@ -2,6 +2,7 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -60,6 +61,8 @@ class AddHabits extends StatelessWidget {
                         Wrap(
                           children: [
                             SelectionCollection(
+
+                                value: ValueNotifier(""),
                                 valuesList: [
                                   'Fitness',
                                   'Carrer',
@@ -69,7 +72,9 @@ class AddHabits extends StatelessWidget {
                             ElevatedButton(
                                 onPressed: (){
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => AddDomain()));
+                                      MaterialPageRoute(builder: (context) => AddDomain(
+                                        provider: DomainProvider(),
+                                      )));
                                 },
                                 child: Text(
                                   "Add",
@@ -81,6 +86,8 @@ class AddHabits extends StatelessWidget {
                         Text('Domain',style: Styles.forgotPasswordStyle,),
                         Constants.kVerySmallBox,
                         SelectionCollection(
+
+                            value: ValueNotifier(""),
                             valuesList: [
                               'Sets and Reps',
                               'Time',

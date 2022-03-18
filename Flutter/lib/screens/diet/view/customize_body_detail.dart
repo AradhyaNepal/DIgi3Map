@@ -50,6 +50,8 @@ class CustomBodyDetails extends StatelessWidget {
                 ),
                 Constants.kVerySmallBox,
                 SelectionCollection(
+
+                    value: ValueNotifier(""),
                     valuesList: [
                       "Fat",
                       "Skinny",
@@ -73,6 +75,8 @@ class CustomBodyDetails extends StatelessWidget {
                 ),
                 Constants.kVerySmallBox,
                 SelectionCollection(
+
+                    value: ValueNotifier(""),
                     valuesList: [
                       "Sedentary",
                       "Active",

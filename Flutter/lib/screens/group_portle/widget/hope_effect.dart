@@ -136,7 +136,7 @@ class _HopeEffectState extends State<HopeEffect> with TickerProviderStateMixin {
                                 ProfileEditableDescriptionWidget(
                                   editable: false,
                                   isMessage: true,
-                                  description: widget.message,
+                                  description: ValueNotifier(widget.message),
                                   textStyle: TextStyle(
                                       fontWeight: FontWeight.w500
                                   ),

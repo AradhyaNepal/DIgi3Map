@@ -14,95 +14,88 @@ class FitnessDomainListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: (){
-
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>  DomainProfilePage()));
-      },
-      child: Card(
-        margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-        elevation: 10,
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          color: ColorConstant.kGreyCardColor,
-          width: size.width,
-          height: 250,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                  child: Column(
-                    children:  [
-                      SizedBox(height: 43,),
-                      FittedBox(
-                        child: Text(
-                            'Fitness',
-                          textAlign: TextAlign.right,
-                          style: Styles.mediumHeading,
-                        ),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+      elevation: 10,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        color: ColorConstant.kGreyCardColor,
+        width: size.width,
+        height: 250,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+                child: Column(
+                  children:  [
+                    SizedBox(height: 43,),
+                    FittedBox(
+                      child: Text(
+                          'Fitness',
+                        textAlign: TextAlign.right,
+                        style: Styles.mediumHeading,
                       ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: (){
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: (){
 
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>  DomainGraph()));
-                        },
-                        child: FocusWidget(
-                          percentage: 26,
-                        ),
-                      )
-
-                    ],
-                  )
-              ),
-              Expanded(
-                flex: 9,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Image.asset(
-                            AssetsLocation.chadImageLocation
-                        ),
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) =>  DomainGraph()));
+                      },
+                      child: FocusWidget(
+                        percentage: 26,
                       ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Column(
-                          children:  [
-                            GestureDetector(
-                              onTap:(){
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) =>  HabitsReadDeleteUpdate()));
-                                },
-                              child: SelectionUnit(
-                                isSelected: true,
-                                value: 'Diet',
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: (){
+                    )
 
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) =>  HabitsReadDeleteUpdate()));
+                  ],
+                )
+            ),
+            Expanded(
+              flex: 9,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                          AssetsLocation.chadImageLocation
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Column(
+                        children:  [
+                          GestureDetector(
+                            onTap:(){
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>  HabitsReadDeleteUpdate()));
                               },
-                              child: SelectionUnit(
-                                isSelected: true,
-                                value: "Workout",
-                              ),
+                            child: SelectionUnit(
+                              isSelected: true,
+                              value: 'Diet',
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-              ),
-              const Spacer(
-                flex: 1,
-              )
-            ],
-          ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>  HabitsReadDeleteUpdate()));
+                            },
+                            child: SelectionUnit(
+                              isSelected: true,
+                              value: "Workout",
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+            ),
+            const Spacer(
+              flex: 1,
+            )
+          ],
         ),
       ),
     );

@@ -23,14 +23,14 @@ class Auth with ChangeNotifier{
           usernameKey:email
         }
     );
-
-    print(response.body);
-    print(response.statusCode);
     if(response.statusCode<300){
       final responseData=json.decode(utf8.decode(response.bodyBytes));
       _token=responseData[tokenKey];
+      int userId=responseData["user_info"]["id"];
       SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
       sharedPreferences.setString(Service.tokenPrefKey, _token);
+      sharedPreferences.setInt(Service.userId, userId);
+      sharedPreferences.setString(Service.passwordPrefKey, password);
     }
     else{
       throw HttpException(message: json.decode(response.body).toString());
@@ -45,6 +45,8 @@ class Auth with ChangeNotifier{
   void logOut() async{
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     sharedPreferences.setString(Service.tokenPrefKey, Service.emptyTokenValue);
+    sharedPreferences.setString(Service.passwordPrefKey, Service.emptyTokenValue);
+    sharedPreferences.setString(Service.userId, Service.emptyTokenValue);
   }
 
   Future<void> signUp({
@@ -67,6 +69,7 @@ class Auth with ChangeNotifier{
       _token=responseData[tokenKey];
       SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
       sharedPreferences.setString(Service.tokenPrefKey, _token);
+      sharedPreferences.setString(Service.passwordPrefKey, password);
     }
     else{
 
@@ -92,6 +95,8 @@ class Auth with ChangeNotifier{
       }
     );
     if(response.statusCode>299) throw HttpException(message: response.body.toString());
+    final sharedPref=await SharedPreferences.getInstance();
+    sharedPref.setString(Service.passwordPrefKey, newPassword);
 
   }
 

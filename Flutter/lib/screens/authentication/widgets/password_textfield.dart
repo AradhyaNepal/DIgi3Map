@@ -2,13 +2,15 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
-
+typedef BoolFunction=bool Function(String value);
 class PasswordForm extends StatefulWidget {
   final FocusNode? focusNode;
   final FocusNode? nextNode;
   final ValueNotifier<String?> valueProvider;
+  final BoolFunction? passwordChecker;
   final String heading;
   const PasswordForm({
+    this.passwordChecker,
     this.focusNode,
     required this.valueProvider,
     this.nextNode,
@@ -51,7 +53,15 @@ class _PasswordFormState extends State<PasswordForm> {
                 },
                 onSaved: (value)=>widget.valueProvider.value=value,
                 validator: (value){
-                  if(value!.isEmpty) return "Please Enter ${widget.heading}";
+                  if(value!.isEmpty) {
+                    return "Please Enter ${widget.heading}";
+                  }
+
+                  else if(widget.passwordChecker!=null) {
+                    if(!widget.passwordChecker!(value)){
+                      return "Password Didn't Match";
+                    }
+                  }
                   return null;
                 },
                 obscureText: !_isVisible,

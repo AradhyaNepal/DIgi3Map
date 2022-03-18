@@ -135,7 +135,7 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
                                 ProfileEditableDescriptionWidget(
                                   editable: false,
                                   isMessage: true,
-                                  description: widget.message,
+                                  description: ValueNotifier(widget.message),
                                   textStyle: TextStyle(
                                       fontWeight: FontWeight.w500
                                   ),

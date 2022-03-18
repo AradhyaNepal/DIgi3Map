@@ -1,14 +1,19 @@
 import 'dart:io';
 
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/data/services/services_names.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final ValueNotifier<String?> imageLocation;
+  final ValueNotifier<bool>? imageSelected;
+  final fromServer;
 
   const CustomImagePicker({
     required this.imageLocation,
+    this.imageSelected,
+    this.fromServer=false,
     Key? key
   }):super(key: key);
 
@@ -35,6 +40,11 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
           onTap: openImagePicker,
           child: widget.imageLocation.value!=null?
               _useFirst?
+              widget.fromServer?
+              Image.network(
+                Service.baseApiNoDash+widget.imageLocation.value!,
+                fit: BoxFit.fill,
+              ):
               Image.asset(
                   widget.imageLocation.value!,
                 fit: BoxFit.fill,
@@ -58,6 +68,9 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     if(pickedImage!=null){
       setState(() {
         _useFirst=false;
+        if(widget.imageSelected!=null){
+          widget.imageSelected!.value=true;
+        }
         widget.imageLocation.value=pickedImage.path;
       });
     }

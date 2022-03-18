@@ -1,6 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_big_blue_button.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
@@ -60,14 +61,19 @@ class RandomTodoAdd extends StatelessWidget {
                 Constants.kVerySmallBox,
                 Row(
                   children: [
-                    const SelectionCollection(valuesList: ['Fitness','Commander'],unSelectable: true,),
+                    SelectionCollection(
+                      valuesList: ['Fitness','Commander'],
+                      unSelectable: true,
+
+                      value: ValueNotifier(""),
+                    ),
                     ElevatedButton(
                         style:ElevatedButton.styleFrom(
                             primary: ColorConstant.kBlueColor
                         ) ,
                         onPressed: (){
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => AddDomain()));
+                              MaterialPageRoute(builder: (context) => AddDomain(provider: DomainProvider(),)));
                         },
                         child: const Text("Add")
                     )
@@ -86,7 +92,12 @@ class RandomTodoAdd extends StatelessWidget {
                 ),
 
                 Constants.kVerySmallBox,
-                const SelectionCollection(valuesList: ['High','Medium','Low'],unSelectable: true,),
+                SelectionCollection(
+                  valuesList: ['High','Medium','Low'],
+                  unSelectable: true,
+
+                  value: ValueNotifier(""),
+                ),
 
                 Constants.kSmallBox,
                 CustomBlueButton(

@@ -144,7 +144,7 @@ class _VengeanceEffectState extends State<VengeanceEffect> with TickerProviderSt
                               ProfileEditableDescriptionWidget(
                                 editable: false,
                                 isMessage: true,
-                                description: widget.message,
+                                description: ValueNotifier(widget.message),
                                 textStyle: TextStyle(
                                     fontWeight: FontWeight.w500
                                 ),

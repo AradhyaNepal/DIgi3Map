@@ -1,10 +1,13 @@
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddDomainListWidget extends StatelessWidget {
-  const AddDomainListWidget({Key? key}) : super(key: key);
+  final DomainProvider provider;
+  const AddDomainListWidget({required this.provider,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,9 @@ class AddDomainListWidget extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue,
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddDomain()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddDomain(
+            provider: provider,
+          )));
         },
         child: Container(
           height: 175,

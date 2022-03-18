@@ -30,13 +30,15 @@ class TimeFilterWidget extends StatelessWidget {
                 style: Styles.bigHeading,
               ),
               Constants.kVerySmallBox,
-              const ProfileHeadingEditableWidget(
+              ProfileHeadingEditableWidget(
                 leftAlign: true,
                 bigHighlight: false,
-                value: "11/11/2021 - 11/11/2022",
+                value: ValueNotifier("11/11/2021 - 11/11/2022"),
               ),
               Constants.kVerySmallBox,
-              const SelectionCollection(
+              SelectionCollection(
+
+                  value: ValueNotifier(""),
                   valuesList: [
                     'Leaderboard',
                     'Monthly',

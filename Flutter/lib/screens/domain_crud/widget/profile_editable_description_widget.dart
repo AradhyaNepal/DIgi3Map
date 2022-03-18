@@ -8,13 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class ProfileEditableDescriptionWidget extends StatefulWidget {
-  final String description;
+  final ValueNotifier<String> description;
   final TextStyle textStyle;
   final double boxConstraintHeight=50;
   final bool editable;
   final bool isMessage;
   const ProfileEditableDescriptionWidget({
-    this.description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non",
+    required this.description,
     this.isMessage=false,
     this.editable=true,
     this.textStyle=const TextStyle(),
@@ -35,8 +35,8 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
   @override
   void initState() {
     super.initState();
-    description=widget.description;
-    _textEditingController.text=widget.description;
+    description=widget.description.value;
+    _textEditingController.text=widget.description.value;
   }
   @override
   void dispose() {
@@ -71,6 +71,8 @@ class _ProfileEditableDescriptionWidgetState extends State<ProfileEditableDescri
                   }
                   firstTime=true;
                   description=_textEditingController.text;
+                  widget.description.value=description;
+                  print("Editing Description Vlaue"+widget.description.value);
                 }else{
                   _textEditingController.text=description;
                 }

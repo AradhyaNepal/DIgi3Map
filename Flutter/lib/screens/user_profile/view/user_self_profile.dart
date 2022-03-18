@@ -43,7 +43,7 @@ class UserSelfProfile extends StatelessWidget {
                       Constants.kSmallBox,
                       CustomImagePicker(imageLocation: ValueNotifier(AssetsLocation.userDummyProfileLocation)),
                       Constants.kVerySmallBox,
-                      ProfileHeadingEditableWidget(value:"Aaradhya",bigHighlight: true,),
+                      ProfileHeadingEditableWidget(value:ValueNotifier("Aaradhya"),bigHighlight: true,),
                       Constants.kVerySmallBox,
                       Align(
                         alignment: Alignment.center,
@@ -55,7 +55,7 @@ class UserSelfProfile extends StatelessWidget {
                       ScoreWidget(),
                       AnonymousWidget(),
 
-                      ProfileEditableDescriptionWidget(),
+                      ProfileEditableDescriptionWidget(description: ValueNotifier("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non"),),
 
                       Constants.kVerySmallBox,
                       Text(

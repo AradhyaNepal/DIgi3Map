@@ -47,7 +47,7 @@ class FitnessEditAdd extends StatelessWidget {
 
                       Constants.kSmallBox,
                       ProfileHeadingEditableWidget(
-                        value: "Deadlift",
+                        value: ValueNotifier("Deadlift"),
                         openedByDefault: forAdding,
                       ),
 

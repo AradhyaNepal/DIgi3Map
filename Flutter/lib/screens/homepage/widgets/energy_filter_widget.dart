@@ -47,7 +47,8 @@ class EnergyFilterWidget extends StatelessWidget {
             style: Styles.bigHeading,
           ),
           Constants.kSmallBox,
-          const SelectionCollection(
+          SelectionCollection(
+            value: ValueNotifier(""),
               valuesList: [
                 'Depressed😭',
                 'Stressed😵',

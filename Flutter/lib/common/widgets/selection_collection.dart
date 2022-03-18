@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 class SelectionCollection extends StatefulWidget {
   final List<String> valuesList;
   final bool unSelectable;
+  final ValueNotifier<String> value;
+  final String? defaultValue;
   const SelectionCollection({
     required this.valuesList,
+    required this.value,
+    this.defaultValue,
     this.unSelectable=false,
     Key? key
   }) : super(key: key);
@@ -15,7 +19,17 @@ class SelectionCollection extends StatefulWidget {
 }
 
 class _SelectionCollectionState extends State<SelectionCollection> {
+
   int selectedIndex=0;
+
+  @override
+  void initState() {
+    widget.value.value=widget.valuesList[selectedIndex];
+    selectedIndex=widget.valuesList.indexWhere((element) => element==widget.defaultValue);
+    print("Selected Index"+selectedIndex.toString());
+    if(selectedIndex==-1) selectedIndex=0;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -29,6 +43,7 @@ class _SelectionCollectionState extends State<SelectionCollection> {
                 }
                 else{
                   selectedIndex=i;
+                  widget.value.value=widget.valuesList[selectedIndex];
                 }
 
               });

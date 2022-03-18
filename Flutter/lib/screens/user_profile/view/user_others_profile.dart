@@ -49,7 +49,7 @@ class UserOtherProfile extends StatelessWidget {
                       Constants.kVerySmallBox,
                       FollowerWidget(),
                       ScoreWidget(),
-                      ProfileEditableDescriptionWidget(editable: false,),
+                      ProfileEditableDescriptionWidget(editable: false,description: ValueNotifier("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non"),),
                       Text(
                         "Email",
                         style: Styles.opacityHeadingStyle,

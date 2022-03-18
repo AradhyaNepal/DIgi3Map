@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-bpb8e+v*4nc*aiwil4f$ckr6he@qaj&x*i=8!+%vynd0cl#qqx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'django_rest_passwordreset',
-    'social_django',
     'auth_pg',
     'domain',
     'habit'
@@ -63,7 +61,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-#ALLOWED_HOSTS = ['192.168.254.32', 'localhost']
+ALLOWED_HOSTS = ['192.168.254.32', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -89,18 +87,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 
-                'social_django.context_processors.backends',  # <-- Here
-                'social_django.context_processors.login_redirect', # <-- Here
             ],
         },
     },
 ]
 
-# AUTHENTICATION_BACKENDS = (
-#     'social_core.backends.facebook.FacebookOAuth2',
-#     'social_core.backends.google.googleoauth2',
-#     'django.contrib.auth.backends.ModelBackend',
-# )
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
@@ -165,3 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = "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"
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+MEDIA_ROOT =  "D:\Digi3Map\Django\images"
+MEDIA_URL = '/media/'

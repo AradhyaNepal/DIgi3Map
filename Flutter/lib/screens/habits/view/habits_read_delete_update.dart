@@ -1,6 +1,7 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/password_to_edit_widget.dart';
@@ -44,8 +45,8 @@ class HabitsReadDeleteUpdate extends StatelessWidget {
                           )
                       ),
                       Constants.kVerySmallBox,
-                      ProfileHeadingEditableWidget(bigHighlight: true,),
-                      ProfileEditableDescriptionWidget(),
+                      ProfileHeadingEditableWidget(value:ValueNotifier(""),bigHighlight: true,),
+                      ProfileEditableDescriptionWidget(description: ValueNotifier("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut pulvinar lacus, a sodales purus. Donec sed dui ut libero vulputate porttitor. Donec eleifend feugiat volutpat. Nunc felis dui, convallis ut aliquam non"),),
                       Constants.kVerySmallBox,
                       Text(
                         "Domain",
@@ -55,6 +56,8 @@ class HabitsReadDeleteUpdate extends StatelessWidget {
                       Wrap(
                         children: [
                           SelectionCollection(
+
+                              value: ValueNotifier(""),
                               valuesList: [
                                 "Fitness","Commander"
                               ]
@@ -62,7 +65,7 @@ class HabitsReadDeleteUpdate extends StatelessWidget {
                           ElevatedButton(
                               onPressed: (){
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => AddDomain()));
+                                    MaterialPageRoute(builder: (context) => AddDomain(provider: DomainProvider(),)));
                               },
                               child: Text(
                                 "Add",
@@ -78,6 +81,8 @@ class HabitsReadDeleteUpdate extends StatelessWidget {
                       ),
                       Constants.kVerySmallBox,
                       SelectionCollection(
+
+                          value: ValueNotifier(""),
                           valuesList: [
                             "Sets and Reps",
                             "Time",
@@ -127,7 +132,7 @@ class HabitsReadDeleteUpdate extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context){
-          return const PasswordToEditWidget(purpose: "Habit is Sensitive Data to change.",);
+          return PasswordToEditWidget(purpose: "Habit is Sensitive Data to change.",provider: DomainProvider(),);
         }
     );
   }

@@ -1,7 +1,10 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/common/widgets/selection_unit.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/password_to_edit_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
@@ -14,10 +17,42 @@ import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
-class DomainProfilePage extends StatelessWidget {
-  DomainProfilePage({Key? key}) : super(key: key);
+class DomainProfilePage extends StatefulWidget {
+  final Domain domain;
+  final DomainProvider provider;
+
+  DomainProfilePage({
+    required this.domain,
+    required this.provider,
+    Key? key
+  }) : super(key: key);
+
+  @override
+  State<DomainProfilePage> createState() => _DomainProfilePageState();
+}
+
+class _DomainProfilePageState extends State<DomainProfilePage> {
+  bool isLoading=false;
+  final ValueNotifier<String> imageValue=ValueNotifier("");
+
+  final ValueNotifier<String> domainName=ValueNotifier("");
+
+  final ValueNotifier<String> domainDescription=ValueNotifier("");
+
+  final ValueNotifier<bool> imageSelectedProvider=ValueNotifier(false);
+
+  final ValueNotifier<String> priority=ValueNotifier("Low");
+
   final ValueNotifier<String?> pickedImage=ValueNotifier(AssetsLocation.anonymousImageLocation);
 
+  @override
+  void initState() {
+
+    imageValue.value=widget.domain.imagePath;
+    domainName.value=widget.domain.domainName;
+    domainDescription.value=widget.domain.description;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -37,28 +72,45 @@ class DomainProfilePage extends StatelessWidget {
                   style: Styles.bigHeading,
                 ),
                 Constants.kSmallBox,
-                CustomImagePicker(imageLocation: pickedImage),
+                CustomImagePicker(imageLocation:imageValue, fromServer: true,imageSelected: imageSelectedProvider,),
                 Constants.kVerySmallBox,
-                const ProfileHeadingEditableWidget(bigHighlight: true,),
-                const ProfileEditableDescriptionWidget(),
-                Constants.kMediumBox,
+                ProfileHeadingEditableWidget(bigHighlight: true,value:domainName,),
+                ProfileEditableDescriptionWidget(description: domainDescription,),
+                Constants.kSmallBox,
+                Text('Priority Value',style: Styles.forgotPasswordStyle,),
+                Constants.kVerySmallBox,
+                SelectionCollection(
+                  valuesList: ['High','Low','Medium'],
+                  defaultValue: widget.domain.priority,
+                  value: priority,
+                ),
+                Constants.kSmallBox,
                 Text(
                     'Habits (Max 2)',
                   style: Styles.opacityHeadingStyle,
                 ),
+
                 Constants.kVerySmallBox,
-                Wrap(
-                  children: [
-                    const SelectionCollection(valuesList: ['Fitness']),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
-                        onPressed: (){
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>AddHabits()));
-                        },
-                        child: const Text('Add Another')
-                    )
-                  ],
+                FutureBuilder<List<String>>(
+                    future: widget.provider.getDomainHabitsList(widget.domain.domainId??0),
+                  builder: (context,snapShot) {
+                    if(snapShot.connectionState==ConnectionState.waiting) return Center(child: CustomCircularIndicator());
+                    bool showAdd=snapShot.data!.length<2;
+                    return Wrap(
+                      children: [
+                        for(String value in snapShot.data!)
+                          SelectionUnit(isSelected: true, value: value),
+                        showAdd?ElevatedButton(
+                            style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
+                            onPressed: (){
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) =>AddHabits()));
+                            },
+                            child: const Text('Add Habit')
+                        ):SizedBox()
+                      ],
+                    );
+                  }
                 ),
                 Constants.kVerySmallBox,
                 Text(
@@ -73,7 +125,7 @@ class DomainProfilePage extends StatelessWidget {
                       Expanded(
                         flex:3,
                           child: FocusWidget(
-                            percentage: 25,
+                            percentage: widget.domain.percentage??0,
                           )
                       ),
                       Spacer(),
@@ -97,13 +149,14 @@ class DomainProfilePage extends StatelessWidget {
                   ),
                 ),
                 Constants.kSmallBox,
-                Row(
+                isLoading?Center(child: CustomCircularIndicator(),):Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(primary: Colors.red),
                           onPressed: (){
-                            showPasswordModal(context);
+
+                            showPasswordModal(context:context,id: widget.domain.domainId.toString());
                           },
                           child: const Text('Delete')
                       ),
@@ -113,8 +166,31 @@ class DomainProfilePage extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                           onPressed: (){
-                            CustomSnackBar.showSnackBar(context, "Successfully Saved");
-                           Navigator.pop(context);
+                            print("Domain Description ${priority.value}");
+                            setState(() {
+                              isLoading=true;
+                            });
+                            widget.provider.addEditDomain(
+                                Domain(
+                                  domainId: widget.domain.domainId,
+                                    imagePath: imageValue.value,
+                                    domainName: domainName.value,
+                                    description: domainDescription.value,
+                                    userId: widget.domain.userId,
+                                    priority: priority.value,
+                                ),
+                              haveNewImage:imageSelectedProvider.value
+
+                            ).then((value) {
+
+                              CustomSnackBar.showSnackBar(context, "Successfully Saved");
+                              Navigator.pop(context);
+                            }).onError((error, stackTrace) {
+                              setState(() {
+                                isLoading=false;
+                              });
+                              CustomSnackBar.showSnackBar(context, error.toString());
+                            });
                           },
                           child: const Text('Save')
                       ),
@@ -130,12 +206,21 @@ class DomainProfilePage extends StatelessWidget {
     );
   }
 
-  void showPasswordModal(BuildContext context){
+  void showPasswordModal({required BuildContext context,required String id}){
     showDialog(
+      barrierDismissible: false,
+
         context: context,
         builder: (context){
-          return const PasswordToEditWidget(purpose: "Domain is Sensitive Data to change.",);
+          return PasswordToEditWidget(
+            provider: widget.provider,
+            forDomain: true,
+            id: id,
+
+            purpose: "Domain is Sensitive Data to change.",
+          );
         }
     );
   }
+
 }
