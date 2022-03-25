@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser
 from django.http import HttpResponse, JsonResponse
@@ -9,6 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from domain.models import Domain
 
 class HabitApiView(APIView):
     def get(self,request):
@@ -30,16 +32,19 @@ class HabitDetailApiView(APIView):
     def get(self,request,id):
         try:
             habit= Habit.objects.get(id=id)
+            
             serializer=HabitSerializer(habit)
-            return Response(serializer.data)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         except Habit.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    
         
     
-    def put(self,request,id):
+    def patch(self,request,id):
         try:
             habit= Habit.objects.get(id=id)
-            serializer=HabitSerializer(habit,data=request.data)
+            serializer=HabitSerializer(habit,data=request.data,partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -62,8 +67,15 @@ class UserHabitApiView(APIView):
        
     def get(self,request,user_id):
         try:
-            habit= Habit.objects.filter(user_id=user_id)
-            serializer=HabitSerializer(habit,many=True)
+            domains=Domain.objects.filter(user_id=user_id)
+            habitsList=[]
+            for domain in domains:
+                habits=Habit.objects.filter(domain_id=domain.id)
+                for habit in habits:
+                    habitsList.append(habit.id)
+            
+            userHabits=Habit.objects.filter(pk__in=habitsList)
+            serializer=HabitSerializer(userHabits,many=True)
             return Response(serializer.data)
         except Habit.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)

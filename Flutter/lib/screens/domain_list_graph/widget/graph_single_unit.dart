@@ -19,7 +19,7 @@ class SingleUnit extends StatelessWidget {
     int graphValue=graphValueFinal;
     int totalValue=101;
     if(graphValue>100) graphValue=100;
-    if(graphValue<0) graphValue=0;
+    if(graphValue<=0) graphValue=1;
     bool isBalanced=(graphValue>=20 && graphValue<=30)||forCoin;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,

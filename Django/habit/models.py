@@ -10,9 +10,9 @@ class Habit(models.Model):
     name=models.CharField(max_length=100)
     domain_id=models.ForeignKey(Domain, on_delete=models.CASCADE,default="1")
     photo_url=models.ImageField(upload_to='images/')
-    #user_id=
+    widget_type=models.CharField(max_length=50)
     description=models.CharField(max_length=250)
-    priority=models.CharField(max_length=10)
+    progress=models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

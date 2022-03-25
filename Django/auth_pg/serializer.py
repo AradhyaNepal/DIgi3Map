@@ -1,14 +1,15 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers, validators
 class ChangePasswordSerializer(serializers.Serializer):
-    model = User
+    model = get_user_model()
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ("id","username", "password", "email")
+        model = get_user_model()
+        fields = ("id","username", "password", "email","finess_points","carrer_points","workout_progress","diet_progress","learning_progress","implementing_progress")
         extra_kwargs = {
             "password": {"write_only": True},
             "email": {
@@ -16,14 +17,14 @@ class RegisterSerializer(serializers.ModelSerializer):
                 "allow_blank": False,
                 "validators": [
                     validators.UniqueValidator(
-                        User.objects.all(), f"A user with that Email already exists."
+                        get_user_model().objects.all(), f"A user with that Email already exists."
                     )
                 ],
             },
         }
 
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = get_user_model().objects.create_user(
             username=validated_data["username"],
             email=validated_data["email"],
             password=validated_data["password"],

@@ -46,7 +46,7 @@ class Auth with ChangeNotifier{
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     sharedPreferences.setString(Service.tokenPrefKey, Service.emptyTokenValue);
     sharedPreferences.setString(Service.passwordPrefKey, Service.emptyTokenValue);
-    sharedPreferences.setString(Service.userId, Service.emptyTokenValue);
+    sharedPreferences.setInt(Service.userId, 0);
   }
 
   Future<void> signUp({
@@ -70,6 +70,7 @@ class Auth with ChangeNotifier{
       SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
       sharedPreferences.setString(Service.tokenPrefKey, _token);
       sharedPreferences.setString(Service.passwordPrefKey, password);
+      sharedPreferences.setInt(Service.userId,responseData["user_info"]["id"]);
     }
     else{
 

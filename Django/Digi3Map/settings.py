@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'domain',
     'habit'
 ]
+AUTH_USER_MODEL = 'auth_pg.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # REST_FRAMEWORK = {
@@ -61,7 +62,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-ALLOWED_HOSTS = ['192.168.254.32', 'localhost']
+ALLOWED_HOSTS = ['192.168.42.47', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

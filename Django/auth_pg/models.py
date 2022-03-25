@@ -4,6 +4,19 @@ from django.dispatch import receiver
 from django_rest_passwordreset.signals import reset_password_token_created
 from django.core.mail import send_mail  
 
+from django.db import models
+
+# Create your models here.
+
+from django.contrib.auth.models import AbstractUser
+
+class CustomUser(AbstractUser):
+    finess_points=models.IntegerField(default=0)
+    carrer_points=models.IntegerField(default=0)
+    workout_progress=models.IntegerField(default=0)
+    diet_progress=models.IntegerField(default=0)
+    learning_progress=models.IntegerField(default=0)
+    implementing_progress=models.IntegerField(default=0)
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):

@@ -2,10 +2,10 @@ import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class GraphLable extends StatelessWidget {
-  final int min;
-  final int max;
-  final int gap;
-  const GraphLable({
+  int min;
+  int max;
+  int gap;
+  GraphLable({
     required this.min,
     required this.max,
     required this.gap,
@@ -14,6 +14,9 @@ class GraphLable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    min=0;
+    max=100;
+    gap=15;
     print("Max:$max\nMin:$min");
     return Column(
       children: [

@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 class CustomImagePicker extends StatefulWidget {
   final ValueNotifier<String?> imageLocation;
   final ValueNotifier<bool>? imageSelected;
-  final fromServer;
+  final bool fromServer;
 
   const CustomImagePicker({
     required this.imageLocation,

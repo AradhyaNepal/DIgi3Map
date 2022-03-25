@@ -95,6 +95,7 @@ class _SignUpFormState extends State<SignUpForm> {
     }).onError((error, stackTrace) {
       setState(() {
         CustomSnackBar.showSnackBar(context, error.toString());
+        print(stackTrace);
         _isLoading=false;
       });
     });

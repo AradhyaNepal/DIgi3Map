@@ -1,5 +1,6 @@
 from lib2to3.pgen2 import token
 from urllib import request
+from django.contrib.auth import get_user_model
 from numpy import require
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -33,18 +34,11 @@ def login_api(request):
 
 
 @api_view(['GET'])
-def get_user_data(request):
-    user=request.user
-    if user.is_authenticated:
-        return Response({
-             'user_info':{
-            'id':user.id,
-            'username':user.username,
-            'email':user.email
-        },
-        })
-
-    return Response({"error":"User not authenticated"},status=400)
+def get_user_data(request,pk):
+    model = get_user_model()
+    user=model.objects.get(id=pk)
+    serializer=RegisterSerializer(user)
+    return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
 
 @api_view(['POST'])
 def register_api(request):
@@ -63,7 +57,7 @@ def register_api(request):
 
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
-    model = User
+    model = get_user_model()
     permission_classes = (IsAuthenticated,)
 
     def get_object(self, queryset=None):

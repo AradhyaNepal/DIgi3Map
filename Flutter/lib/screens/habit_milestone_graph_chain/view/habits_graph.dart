@@ -47,14 +47,7 @@ class HabitsGraph extends StatelessWidget {
             ],
           ),
         ),
-        Constants.kSmallBox,
-        Text(
-          "Milestone",
-          style: Styles.opacityHeadingStyle,
-        ),
-        Constants.kVerySmallBox,
-        MileStoneWidget(progressValue: 12,showNavigator: false,),
-        Constants.kVerySmallBox,
+
 
 
       ],

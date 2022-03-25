@@ -4,9 +4,10 @@ import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
 import 'package:digi3map/common/widgets/selection_unit.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/domain_crud/provider/deleted_notification.dart';
 import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
-import 'package:digi3map/screens/domain_crud/widget/password_to_edit_widget.dart';
+import 'package:digi3map/screens/domain_crud/widget/password_to_delete_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_heading_editable_widget.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
@@ -104,7 +105,7 @@ class _DomainProfilePageState extends State<DomainProfilePage> {
                             style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                             onPressed: (){
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) =>AddHabits()));
+                                  MaterialPageRoute(builder: (context) =>AddHabits(defaultDomain: widget.domain.domainName,)));
                             },
                             child: const Text('Add Habit')
                         ):SizedBox()
@@ -212,12 +213,17 @@ class _DomainProfilePageState extends State<DomainProfilePage> {
 
         context: context,
         builder: (context){
-          return PasswordToEditWidget(
-            provider: widget.provider,
-            forDomain: true,
-            id: id,
-
-            purpose: "Domain is Sensitive Data to change.",
+          return NotificationListener<DeletedNotification>(
+            onNotification: (value){
+              print("Notification");
+              CustomSnackBar.showSnackBar(context, "Successfully Deleted");
+              Navigator.pop(context);
+              return true;
+            },
+            child: PasswordToDeleteDomain(
+              provider: widget.provider,
+              id: id,
+            ),
           );
         }
     );

@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser
 from django.http import HttpResponse, JsonResponse
@@ -64,6 +65,26 @@ def domain_detail(request,pk):
 @api_view(['GET'])
 def user_domain(request,user_id):
     if request.method=="GET":
-        domain=Domain.objects.filter(user_id=user_id)
-        serializer=DomainSerializer(domain,many=True)
+        domains=Domain.objects.filter(user_id=user_id)
+        serializer=DomainSerializer(domains,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+@api_view(['GET'])
+def user_available_domain(request,user_id):
+    if request.method=="GET":
+        domains=Domain.objects.filter(user_id=user_id)
+        
+        availableDomainList=[]
+        for domain in domains.iterator():
+            habits=Habit.objects.filter(domain_id=domain.id)
+            count=0
+            for _ in habits.iterator():
+                count=count+1
+            if count<2:
+                availableDomainList.append(domain.id)
+        availableDomain=Domain.objects.filter(pk__in=availableDomainList)
+        serializer=DomainSerializer(availableDomain,many=True)
+      
         return Response(serializer.data,status=status.HTTP_200_OK)
