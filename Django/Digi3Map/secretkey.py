@@ -1,2 +1,0 @@
-class SendGridKey:
-    key="secretdata"
