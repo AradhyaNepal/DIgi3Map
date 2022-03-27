@@ -1,2 +1,2 @@
 class SendGridKey:
-    key="abcd"
+    key="secretdata"
