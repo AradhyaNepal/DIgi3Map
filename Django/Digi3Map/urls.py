@@ -30,5 +30,6 @@ urlpatterns = [
     path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
     path('',include('domain.urls')),
     path('',include('habit.urls')),
+    path('',include('Coins.urls')),
     *static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ]

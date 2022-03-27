@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from .secretkey import SendGridKey
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'auth_pg',
     'domain',
-    'habit'
+    'habit',
+    'Coins'
 ]
 AUTH_USER_MODEL = 'auth_pg.CustomUser'
 
@@ -62,7 +64,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-ALLOWED_HOSTS = ['192.168.42.47', 'localhost']
+#ALLOWED_HOSTS = ['192.168.42.47', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -155,7 +157,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = SendGridKey.key
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 MEDIA_ROOT =  "D:\Digi3Map\Django\images"
