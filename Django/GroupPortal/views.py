@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from calendar import month
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from auth_pg.models import CustomUser
@@ -10,44 +11,52 @@ from Coins.models import Coin
 from chain.models import Chain
 from habit.models import Habit
 from habit.models import Domain
+
+
+class UnCollectedLeaderboardApi(APIView):
+    def get(self,request,user_id):
+        leaderboards=Leaderboard.objects.filter(winner_id=user_id,trophy_collected=False)
+        listOfLeaderboard=[]
+        for single in leaderboards.iterator():
+            listOfLeaderboard.append(single.id)
+        return Response({
+            "Result":str(listOfLeaderboard)
+        })  
 class LeaderboardApi(APIView):
     #permission_classes = [IsAuthenticated]
     def get(self,request,user_id):
-        
+        self.userWonTrophy()
         if(not self.isInLeaderBoard(id=user_id)):
             print("A")
-            if(self.userWonTrophy(user_id)):# This testing
-                print("B")
-                self.createLeaderBoard(user_id=user_id)
-                return Response(
-                    {
-                        "TrophyWinner":True
-                    }
-                )
-            availableLeaderboard=self.addToAvailableLeaderboard()
-            if(availableLeaderboard != NULL):
-
-                try:
-                    print("C")
-                    user=CustomUser.objects.get(id=user_id)
-                    leaderboard=LeaderboardPlayers(leaderboard_id=availableLeaderboard,player_id=user)
-                    leaderboard.save()
-                    return self.displayUserLeaderboard(user_id)
-                except CustomUser.DoesNotExist:
-                    print("D")
-                    print("Hello")
-            else:
-               print("E")
-               return self.createLeaderBoard(user_id=user_id) 
+            
+            return self.addOrCreateLeaderBoard(user_id=user_id)
         else:
             print("F")
             return self.displayUserLeaderboard(user_id)
 
+
+    def addOrCreateLeaderBoard(self,user_id):
+        availableLeaderboard=self.addToAvailableLeaderboard()
+        if(availableLeaderboard != NULL):
+            try:
+                print("C")
+                user=CustomUser.objects.get(id=user_id)
+                leaderboard=LeaderboardPlayers(leaderboard_id=availableLeaderboard,player_id=user)
+                leaderboard.save()
+                return self.displayUserLeaderboard(user_id)
+            except CustomUser.DoesNotExist:
+                print("D")
+                print("Hello")
+        else:
+            print("E")
+            return self.createLeaderBoard(user_id=user_id) 
+
     def displayUserLeaderboard(self,user_id):
-        today_date=datetime.datetime.now()
-        leaderboard=Leaderboard.objects.filter(started_date__lte=today_date).order_by("started_date")
+        minStartedDate=datetime.datetime.now()-timedelta(days=30)
+        leaderboard=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True).order_by("started_date")
         outputList=[]
         for single in leaderboard:
+            print(single.winner_id)
             leaderboardPlayer=LeaderboardPlayers.objects.filter(leaderboard_id=single.id)
             for singlePlayer in leaderboardPlayer:
                 outputList.append(
@@ -60,16 +69,19 @@ class LeaderboardApi(APIView):
                     }
                 )
             break
-        if(len(outputList)==1):
+        if(len(outputList)==0):
+            return self.addOrCreateLeaderBoard(user_id=user_id)
+        elif(len(outputList)==1):
             return Response({
                 "Waiting":True
             })
+        
         return Response({
             "output":str(outputList)
         })
     def addToAvailableLeaderboard(self):
-        today_date=datetime.datetime.now()
-        leaderboards=Leaderboard.objects.filter(started_date__lte=today_date)
+        minStartedDate=datetime.datetime.now()-timedelta(days=30)
+        leaderboards=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True)
         availableLeaderboard=0
         for single in leaderboards.iterator():
             leaderboardsPlayers=LeaderboardPlayers.objects.filter(leaderboard_id=single.id)
@@ -81,6 +93,7 @@ class LeaderboardApi(APIView):
         return availableLeaderboard
 
     def createLeaderBoard(self,user_id):
+        #Testing Three
         leaderboard=Leaderboard.objects.create(started_date=datetime.datetime.now())
         leaderboard.save()
         try:
@@ -91,6 +104,7 @@ class LeaderboardApi(APIView):
         
         
         leaderboardPlayer.save()
+        #Testing Four
         haveOtherPlayer=False#self.addUserToNewLeaderbaord(leaderboard.id)
         if(haveOtherPlayer):
             print("Hello")
@@ -101,15 +115,15 @@ class LeaderboardApi(APIView):
             }
         )
 
-    def userWonTrophy(self,user_id):
-        today_date=datetime.datetime.now()
-        leaderboard=Leaderboard.objects.filter(started_date__lt=today_date).order_by("started_date")
+    def userWonTrophy(self):
+        minStartedDate=datetime.datetime.now()-timedelta(days=30)
+        leaderboard=Leaderboard.objects.filter(started_date__lte=minStartedDate,winner_id__isnull=True)
         firstLeaderboard=NULL
-        highestPointUser=0
+        
         for first in leaderboard.iterator():
             firstLeaderboard=first
             leaderboardPlayers=LeaderboardPlayers.objects.filter(leaderboard_id=firstLeaderboard)
-            
+            highestPointUser=0
             highestPoint=0
             for single in leaderboardPlayers:
                 userPoints=self.getUserTotalCoins(single.player_id)
@@ -119,16 +133,16 @@ class LeaderboardApi(APIView):
             if(highestPoint!=0):
                 first.winner_id=highestPointUser
                 first.save()
-            break
-        return highestPointUser==user_id 
 
     def isInLeaderBoard(self,id):
         isInLeaderBoard=False
         leaderboardPlayers=LeaderboardPlayers.objects.filter(player_id=id)
         for single in leaderboardPlayers:
             dateOfLeaderboard=datetime.datetime.now().date()-single.leaderboard_id.started_date
-            if(dateOfLeaderboard.days<=30):
+        
+            if(dateOfLeaderboard.days<=30 and single.leaderboard_id.winner_id is None):
                 isInLeaderBoard=True
+                break
         return isInLeaderBoard
 
     def getUserTotalCoins(self,user_id):
