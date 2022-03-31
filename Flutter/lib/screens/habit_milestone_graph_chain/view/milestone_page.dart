@@ -8,7 +8,6 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class MileStonePage extends StatefulWidget {
   const MileStonePage({Key? key}) : super(key: key);
 
@@ -53,7 +52,13 @@ class _MileStonePageState extends State<MileStonePage> {
                   'Habits Milestone',
                   style: Styles.bigHeading,
                 ),
-                const TotalCoinsWidget(),
+                Consumer<MileStoneProvider>(
+                  builder: (context,provider,child) {
+                    return TotalCoinsWidget(
+                      point: provider.points,
+                    );
+                  }
+                ),
                 Constants.kSmallBox,
                 Expanded(
                   child: Consumer<MileStoneProvider>(
@@ -73,12 +78,26 @@ class _MileStonePageState extends State<MileStonePage> {
                         itemCount: provider.milestoneList.length,
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context,i){
-                          return MileStoneWidget(mileStone: provider.milestoneList[i]);
+                          bool isLast=i==(provider.milestoneList.length-1);
+                          Widget widget;
+                          if(isLast){
+                            widget=Column(
+                              children: [
+                                MileStoneWidget(mileStone: provider.milestoneList[i]),
+                                SizedBox(height: 40,)
+                              ],
+                            );
+                          }
+                          else{
+                            widget=MileStoneWidget(mileStone: provider.milestoneList[i]);
+                          }
+                          return widget;
                         },
                       );
                     }
                   ),
                 ),
+
               ],
             ),
           ),

@@ -31,5 +31,7 @@ urlpatterns = [
     path('',include('domain.urls')),
     path('',include('habit.urls')),
     path('',include('Coins.urls')),
+    path('',include('chain.urls')),
+    path('',include('GroupPortal.urls')),
     *static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ]

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from .secretkey import SendGridKey
+from .secretkey2 import SendGridKey
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'auth_pg',
     'domain',
     'habit',
-    'Coins'
+    'Coins',
+    'chain',
+    'GroupPortal'
 ]
 AUTH_USER_MODEL = 'auth_pg.CustomUser'
 
@@ -64,7 +66,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-#ALLOWED_HOSTS = ['192.168.42.47', 'localhost']
+#ALLOWED_HOSTS = ['192.168.40.225', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

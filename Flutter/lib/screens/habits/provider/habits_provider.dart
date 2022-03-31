@@ -66,7 +66,7 @@ class HabitsProvider with ChangeNotifier{
     domainList= totalAvailableDomain.map((e) => e.domainName).toList();
     idCalculator=(String domainName){
       String index= totalAvailableDomain.firstWhere((element) => domainName==element.domainName).domainId.toString();
-      print("Domain index"+index+" Domain Name:$domainName");
+
       return index;
     };
     isDomainLoading=false;
@@ -99,11 +99,10 @@ class HabitsProvider with ChangeNotifier{
   }
   Future<void> addUpdateHabit(Habit habit,{bool haveNewImage=true}) async{
     bool add=habit.id==null;
-    print("For Add "+add.toString());
     String editingId=add?"":"${habit.id}/";
     Uri uri = Uri.parse(Service.baseApi+Service.habitLocation+editingId);
     String purpose=add?"POST":"PATCH";
-    print(uri.toString());
+
     var request = http.MultipartRequest(purpose, uri);
     if(haveNewImage){
       File file=File(habit.photoUrl);

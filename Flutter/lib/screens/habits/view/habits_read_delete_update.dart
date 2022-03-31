@@ -218,7 +218,7 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                           style: Styles.opacityHeadingStyle,
                         ),
                         Constants.kVerySmallBox,
-                        OpenChainNavigationWidget(),
+                        OpenChainNavigationWidget(habitId: habit.id,habitName: habit.name,),
                         Constants.kVerySmallBox,
                         HabitsGraph(),
                         Constants.kSmallBox,

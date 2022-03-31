@@ -5,9 +5,11 @@ from rest_framework.views import APIView
 from .models import Coin
 import json
 
+import datetime
+
 class CoinAPIViews(APIView):
     def get(self,_):
-        coin=Coin.objects.filter(user_id=id)
+        coin=Coin.objects.filter(user_id=id,dateCollected__month= datetime.date.today().month)
         totalCoins=0
         for singleCoin in coin.iterator:
             totalCoins=singleCoin.amount

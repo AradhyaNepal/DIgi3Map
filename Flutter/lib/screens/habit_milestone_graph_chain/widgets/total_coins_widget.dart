@@ -1,8 +1,11 @@
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/coin_value_widget.dart';
 import 'package:flutter/material.dart';
 
 class TotalCoinsWidget extends StatelessWidget {
+  final int? point;
   const TotalCoinsWidget({
+    this.point=50,
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +21,7 @@ class TotalCoinsWidget extends StatelessWidget {
               fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         Container(
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -27,10 +30,10 @@ class TotalCoinsWidget extends StatelessWidget {
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(4)
-          ),
-          child: CoinValueWidget(value:50,),
+          ), child:point==null?
+              CustomCircularIndicator():
+              CoinValueWidget(value:point??0,),
         )
-
       ],
     );
   }

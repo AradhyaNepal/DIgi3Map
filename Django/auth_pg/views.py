@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
-from .serializer import RegisterSerializer
+from .serializer import RegisterSerializer, UserProgressSerializer
 from auth_pg import serializer
 from rest_framework import status
 from rest_framework import generics
@@ -39,6 +39,23 @@ def get_user_data(request,pk):
     user=model.objects.get(id=pk)
     serializer=RegisterSerializer(user)
     return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
+
+@api_view(['PATCH'])
+def update_user(request,id):
+    try:
+        user= get_user_model().objects.get(id=id)
+        serializer=UserProgressSerializer(user,data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    except get_user_model().DoesNotExist:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    # model = get_user_model()
+    # user=model.objects.get(id=pk)
+
+    # return Response(serializer.data,status=status.HTTP_202_ACCEPTED)
 
 @api_view(['POST'])
 def register_api(request):

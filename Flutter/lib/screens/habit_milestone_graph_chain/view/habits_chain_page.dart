@@ -1,104 +1,149 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/screens/habit_milestone_graph_chain/provider/chain_provider.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/broken_chain_widget.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/multiple_chain_widget.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/total_coins_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HabitChain extends StatelessWidget {
-  final List<int> brokenChainDays=[10,20,15,10,16,5,2,1,6];
-  HabitChain({Key? key}) : super(key: key);
+  int habitId;
+  String? habitName;
+
+  HabitChain({
+    required this.habitId,
+    this.habitName,
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          height: size.height,
-          width: size.width,
-          padding: Constants.kPagePaddingNoDown,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "Habit Chain",
-                style: Styles.bigHeading,
-              ),
-              Constants.kVerySmallBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment:CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Workout",
-                    style: Styles.mediumHeading,
-                  ),
-                  TotalCoinsWidget(),
+        body: ChangeNotifierProvider(
+          create: (context)=>ChainProvider(habitId: habitId),
+          child: Consumer<ChainProvider>(
+            builder: (context,provider,child) {
+              if(provider.isLoading){
+                return Center(
+                  child: CustomCircularIndicator(),
+                );
+              }
+              List<Chain> chainList=provider.chainList;
+              if(chainList.length==0){
+                return Center(
+                  child: Text("You Have No Chain"),
+                );
+              }
 
-                ],
-              ),
-              Constants.kSmallBox,
-              Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              int currentChainNumber=0;
+              if(Chain.activatedChainIndex!=-1){
+                currentChainNumber=chainList[Chain.activatedChainIndex].count;
+                chainList.removeAt(Chain.activatedChainIndex);
+
+              }
+              return Container(
+                height: size.height,
+                width: size.width,
+                padding: Constants.kPagePaddingNoDown,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Habit Chain",
+                      style: Styles.bigHeading,
+                    ),
+                    Constants.kVerySmallBox,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment:CrossAxisAlignment.center,
                       children: [
                         Text(
-                            "Current Chain",
+                          habitName??"",
                           style: Styles.mediumHeading,
                         ),
-                        Constants.kSmallBox,
-                        MultipleChainWidget(
-                          chainNumber: 10,
+                        TotalCoinsWidget(
+                          point: provider.chainCoin,
                         ),
-                        Constants.kSmallBox,
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                                  "Completed",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                            Expanded(
-                                child: Text(
-                                  "15 days / 21 days"
-                                )
-                            ),
-                          ],
-                        ),
-                        Constants.kVerySmallBox,
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                                  "Leaderboard ends",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                )
-                            ),
-                            Expanded(
-                                child: Text(
-                                    "10 more days"
-                                )
-                            ),
-                          ],
-                        ),
-                        Constants.kSmallBox,
-
-                        BrokenChainWidget(brokenChainDays: brokenChainDays),
 
                       ],
                     ),
-                  )
-              ),
+                    Constants.kSmallBox,
+                    Expanded(
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Current Chain",
+                                style: Styles.mediumHeading,
+                              ),
+                              Constants.kSmallBox,
+                              MultipleChainWidget(
+                                chainNumber: currentChainNumber,
+                              ),
+                              Constants.kSmallBox,
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                        "Completed",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                          "$currentChainNumber days / 21 days"
+                                      )
+                                  ),
+                                ],
+                              ),
+                              Constants.kVerySmallBox,
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                        "Leaderboard ends",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Builder(
+                                          builder: (context) {
+                                            DateTime now = DateTime.now();
+                                            int todayDay=now.day;
+                                            int lastDay = DateTime(now.year, now.month + 1, 0).day;
+                                            return Text(
+                                                "${lastDay-todayDay} Days"
+                                            );
+                                          }
+                                      )
+                                  ),
+                                ],
+                              ),
+                              Constants.kSmallBox,
 
-            ],
+                              BrokenChainWidget(
+                                  brokenChainDays: chainList.map((e) => e.count).toList()
+                              ),
+
+                            ],
+                          ),
+                        )
+                    ),
+
+                  ],
+                ),
+              );
+            }
           ),
         ),
       ),

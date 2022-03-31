@@ -1,10 +1,14 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers, validators
 class ChangePasswordSerializer(serializers.Serializer):
     model = get_user_model()
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+class UserProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=('workout_progress','diet_progress','learning_progress','implementing_progress')
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:

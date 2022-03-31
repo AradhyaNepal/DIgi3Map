@@ -23,7 +23,9 @@ class MultipleChainWidget extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          child: Row(
+          child: chainNumber==0?Center(
+            child: Text("No Current Chain"),
+          ):Row(
             children: [
               for(int i=1;i<=chainNumber;i++)
                 Transform.translate(
@@ -33,6 +35,7 @@ class MultipleChainWidget extends StatelessWidget {
                       0
                   ),
                   child: SingleChainWidget(
+
                     dayNumber: i,
                   ),
                 ),

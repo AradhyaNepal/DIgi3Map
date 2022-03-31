@@ -12,6 +12,11 @@ import 'package:http/http.dart' as http;
 class MileStoneProvider with ChangeNotifier{
   List<MileStone> milestoneList=[];
   bool isLoading=true;
+  int? points;
+
+  MileStoneProvider(){
+    getUserTotalCoins();
+  }
 
 
   String getSubheading(String type,String heading){
@@ -42,6 +47,97 @@ class MileStoneProvider with ChangeNotifier{
       dietProgressJson="diet_progress",
       learningProgressJson="learning_progress",
       implementingProgressJson="implementing_progress";
+
+
+
+  static const String totalCoinJsonName="totalcoin";
+  Future<void> getUserTotalCoins() async{
+    points=null;
+    notifyListeners();
+    final sharedPreferences=await SharedPreferences.getInstance();
+    int userId=sharedPreferences.getInt(Service.userId)??0;
+    Uri uri=Uri.parse(Service.baseApi+Service.totalCoin+"$userId/");
+    await http.get(uri).then((response){
+      final responseData=json.decode(response.body);
+      points=responseData[totalCoinJsonName];
+      notifyListeners();
+    });
+  }
+
+  int? userId;
+  Future<void> clearHabit(int habitId) async{
+    print("Habit Id"+habitId.toString());
+    if(habitId>0){
+      Uri uri=Uri.parse(Service.baseApi+Service.habitLocation+"$habitId/");
+      await http.patch(
+          uri,
+        body: {
+            Habit.progressJson:"0"
+        }
+      );
+    }
+    else{
+      if(userId==null){
+        final sharedPreferences=await SharedPreferences.getInstance();
+        userId=sharedPreferences.getInt(Service.userId)??0;
+      }
+      Uri uri=Uri.parse(Service.baseApi+Service.userProgressJson+"$userId/");
+      Map<String,String> map={};
+      switch(habitId){
+        case workoutEnumId:
+          map={
+            workoutProgressJson:"0"
+          };
+          break;
+        case dietEnumId:
+          map={
+            dietProgressJson:"0"
+          };
+          break;
+        case learnEnumId:
+          map={
+            learningProgressJson:"0"
+          };
+          break;
+        case implementEnumId:
+          map={
+            implementingProgressJson:"0"
+          };
+          break;
+        default:
+          break;
+
+      }
+      await http.patch(
+        uri,
+        body: map
+      );
+    }
+
+  }
+  static const String amountJson="amount",remarkJson="remark",dateCollectedJson="dateCollected",userIdJson="user_id";
+  Future<void> collectCoin(int coin) async{
+    final sharedPreferences=await SharedPreferences.getInstance();
+    int userId=sharedPreferences.getInt(Service.userId)??0;
+    const String remark="MileStone Coin";
+    String dateCollected=DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString();
+    Uri uri=Uri.parse(Service.baseApi+Service.coinJson);
+    await http.post(
+        uri,
+      body:{
+        amountJson:coin.toString(),
+        remarkJson:remark,
+        dateCollectedJson:dateCollected,
+        userIdJson:userId.toString()
+      }
+    ).then((response){
+      final responseData=json.decode(response.body);
+      if(response.statusCode>299) throw HttpException(message: responseData.toString());
+      getUserTotalCoins();
+    });
+  }
+
+  static const workoutEnumId=0,dietEnumId=-1,learnEnumId=-2,implementEnumId=-3;
   Future<void> getMilestones() async{
     isLoading=true;
     notifyListeners();
@@ -52,10 +148,10 @@ class MileStoneProvider with ChangeNotifier{
     final responseData=json.decode(response.body);
     if(response.statusCode>299) throw HttpException(message: responseData.toString());
     milestoneList.clear();
-    milestoneList.add(MileStone(habitId:0,heading: "Workout", subheading: getSubheading(Habit.setsAndRepsName, "Workout"), coins: getCoin(Habit.setsAndRepsName), imageUrl: AssetsLocation.workoutImageLocation, progress: responseData[workoutProgressJson],compulsoryHabit: true));
-    milestoneList.add(MileStone(habitId:0,heading: "Diet", subheading: getSubheading(Habit.todoName, "Follow Diet"), coins: getCoin(Habit.todoName), imageUrl: AssetsLocation.snacksImageLocation, progress: responseData[dietProgressJson],compulsoryHabit: true));
-    milestoneList.add(MileStone(habitId:0,heading: "Learn Theory", subheading: getSubheading(Habit.timerName, "Learn Theory"), coins: getCoin(Habit.timerName), imageUrl: AssetsLocation.studyDummyLocation, progress: responseData[learningProgressJson],compulsoryHabit: true));
-    milestoneList.add(MileStone(habitId:0,heading: "Implement Practically", subheading: getSubheading(Habit.setsAndRepsName, "Implement Practically"), coins: getCoin(Habit.setsAndRepsName), imageUrl: AssetsLocation.anonymousImageLocation, progress: responseData[implementingProgressJson],compulsoryHabit: true));
+    milestoneList.add(MileStone(habitId:workoutEnumId,heading: "Workout", subheading: getSubheading(Habit.setsAndRepsName, "Workout"), coins: getCoin(Habit.setsAndRepsName), imageUrl: AssetsLocation.workoutImageLocation, progress: responseData[workoutProgressJson],compulsoryHabit: true));
+    milestoneList.add(MileStone(habitId:dietEnumId,heading: "Diet", subheading: getSubheading(Habit.todoName, "Follow Diet"), coins: getCoin(Habit.todoName), imageUrl: AssetsLocation.snacksImageLocation, progress: responseData[dietProgressJson],compulsoryHabit: true));
+    milestoneList.add(MileStone(habitId:learnEnumId,heading: "Learn Theory", subheading: getSubheading(Habit.timerName, "Learn Theory"), coins: getCoin(Habit.timerName), imageUrl: AssetsLocation.studyDummyLocation, progress: responseData[learningProgressJson],compulsoryHabit: true));
+    milestoneList.add(MileStone(habitId:implementEnumId,heading: "Implement Practically", subheading: getSubheading(Habit.setsAndRepsName, "Implement Practically"), coins: getCoin(Habit.setsAndRepsName), imageUrl: AssetsLocation.anonymousImageLocation, progress: responseData[implementingProgressJson],compulsoryHabit: true));
     Uri optionalUri= Uri.parse(Service.baseApi+Service.userHabits+"$userId/");
     response=await http.get(optionalUri);
     final responseData2=json.decode(response.body);
