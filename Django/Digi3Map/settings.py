@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-bpb8e+v*4nc*aiwil4f$ckr6he@qaj&x*i=8!+%vynd0cl#qqx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +43,8 @@ INSTALLED_APPS = [
     'habit',
     'Coins',
     'chain',
-    'GroupPortal'
+    'GroupPortal',
+    'TrophyAndEffect'
 ]
 AUTH_USER_MODEL = 'auth_pg.CustomUser'
 

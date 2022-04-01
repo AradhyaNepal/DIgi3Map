@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from habit.models import Habit
 from habit.serializer import HabitSerializer
+
+
 @api_view(['GET','POST'])
 def domain_list(request):
     if request.method=='GET':

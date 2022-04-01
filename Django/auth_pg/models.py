@@ -17,6 +17,8 @@ class CustomUser(AbstractUser):
     diet_progress=models.IntegerField(default=0)
     learning_progress=models.IntegerField(default=0)
     implementing_progress=models.IntegerField(default=0)
+    #userImage=models.ImageField(upload_to='images/')
+    
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
