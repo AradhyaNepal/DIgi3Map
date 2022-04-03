@@ -32,34 +32,36 @@ class _VengeanceEffectState extends State<VengeanceEffect> with TickerProviderSt
   final spikeRadius=const Radius.circular(2);
 
   final imageSize=50.0;
-  late final AnimationController controller;
+  late final AnimationController colorController;
   late final Animation colorAnimation;
   late final Animation sizeAnimation;
+  late final AnimationController sizeController;
   @override
   void initState() {
     super.initState();
-    controller=AnimationController(
+    colorController=AnimationController(
         vsync: this,
         duration: const Duration(seconds: 120)
-    );
+    )..repeat(reverse: true);
     colorAnimation=Tween(
       begin: 0.0,
       end: 360.0,
-    ).animate(controller);
-    controller.repeat();
+    ).animate(colorController);
 
+    sizeController=AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
     sizeAnimation=Tween(
       begin: 0.7,
       end: 1.3,
-    ).animate(AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    )..repeat(reverse: true));
+    ).animate(sizeController);
   }
   @override
   void dispose() {
+    colorController.dispose();
+    sizeController.dispose();
     super.dispose();
-    controller.dispose();
   }
 
   @override

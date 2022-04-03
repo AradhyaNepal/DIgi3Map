@@ -33,26 +33,36 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
 
   final imageSize=50.0;
   late final Animation colorAnimation;
+  late final AnimationController colorController;
   late final Animation sizeAnimation;
+  late final AnimationController sizeController;
   @override
   void initState() {
     super.initState();
+    colorController=AnimationController(
+      duration: const Duration(seconds: 20),
+      vsync: this,
+    )..repeat();
     colorAnimation=Tween(
       begin: 0.0,
       end: 100.0,
-    ).animate(AnimationController(
-      duration: const Duration(seconds: 20),
+    ).animate(colorController);
+    sizeController=AnimationController(
+      duration: const Duration(seconds: 3),
       vsync: this,
-    )..repeat());
+    )..repeat(reverse: true);
     sizeAnimation=Tween(
       begin: 0.6,
       end: 1,
-    ).animate(AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    )..repeat(reverse: true));
+    ).animate(sizeController);
   }
 
+  @override
+  void dispose() {
+    sizeController.dispose();
+    colorController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 

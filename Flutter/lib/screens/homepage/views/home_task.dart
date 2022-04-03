@@ -26,7 +26,7 @@ class _HomeTaskState extends State<HomeTask> {
     final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        endDrawer: Drawer(child: HomePageDrawer()),
+        endDrawer: Drawer(child: HomePageDrawer(oldContext: context,)),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           elevation: 0,

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Trophy,Effect,ActivatedTrophy
+from .models import Trophy,Effect,UserEffect
 
 class TrophySerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +11,7 @@ class EffectSerializer(serializers.ModelSerializer):
         model=Effect
         fields='__all__'
 
-class ActivatedTrophySerializer(serializers.ModelSerializer):
+class UserEffectSerializer(serializers.ModelSerializer):
     class Meta:
-        model=ActivatedTrophy
+        model=UserEffect
         fields='__all__'

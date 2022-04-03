@@ -11,7 +11,10 @@ import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
 import 'package:flutter/material.dart';
 
 class HomePageDrawer extends StatelessWidget {
-
+  final BuildContext oldContext;
+  HomePageDrawer({
+    required this.oldContext
+  });
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
@@ -125,9 +128,9 @@ class HomePageDrawer extends StatelessWidget {
                           }
                       ).then((value) {
                         if (value==true) {
-                          CustomSnackBar.showSnackBar(context, "Successfully Logged Out");
+                          CustomSnackBar.showSnackBar(oldContext, "Successfully Logged Out");
                           Auth().logOut();
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) =>  SplashPage()));
                         }
 

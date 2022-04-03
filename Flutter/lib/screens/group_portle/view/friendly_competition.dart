@@ -1,5 +1,6 @@
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/graph_time_widget.dart';
+import 'package:digi3map/screens/group_portle/provider/leaderboard_player.dart';
 import 'package:digi3map/screens/group_portle/widget/leaderboard_winner_points.dart';
 import 'package:digi3map/screens/group_portle/widget/others_leaderboard_widget.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -51,13 +52,13 @@ class FriendlyCompetition extends StatelessWidget {
                       style: Styles.mediumHeading,
                     ),
                     for(int i=0;i<10;i++)
-                      TopPlayerWidget(),
+                      TopPlayerWidget(players: LeaderboardPlayers(userId: 1, userName: "Aradhya Nepal", userCoin: 100, isAnonymous: true),),
                     Text(
                         "Others",
                       style: Styles.mediumHeading,
                     ),
                     for(int i=0;i<10;i++)
-                      OthersLeaderboardIndividual()
+                      OthersLeaderboardIndividual(player: LeaderboardPlayers(userId: 1, userName: "Aradhya Nepal", userCoin: 100, isAnonymous: true),)
                   ],
                 ),
               )

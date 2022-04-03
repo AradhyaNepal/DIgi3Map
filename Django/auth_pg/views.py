@@ -2,7 +2,7 @@ from lib2to3.pgen2 import token
 from urllib import request
 from django.contrib.auth import get_user_model
 from numpy import require
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from .serializer import ChangePasswordSerializer
+from .serializer import ChangePasswordSerializer,UserProfileSerializer,UserImageSerializer
 from rest_framework.permissions import IsAuthenticated  
 
 @api_view(['Post'])
@@ -102,3 +102,22 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    user=get_user_model().objects.get(id=request.user.id)
+    userSerialzer=UserProfileSerializer(user)
+    return Response(userSerialzer.data)
+
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def updateImage(request):
+    user=get_user_model().objects.get(id=request.user.id)
+    serializer=UserImageSerializer(user,data=request.data,partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

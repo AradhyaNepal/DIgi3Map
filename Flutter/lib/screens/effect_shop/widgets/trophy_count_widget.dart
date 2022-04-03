@@ -1,11 +1,14 @@
 
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TrophyCountWidget extends StatelessWidget {
+  final int? count;
   const TrophyCountWidget({
+    required this.count,
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +23,15 @@ class TrophyCountWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(3),
             border: Border.all(color: Colors.black,width: 1)
         ),
-        child: Row(
+        child: count==null?
+        SizedBox(
+          height: 40,
+          width: 50,
+          child: Center(
+            child: CustomCircularIndicator(),
+          ),
+        ):
+        Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
@@ -36,7 +47,7 @@ class TrophyCountWidget extends StatelessWidget {
               ),
             ),
             Text(
-                '10',
+                (count??0).toString(),
                 style:Styles.bigHeading
             )
           ],

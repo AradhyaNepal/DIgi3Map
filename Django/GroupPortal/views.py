@@ -11,7 +11,7 @@ from Coins.models import Coin
 from chain.models import Chain
 from habit.models import Habit
 from habit.models import Domain
-
+import json
 
 class UnCollectedLeaderboardApi(APIView):
     def get(self,request,user_id):
@@ -19,9 +19,7 @@ class UnCollectedLeaderboardApi(APIView):
         listOfLeaderboard=[]
         for single in leaderboards.iterator():
             listOfLeaderboard.append(single.id)
-        return Response({
-            "Result":str(listOfLeaderboard)
-        })  
+        return Response(listOfLeaderboard)  
 class LeaderboardApi(APIView):
     #permission_classes = [IsAuthenticated]
     def get(self,request,user_id):
@@ -73,12 +71,11 @@ class LeaderboardApi(APIView):
             return self.addOrCreateLeaderBoard(user_id=user_id)
         elif(len(outputList)==1):
             return Response({
-                "Waiting":True
+                "details":"Waiting"
             })
-        
-        return Response({
-            "output":str(outputList)
-        })
+        return Response(
+            outputList
+        )
     def addToAvailableLeaderboard(self):
         minStartedDate=datetime.datetime.now()-timedelta(days=30)
         leaderboards=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True)

@@ -1,5 +1,6 @@
 import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
+import 'package:digi3map/screens/practice/view.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

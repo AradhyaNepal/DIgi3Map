@@ -1,15 +1,19 @@
 
 import 'package:digi3map/common/classes/PlayAudio.dart';
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/data/models/effects_model.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/effect_shop/provider/shop_provider.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
-class ShopEffectsItemWidget extends StatelessWidget {
+class ShopEffectsItemWidget extends StatefulWidget {
   final int index;
   const ShopEffectsItemWidget({
     required this.index,
@@ -17,10 +21,23 @@ class ShopEffectsItemWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ShopEffectsItemWidget> createState() => _ShopEffectsItemWidgetState();
+}
+
+class _ShopEffectsItemWidgetState extends State<ShopEffectsItemWidget> {
+
+  late final EffectModel effectModel;
+  bool isLoading=false;
+  @override
+  void initState() {
+    super.initState();
+    effectModel=EffectData.effectData[widget.index];
+  }
+  @override
   Widget build(BuildContext context) {
-    EffectModel effectModel=EffectData.effectData[index];
-    int recommendedEffectId=EffectData.recommendedEffectId;
+
     return GestureDetector(
+
       onTap: (){
         Navigator.push(
             context,
@@ -123,10 +140,23 @@ class ShopEffectsItemWidget extends StatelessWidget {
                               Constants.kSmallBox,
                               Expanded(
                                 flex: 5,
-                                child: ElevatedButton(
+                                child: isLoading==true?
+                                CustomCircularIndicator():
+                                ElevatedButton(
                                     style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                                     onPressed: (){
+                                      setState(() {
+                                        isLoading=true;
+                                      });
+                                        Provider.of<ShopProvider>(context,listen: false).buyEffect(effectId: effectModel.id).then((value){
 
+                                          CustomSnackBar.showSnackBar(context, "Successfully Bought");
+                                        }).onError((error, stackTrace){
+                                          CustomSnackBar.showSnackBar(context, error.toString());
+                                        });
+                                        setState(() {
+                                          isLoading=false;
+                                        });
                                     },
                                     child: Text(
                                       'Buy',

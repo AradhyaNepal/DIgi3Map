@@ -3,6 +3,7 @@ import 'package:digi3map/data/models/effects_model.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
+import 'package:digi3map/screens/user_profile/provider/user_profile_provider.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
 import 'package:digi3map/screens/user_profile/widgets/activated_effect.dart';
 import 'package:digi3map/screens/user_profile/widgets/copying_social_widget.dart';
@@ -64,7 +65,7 @@ class UserOtherProfile extends StatelessWidget {
                         style: Styles.mediumHeading,
                       ),
                       ActivatedEffect(
-                        effectModel: EffectData.effectData[0],
+                        effectModel: ActivatedEffectModel(activatedDate: '2020-02-10', effectId: 1),
                       ),
                       Constants.kSmallBox,
                     ],

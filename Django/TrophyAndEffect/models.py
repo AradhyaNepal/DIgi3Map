@@ -19,10 +19,10 @@ class Effect(models.Model):
     def __str__(self):
         return self.name
 
-class UserTrophy(models.Model):
+class UserEffect(models.Model):
     user_id=models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     effect_id=models.ForeignKey(Effect,on_delete=models.CASCADE)
     activatedDate=models.DateField(null=True,blank=True)
 
     def __str__(self):
-        return str(self.user_id)+": "+str(self.activatedDate)
+        return str(self.user_id)+": "+str(self.effect_id.name)

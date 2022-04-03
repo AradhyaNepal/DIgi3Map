@@ -65,7 +65,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-#ALLOWED_HOSTS = ['192.168.40.225', 'localhost']
+ALLOWED_HOSTS = ['192.168.254.32', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,12 +1,15 @@
 
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/group_portle/provider/leaderboard_player.dart';
 import 'package:digi3map/screens/group_portle/widget/user_popup_testing.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OthersLeaderboardIndividual extends StatelessWidget {
-  const OthersLeaderboardIndividual({
+  LeaderboardPlayers player;
+  OthersLeaderboardIndividual({
+    required this.player,
     Key? key,
   }) : super(key: key);
 
@@ -43,18 +46,16 @@ class OthersLeaderboardIndividual extends StatelessWidget {
                 flex: 3,
                 child: FittedBox(
                   child: Text(
-                    "Aaradhya Nepal",
+                    player.userName,
                     style: Styles.bigHeading,
                   ),
                 ),
               ),
               SizedBox(width: 20,),
               Expanded(
-                child: FittedBox(
-                  child: Text(
-                    "100",
-                    style: Styles.bigHeading,
-                  ),
+                child: Text(
+                  player.userCoin.toString(),
+                  style: Styles.bigHeading,
                 ),
               ),
 

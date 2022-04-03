@@ -33,25 +33,36 @@ class _HopeEffectState extends State<HopeEffect> with TickerProviderStateMixin {
 
   final imageSize=50.0;
   late final Animation colorAnimation;
+  late final AnimationController colorController;
   late final Animation sizeAnimation;
+  late final AnimationController sizeController;
   @override
   void initState() {
     super.initState();
+    colorController=AnimationController(
+      duration: const Duration(seconds: 30),
+      vsync: this,
+    )..repeat();
     colorAnimation=Tween(
       begin: 100.0,
       end: 0.0,
-    ).animate(AnimationController(
-      duration: const Duration(seconds: 30),
-      vsync: this,
-    )..repeat());
+    ).animate(colorController);
 
+    sizeController=AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
     sizeAnimation=Tween(
       begin: 0.7,
       end: 1.3,
-    ).animate(AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    )..repeat(reverse: true));
+    ).animate(sizeController);
+  }
+
+  @override
+  void dispose() {
+    colorController.dispose();
+    sizeController.dispose();
+    super.dispose();
   }
 
   @override

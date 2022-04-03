@@ -6,6 +6,9 @@ urlpatterns=[
     path('login/',views.login_api),
     path('user/<int:pk>/',views.get_user_data),
     path('register/',views.register_api),
+    path('userProfile/',views.getUserProfile),
+    
+    path('updateImage/',views.updateImage),
     path('logout/',knox_view.LogoutView.as_view()),
     path('userProgressUpdate/<int:id>/',views.update_user),
     path('changepass/',views.ChangePasswordView.as_view()),

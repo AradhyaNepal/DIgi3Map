@@ -9,7 +9,15 @@ class UserProgressSerializer(serializers.ModelSerializer):
         model=get_user_model()
         fields=('workout_progress','diet_progress','learning_progress','implementing_progress')
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=('id','userImage','username','email')
 
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=['userImage']
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()

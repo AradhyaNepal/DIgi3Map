@@ -1,13 +1,17 @@
 
 import 'package:digi3map/common/classes/PlayAudio.dart';
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/data/models/effects_model.dart';
 import 'package:digi3map/screens/group_portle/view/effects_testing_page.dart';
+import 'package:digi3map/screens/user_profile/provider/user_profile_provider.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class InventoryEffectIndividual extends StatelessWidget {
+class InventoryEffectIndividual extends StatefulWidget {
   final int count;
   final EffectModel effectModel;
   const InventoryEffectIndividual({
@@ -17,12 +21,18 @@ class InventoryEffectIndividual extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<InventoryEffectIndividual> createState() => _InventoryEffectIndividualState();
+}
+
+class _InventoryEffectIndividualState extends State<InventoryEffectIndividual> {
+  bool isLoading=false;
+  @override
   Widget build(BuildContext context) {
-    return count==0?SizedBox():
+    return widget.count==0?SizedBox():
     GestureDetector(
       onTap: (){
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EffectTestingPage(effectType: effectModel.effectType)));
+            MaterialPageRoute(builder: (context) => EffectTestingPage(effectType: widget.effectModel.effectType)));
       },
       child: Card(
           elevation: 5,
@@ -45,7 +55,7 @@ class InventoryEffectIndividual extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Image.asset(
-                                  effectModel.imageLocation
+                                  widget.effectModel.imageLocation
                               ),
                             ),
                           ),
@@ -53,7 +63,7 @@ class InventoryEffectIndividual extends StatelessWidget {
                         Constants.kVerySmallBox,
 
                         Text(
-                          effectModel.name,
+                          widget.effectModel.name,
                           textAlign: TextAlign.center,
                           style:Styles.smallHeading ,
                         )
@@ -71,13 +81,13 @@ class InventoryEffectIndividual extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: Text(
-                                  "Symbol of ${effectModel.symbolicName}",
+                                  "Symbol of ${widget.effectModel.symbolicName}",
                                   style: Styles.mediumHeading,
                                 ),
                               ),
                               IconButton(
                                 onPressed: (){
-                                  PlayAudio.playAudio(effectModel.soundLocation);
+                                  PlayAudio.playAudio(widget.effectModel.soundLocation);
                                 },
                                 icon: Icon(
                                     Icons.volume_up_outlined
@@ -87,7 +97,7 @@ class InventoryEffectIndividual extends StatelessWidget {
                           ),
                           Constants.kVerySmallBox,
                           Text(
-                            effectModel.description,
+                            widget.effectModel.description,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold
                             ),
@@ -97,11 +107,28 @@ class InventoryEffectIndividual extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "x$count",
+                                "x${widget.count}",
                                 style: Styles.bigHeading,
                               ),
-                              ElevatedButton(
-                                  onPressed: (){},
+                              isLoading?CustomCircularIndicator():ElevatedButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      isLoading=true;
+                                    });
+                                    Provider.of<UserProfileProvider>(context,listen: false).activateEffect(widget.effectModel.id).then((value) {
+                                      setState(() {
+                                        isLoading=false;
+                                      });
+
+                                      CustomSnackBar.showSnackBar(context, "Successfully Activated The Effect");
+                                    }).onError((error, stackTrace){
+                                      setState(() {
+                                        isLoading=false;
+                                      });
+                                      CustomSnackBar.showSnackBar(context, error.toString());
+                                    });
+
+                                  },
                                   child: Text(
                                     "Use",
                                     style: Styles.mediumHeading,
