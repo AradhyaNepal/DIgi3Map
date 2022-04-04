@@ -25,7 +25,7 @@ class HabitDetailApiView(APIView):
     def get(self,request,id):
         try:
             habit= Habit.objects.get(id=id)
-            
+        
             serializer=HabitSerializer(habit)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         except Habit.DoesNotExist:

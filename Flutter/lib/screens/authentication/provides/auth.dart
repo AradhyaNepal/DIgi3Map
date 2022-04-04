@@ -15,6 +15,7 @@ class Auth with ChangeNotifier{
 
   String get token=>_token;
   Future<void> login(String email,String password) async{
+    print("Email "+email+" Password "+password);
     Uri uri=Uri.parse(Service.baseApi+Service.loginApi);
     http.Response response=await http.post(
         uri,
@@ -47,6 +48,7 @@ class Auth with ChangeNotifier{
     sharedPreferences.setString(Service.tokenPrefKey, Service.emptyTokenValue);
     sharedPreferences.setString(Service.passwordPrefKey, Service.emptyTokenValue);
     sharedPreferences.setInt(Service.userId, 0);
+    sharedPreferences.setInt(Service.activatedEffectId,0);
   }
 
   Future<void> signUp({

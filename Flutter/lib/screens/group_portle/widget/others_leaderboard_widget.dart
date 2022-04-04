@@ -1,5 +1,6 @@
 
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/group_portle/provider/leaderboard_player.dart';
 import 'package:digi3map/screens/group_portle/widget/user_popup_testing.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -36,26 +37,41 @@ class OthersLeaderboardIndividual extends StatelessWidget {
                         }
                     );
                   },
-                  child: Image.asset(
-                      AssetsLocation.userDummyProfileLocation
+                  child:ClipOval(
+                    child: SizedBox(
+                      height: 50,
+                      child: player.userImage==null|| player.userImage==""?Image.asset(
+                          AssetsLocation.userDummyProfileLocation
+                      ):Image.network(
+                          Service.baseApi+"media/"+(player.userImage??"")
+                      ),
+                    ),
                   ),
                 ),
               ),
               SizedBox(width: 20,),
               Expanded(
                 flex: 3,
-                child: FittedBox(
-                  child: Text(
-                    player.userName,
-                    style: Styles.bigHeading,
-                  ),
-                ),
+                child:Column(
+                  children: [
+                    Text(
+                      player.userName.substring(0,1).toUpperCase()+player.userName.substring(1).toLowerCase(),
+                      style: Styles.smallHeading,
+                    ),
+                    player.isUser?Text(
+                      "(You)",
+                      style: TextStyle(
+                          color: Colors.black
+                      ),
+                    ):SizedBox(),
+                  ],
+                )
               ),
               SizedBox(width: 20,),
               Expanded(
                 child: Text(
                   player.userCoin.toString(),
-                  style: Styles.bigHeading,
+                  style: Styles.mediumHeading,
                 ),
               ),
 

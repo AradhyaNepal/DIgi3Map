@@ -1,5 +1,8 @@
 class Service{
   static const String tokenPrefKey="token";
+  static const String getMessageJson="getMessage/";
+  static const String sendMessageJson="sendMessage/";
+  static const String leaderboardPrefKey="leaderboard";
   static const String passwordPrefKey="password";
   static const String userId="userId";
   static const String collectUserTrophyApi="collectUserTrophy/";
@@ -9,10 +12,11 @@ class Service{
   static const String playSound="sound";
   static const String buyEffectApi="buyEffect/";
   static const String activateEffect="activateEffect/";
-  static const String activatedEffectApi="activateEffect/";
+  static const String activatedEffectApi="getUserActivatedEffects/";
   static const String emptyTokenValue="null";
   static const String baseApiNoDash="http://192.168.254.32:8000";
   static const String baseApi=baseApiNoDash+"/";
+  static const String activatedEffectId="activatedEffectId";
   static const String leaderboardApi="getLeaderboard/";
   static const String userProfileApi="api/userProfile/";
   static const String inventoryApi="getUserAllEffects/";

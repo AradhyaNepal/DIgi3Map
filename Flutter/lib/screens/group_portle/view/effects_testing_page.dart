@@ -4,6 +4,7 @@ import 'package:digi3map/screens/group_portle/widget/death_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/hope_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/lighting_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/passion_effect.dart';
+import 'package:digi3map/screens/group_portle/widget/send_message_testing_widget.dart';
 import 'package:digi3map/screens/group_portle/widget/send_message_widget.dart';
 import 'package:digi3map/screens/group_portle/widget/vengeance_effect.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -36,7 +37,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      _controller.text="";
+      _controller.text="\t";
       addInToList();
     });
   }
@@ -67,7 +68,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
                     },
                   ),
                 ),
-                SendMessageWidget(
+                SendMessageTestingWidget(
                   addToList: addInToList,
                   controller: _controller,
                 )
@@ -89,7 +90,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: true,
         );
         effectWidgetRight=DeathEffect(
@@ -97,7 +98,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: false,
         );
         break;
@@ -107,7 +108,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: true,
         );
         effectWidgetRight=LightingEffect(
@@ -115,7 +116,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: false,
         );
         break;
@@ -125,7 +126,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: true,
         );
         effectWidgetRight=VengeanceEffect(
@@ -133,7 +134,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: false,
         );
         break;
@@ -143,7 +144,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: true,
         );
         effectWidgetRight=PassionEffect(
@@ -151,7 +152,7 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: false,
         );
         break;
@@ -160,14 +161,14 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: true,
         );
         effectWidgetRight=HopeEffect(
           key: ValueKey(_controller.text),
           message: _controller.text,
           sender: "Aradhya Nepal",
-          time: DateTime.now().toIso8601String(),
+          time: "11:30",
           leftAlign: false,
         );
         break;
@@ -175,8 +176,8 @@ class _EffectTestingPageState extends State<EffectTestingPage> {
     }
     _messageWidget=[
       effectWidgetRight,
-      BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "",leftAlign: true,),
-      BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "",leftAlign: false),
+      BasicEffect(image:null,message: _controller.text, sender: "Aradhya Nepal", time: "11:30",leftAlign: true,),
+      BasicEffect(image:null,message: _controller.text, sender: "Aradhya Nepal", time:"11:30",leftAlign: false),
       effectWidgetLeft,
       ..._messageWidget,
     ];

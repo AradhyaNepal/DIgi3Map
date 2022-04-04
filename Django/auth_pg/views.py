@@ -1,5 +1,3 @@
-from lib2to3.pgen2 import token
-from urllib import request
 from django.contrib.auth import get_user_model
 from numpy import require
 from rest_framework.decorators import api_view,permission_classes
@@ -7,11 +5,9 @@ from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
 from .serializer import RegisterSerializer, UserProgressSerializer
-from auth_pg import serializer
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
-from django.contrib.auth.models import User
 from .serializer import ChangePasswordSerializer,UserProfileSerializer,UserImageSerializer
 from rest_framework.permissions import IsAuthenticated  
 

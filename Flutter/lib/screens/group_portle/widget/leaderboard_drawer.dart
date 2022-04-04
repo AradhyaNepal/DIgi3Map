@@ -62,7 +62,7 @@ class LeaderBoardDrawer extends StatelessWidget {
                         Icons.message,
                         color: Colors.grey.withOpacity(0.4),
                       ),
-                      title: Text("Group Chat Portal"),
+                      title: Text("Group Chat"),
                     ),
                   ),
                 ),

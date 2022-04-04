@@ -31,7 +31,7 @@ class FocusWidget extends StatelessWidget {
               ],
             ),
             Text(
-              isBalanced?'Balanced':'Over Focus',
+              isBalanced?'Balanced':percentage>30?'Over Focus':"Under Focused",
               textAlign: TextAlign.center,
               style: Styles.blueHighlight,
             )

@@ -1,3 +1,5 @@
+from dataclasses import field
+from pyexpat import model
 from django.contrib.auth import get_user_model
 from rest_framework import serializers, validators
 class ChangePasswordSerializer(serializers.Serializer):
@@ -18,6 +20,11 @@ class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
         model=get_user_model()
         fields=['userImage']
+
+class UserNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=["id",'username',"userImage"]
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()

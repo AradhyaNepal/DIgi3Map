@@ -1,9 +1,15 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/screens/group_portle/provider/group_chat_provider.dart';
 import 'package:digi3map/screens/group_portle/widget/basic_effect.dart';
+import 'package:digi3map/screens/group_portle/widget/death_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/group_chat_top_view.dart';
+import 'package:digi3map/screens/group_portle/widget/hope_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/join_call_widget.dart';
+import 'package:digi3map/screens/group_portle/widget/lighting_effect.dart';
+import 'package:digi3map/screens/group_portle/widget/passion_effect.dart';
 import 'package:digi3map/screens/group_portle/widget/send_message_widget.dart';
+import 'package:digi3map/screens/group_portle/widget/vengeance_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,14 +22,7 @@ class GroupChat extends StatefulWidget {
 }
 
 class _GroupChatState extends State<GroupChat> {
-  List<BasicEffect> chatMessage=[];
-  @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      addToList();
-    });
-    super.initState();
-  }
+
 
   final TextEditingController _controller=TextEditingController();
 
@@ -43,20 +42,28 @@ class _GroupChatState extends State<GroupChat> {
                 GroupChatTopView(),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal:Constants.kPaddingValue/2),
+                    padding: const EdgeInsets.symmetric(horizontal:Constants.kPaddingValue/2),
                     child: Column(
 
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
 
                         Expanded(
-                          child: ListView.builder(
-                              reverse: true,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: chatMessage.length,
-                              itemBuilder: (context,index){
-                                return chatMessage[index];
-                              }
+                          child: Consumer<GroupChatProvider>(
+                            builder: (context,provider,child) {
+                              return provider.isLoading?
+                              const Center(
+                                child: CustomCircularIndicator(),
+                              ):
+                              ListView.builder(
+                                  reverse: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: provider.chatList.length,
+                                  itemBuilder: (context,index){
+                                    return getEffect(provider.chatList[index],!(provider.userId==provider.chatList[index].userId));
+                                  }
+                              );
+                            }
                           ),
                         ),
                         Consumer<GroupChatProvider>(
@@ -71,10 +78,7 @@ class _GroupChatState extends State<GroupChat> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:0,horizontal: 10),
-                  child: SendMessageWidget(
-                      controller: _controller,
-                      addToList: addToList
-                  ),
+                  child: SendMessageWidget(),
                 )
               ],
             ),
@@ -84,16 +88,44 @@ class _GroupChatState extends State<GroupChat> {
     );
   }
 
-  void addToList(){
-    FocusScope.of(context).unfocus();
-    chatMessage=[
-      BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "18:30",leftAlign: false,),
-      BasicEffect(message: _controller.text, sender: "Aradhya Nepal", time: "18:30",leftAlign: true,),
-      ...chatMessage,
-    ];
-    _controller.text="";
-    setState(() {
+  Widget getEffect(ChatModel chatModel,bool leftAlign){
 
-    });
+    switch(chatModel.chatEffect){
+      case 1:
+        return DeathEffect(
+          userImage: chatModel.image,
+            message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign,
+        );
+      case 2:
+        return LightingEffect(
+            userImage: chatModel.image,
+            message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
+        );
+      case 3:
+        return VengeanceEffect(
+            userImage: chatModel.image,
+            message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
+        );
+      case 4:
+        return PassionEffect(
+            userImage: chatModel.image,
+            message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
+        );
+      case 5:
+        return HopeEffect(
+            userImage: chatModel.image,
+            message: chatModel.message, sender: chatModel.username, time:chatModel.effectTime,leftAlign: leftAlign
+        );
+
+      default:
+        return BasicEffect(
+            message: chatModel.message,
+            sender: chatModel.username,
+            time:chatModel.effectTime,
+            leftAlign: leftAlign,
+          image: chatModel.image,
+        );
+    }
   }
+
 }

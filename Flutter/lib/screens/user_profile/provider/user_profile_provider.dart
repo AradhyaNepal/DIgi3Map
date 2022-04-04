@@ -30,10 +30,12 @@ class UserProfileDetails{
   }
 }
 class UserProfileProvider with ChangeNotifier{
-  UserProfileProvider(){
-    getUserDetails().then((value) {
-      getInventory(notify: true);
-    });
+  UserProfileProvider({bool loadData=true}){
+    if(loadData){
+      getUserDetails().then((value) {
+        getInventory(notify: true);
+      });
+    }
   }
   UserProfileDetails? details;
 
@@ -110,6 +112,7 @@ class UserProfileProvider with ChangeNotifier{
     }
     loadingInventory=false;
     notifyListeners();
+    getActivatedEffect();
 
 
   }
@@ -145,10 +148,14 @@ class UserProfileProvider with ChangeNotifier{
 
   ActivatedEffectModel? activatedEffect;
 
+
   Future<void> getActivatedEffect() async{
+    print("I was here 123");
     final sharedPref=await SharedPreferences.getInstance();
     String token=sharedPref.getString(Service.tokenPrefKey)??"";
     Uri uri=Uri.parse(Service.baseApi+Service.activatedEffectApi);
+    print(uri.toString());
+
     http.Response response=await http.get(
       uri,
       headers: {
@@ -160,9 +167,12 @@ class UserProfileProvider with ChangeNotifier{
     try{
       activatedEffect=ActivatedEffectModel.fromMap(responseData[0]);
       notifyListeners();
+      final sharedPref= await SharedPreferences.getInstance();
+      sharedPref.setInt(Service.activatedEffectId, responseData[0]["effect_id"]);
+      print("I was here for activated effect "+sharedPref.getInt(Service.activatedEffectId).toString());
     // ignore: empty_catches
     }catch(e){
-
+      rethrow;
     }
 
 

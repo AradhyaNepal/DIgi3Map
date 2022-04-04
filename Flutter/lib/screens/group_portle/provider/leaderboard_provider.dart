@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:digi3map/common/classes/HttpException.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/group_portle/provider/leaderboard_player.dart';
+import 'package:digi3map/screens/user_profile/provider/user_profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,8 @@ import 'package:http/http.dart' as http;
 class LeaderboardProvider with ChangeNotifier{
 
   LeaderboardProvider(){
+
+    UserProfileProvider(loadData: false).getActivatedEffect();
     getLeaderboard().then((value){
       checkUnCollectedTrophy();
     });
@@ -56,8 +59,8 @@ class LeaderboardProvider with ChangeNotifier{
     final sharedPref=await SharedPreferences.getInstance();
     int userId=sharedPref.getInt(Service.userId)??0;
     Uri uri=Uri.parse(Service.baseApi+Service.leaderboardApi+"$userId/");
-    print(uri.toString());
     http.Response response=await http.get(uri);
+    print(uri.toString());
     final responseData=json.decode(response.body);
 
     try{
@@ -77,17 +80,21 @@ class LeaderboardProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  void getValue(dynamic responseData,int userId){
-    print("I was here");
+  void getValue(dynamic responseData,int userId) async{
     highestUserId=responseData[0][LeaderboardPlayers.userIdJson];
     int highestCoin=0;
+    int leaderboardId=0;
     for (Map<String,dynamic> resultMap in responseData){
       playersList.add(LeaderboardPlayers.fromMap(resultMap,resultMap[LeaderboardPlayers.userIdJson]==userId));
       if(resultMap[LeaderboardPlayers.coinJson]>highestCoin){
         highestCoin=resultMap[LeaderboardPlayers.coinJson];
         highestUserId=resultMap[LeaderboardPlayers.userIdJson];
+        print(resultMap);
+        leaderboardId=resultMap["leaderboard_id"];
       }
     }
+    final sharedPrefs=await SharedPreferences.getInstance();
+    sharedPrefs.setInt(Service.leaderboardPrefKey, leaderboardId);
   }
 
   static Future<void> collectTrophy(List<int> leaderBoardsList) async{
@@ -104,9 +111,6 @@ class LeaderboardProvider with ChangeNotifier{
       );
         final responseData=json.decode(response.body);
         if(response.statusCode>299) throw HttpException(message:responseData.toString());
-        print("Error "+responseData.toString());
-
-
     }
 
   }

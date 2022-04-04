@@ -1,6 +1,5 @@
-
 from django.db import models
-
+from TrophyAndEffect.models import Effect
 from django.contrib.auth import get_user_model
 # Create your models here.
 # Create your models here.
@@ -18,3 +17,11 @@ class LeaderboardPlayers(models.Model):
     player_id=models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     def __str__(self):
         return str(self.leaderboard_id)
+
+
+class Chat(models.Model):
+    chat_effect=models.ForeignKey(Effect,on_delete=models.CASCADE,null=True,blank=True)
+    time=models.DateTimeField()
+    leaderboard_id=models.ForeignKey(Leaderboard,on_delete=models.CASCADE)
+    user_id=models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
+    message=models.CharField(max_length=250)

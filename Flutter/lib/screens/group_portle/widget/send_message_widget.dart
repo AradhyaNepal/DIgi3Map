@@ -1,15 +1,24 @@
 
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
+import 'package:digi3map/screens/group_portle/provider/group_chat_provider.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SendMessageWidget extends StatelessWidget {
-  final TextEditingController controller;
-  final Function addToList;
-  const SendMessageWidget({
-    required this.controller,
-    required this.addToList,
+class SendMessageWidget extends StatefulWidget {
+
+  SendMessageWidget({
     Key? key
   }) : super(key: key);
+
+  @override
+  State<SendMessageWidget> createState() => _SendMessageWidgetState();
+}
+
+class _SendMessageWidgetState extends State<SendMessageWidget> {
+  bool isSending=false;
+  final TextEditingController controller=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,35 +34,82 @@ class SendMessageWidget extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-              child: TextField(
-                keyboardType: TextInputType.multiline,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (value){
-                  addToList();
-                },
-                maxLines: 100,
-                maxLength: 254,
-                decoration: InputDecoration(
-                    hintText: "Type Your Message Here....",
-                    counterText: "",
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none
+              child: Consumer<GroupChatProvider>(
+                builder: (context,provider,child) {
+                  return TextField(
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (value){
+                      setState(() {
+                        isSending=true;
+                      });
+                      provider.sendMessage(controller.text).then((value){
+                        controller.text="";
 
-                ),
-                controller: controller,
+                        isSending=false;
+
+                        FocusScope.of(context).unfocus();
+                        setState(() {
+
+                        });
+                      }).onError((error, stackTrace) {
+                        CustomSnackBar.showSnackBar(context, error.toString());
+                        isSending=false;
+                        setState(() {
+
+                        });
+                      });
+
+
+                      },
+                    maxLines: 100,
+                    maxLength: 254,
+                    decoration: InputDecoration(
+                        hintText: "Type Your Message Here....",
+                        counterText: "",
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none
+
+                    ),
+                    controller: controller,
+                  );
+                }
               )
           ),
-          IconButton(
-              onPressed: (){
-                addToList();
-              },
-              icon: Icon(
-                Icons.send,
-                color: ColorConstant.kBlueColor,
-              )
+          Consumer<GroupChatProvider>(
+            builder: (context,provider,child) {
+              return isSending?CustomCircularIndicator():IconButton(
+                  onPressed: (){
+                    setState(() {
+                      isSending=true;
+                    });
+                    provider.sendMessage(controller.text).then((value){
+                      controller.text="";
+
+                      isSending=false;
+                      FocusScope.of(context).unfocus();
+                      setState(() {
+
+                      });
+                    }).onError((error, stackTrace) {
+                      CustomSnackBar.showSnackBar(context, error.toString());
+                      isSending=false;
+                      setState(() {
+
+                      });
+                    });
+                  },
+                  icon: Icon(
+                    Icons.send,
+                    color: ColorConstant.kBlueColor,
+                  )
+              );
+            }
           )
         ],
       ),
     );
   }
+
+
 }

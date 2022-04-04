@@ -42,11 +42,15 @@ class GroupChatTopView extends StatelessWidget {
                     color: Colors.white
                 ),
               ),
-              Text(
-                "5 Players Online now",
-                style: TextStyle(
-                    color: Colors.white
-                ),
+              Consumer<GroupChatProvider>(
+                builder: (context,provider,child) {
+                  return Text(
+                    "5 Players Online now",
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  );
+                }
               ),
               SizedBox(height: 10,),
             ],

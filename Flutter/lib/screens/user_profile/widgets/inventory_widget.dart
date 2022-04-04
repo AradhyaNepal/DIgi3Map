@@ -28,7 +28,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
     return Consumer<UserProfileProvider>(
       builder: (context,provider,child) {
         if(provider.loadingInventory){
-          return CustomCircularIndicator();
+          return Center(child: CustomCircularIndicator());
         }
 
         return provider.userEffectCount.isEmpty?SizedBox():Column(

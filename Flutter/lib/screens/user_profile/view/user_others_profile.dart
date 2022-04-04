@@ -65,7 +65,7 @@ class UserOtherProfile extends StatelessWidget {
                         style: Styles.mediumHeading,
                       ),
                       ActivatedEffect(
-                        effectModel: ActivatedEffectModel(activatedDate: '2020-02-10', effectId: 1),
+                        activatedEffect: ActivatedEffectModel(activatedDate: '2020-02-10', effectId: 1),
                       ),
                       Constants.kSmallBox,
                     ],

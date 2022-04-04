@@ -92,7 +92,7 @@ class UserSelfProfile extends StatelessWidget {
                               builder: (context,provider,child) {
                                 return provider.activatedEffect==null?
                                 SizedBox():ActivatedEffect(
-                                  effectModel: provider.activatedEffect!,
+                                  activatedEffect: provider.activatedEffect!,
                                 );
                               }
                             ),

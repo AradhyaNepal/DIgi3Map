@@ -1,5 +1,6 @@
 import 'package:digi3map/common/classes/PlayAudio.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -13,11 +14,12 @@ class DeathEffect extends StatelessWidget {
   final normalRadius=const Radius.circular(10);
   final spikeRadius=const Radius.circular(2);
   final imageSize=50.0;
-
+  final String? userImage;
   const DeathEffect({
     required this.message,
     required this.sender,
     required this.time,
+    this.userImage,
     this.leftAlign=true,
     Key? key
   }) : super(key: key);
@@ -64,6 +66,8 @@ class DeathEffect extends StatelessWidget {
                                 flex: 4,
                                 child: Text(
                                   sender,
+
+                                  key:ValueKey(sender),
                                   style: Styles.smallHeading,
                                 ),
                               ),
@@ -82,6 +86,8 @@ class DeathEffect extends StatelessWidget {
                             ],
                           ),
                           ProfileEditableDescriptionWidget(
+
+                            key:ValueKey(message),
                             editable: false,
                             isMessage: true,
                             description: ValueNotifier(message),
@@ -90,7 +96,9 @@ class DeathEffect extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "11:00 pm",
+                            time,
+
+                            key:ValueKey(time),
                             textAlign: leftAlign?TextAlign.left:TextAlign.right,
                             style: TextStyle(
                               fontWeight: FontWeight.bold
@@ -106,7 +114,13 @@ class DeathEffect extends StatelessWidget {
           Align(
             alignment: leftAlign?Alignment.centerLeft:Alignment.centerRight,
             child: ClipOval(
-              child: Image.asset(
+              child: userImage!=null?
+              Image.network(
+                Service.baseApiNoDash+userImage!,
+                height: imageSize,
+                width: imageSize,
+                fit: BoxFit.cover,
+              ): Image.asset(
                 AssetsLocation.userDummyProfileLocation,
                 height: imageSize,
                 width: imageSize,

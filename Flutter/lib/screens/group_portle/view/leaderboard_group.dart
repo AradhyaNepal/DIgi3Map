@@ -32,10 +32,10 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
             return Scaffold(
               endDrawer: Drawer(child: LeaderBoardDrawer()),
               appBar: AppBar(
-                iconTheme: IconThemeData(color: Colors.black),
+                iconTheme: const IconThemeData(color: Colors.black),
                 elevation: 0,
                 backgroundColor: Colors.white,
-                title:  SizedBox(
+                title:  const SizedBox(
                     height: 30,
                     width: 100,
                     child: FittedBox(
@@ -50,7 +50,7 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                 child: Builder(
                   builder: (context) {
                     if(provider.isLoading){
-                      return Center(
+                      return const Center(
                         child: CustomCircularIndicator(),
                       );
                     }
@@ -69,7 +69,7 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                     }
                     if(provider.waiting){
 
-                      return Center(
+                      return const Center(
                         child: Text(
                           "Waiting For Other Players To Join"
                         ),
@@ -79,12 +79,12 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
+                        const Text(
                             "Monthly Leaderboard",
                           style: Styles.bigHeading,
                         ),
                         Constants.kSmallBox,
-                        Text(
+                        const Text(
                           "Top Player",
                           style: Styles.mediumHeading,
                         ),
@@ -92,14 +92,14 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                         Builder(
                           builder: (context) {
                             LeaderboardPlayers? player=provider.winnerPlayer;
-                            if(player==null) return SizedBox();
+                            if(player==null) return const SizedBox();
                             return TopPlayerWidget(
                               players: player,
                             );
                           }
                         ),
                         Constants.kSmallBox,
-                        Text(
+                        const Text(
                           "Others",
                           style: Styles.mediumHeading,
                         ),

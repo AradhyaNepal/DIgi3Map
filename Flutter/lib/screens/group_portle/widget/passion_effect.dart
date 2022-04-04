@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:digi3map/common/classes/PlayAudio.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -12,8 +13,9 @@ class PassionEffect extends StatefulWidget {
   final String sender;
   final String time;
   final bool leftAlign;
-
+  final String? userImage;
   const PassionEffect({
+    this.userImage,
     required this.message,
     required this.sender,
     required this.time,
@@ -125,6 +127,8 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
                                       flex: 4,
                                       child: Text(
                                         widget.sender,
+
+                                        key:ValueKey(widget.sender),
                                         style: Styles.smallHeading,
                                       ),
                                     ),
@@ -143,6 +147,8 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
                                   ],
                                 ),
                                 ProfileEditableDescriptionWidget(
+
+                                  key:ValueKey(widget.message),
                                   editable: false,
                                   isMessage: true,
                                   description: ValueNotifier(widget.message),
@@ -151,7 +157,9 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
                                   ),
                                 ),
                                 Text(
-                                  "11:00 pm",
+                                  widget.time,
+
+                                  key:ValueKey(widget.time),
                                   textAlign: widget.leftAlign?TextAlign.left:TextAlign.right,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold
@@ -167,7 +175,14 @@ class _PassionEffectState extends State<PassionEffect> with TickerProviderStateM
                 Align(
                   alignment: widget.leftAlign?Alignment.centerLeft:Alignment.centerRight,
                   child: ClipOval(
-                    child: Image.asset(
+                    child:  widget.userImage!=null?
+                    Image.network(
+                      Service.baseApiNoDash+widget.userImage!,
+                      height: imageSize,
+                      width: imageSize,
+
+                      fit: BoxFit.cover,
+                    ):Image.asset(
                       AssetsLocation.userDummyProfileLocation,
                       height: imageSize,
                       width: imageSize,

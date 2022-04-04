@@ -19,7 +19,8 @@ class UnCollectedLeaderboardApi(APIView):
         listOfLeaderboard=[]
         for single in leaderboards.iterator():
             listOfLeaderboard.append(single.id)
-        return Response(listOfLeaderboard)  
+        return Response(listOfLeaderboard)
+
 class LeaderboardApi(APIView):
     #permission_classes = [IsAuthenticated]
     def get(self,request,user_id):
@@ -54,15 +55,16 @@ class LeaderboardApi(APIView):
         leaderboard=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True).order_by("started_date")
         outputList=[]
         for single in leaderboard:
-            print(single.winner_id)
             leaderboardPlayer=LeaderboardPlayers.objects.filter(leaderboard_id=single.id)
             for singlePlayer in leaderboardPlayer:
+                print(singlePlayer.player_id.userImage)
                 outputList.append(
                     {
                         "id":singlePlayer.player_id.id,
                         "name":singlePlayer.player_id.username,
+                        "leaderboard_id":single.id,
                         "coin":self.getUserTotalCoins(user_id=singlePlayer.player_id.id),
-                        "imageUrl":"asdf",
+                        "imageUrl":str(singlePlayer.player_id.userImage),
                         "isAnonymous":False
                     }
                 )

@@ -98,7 +98,7 @@ class _AddHabitsState extends State<AddHabits> {
                               }
                               return Wrap(
                                 children: [
-                                  SelectionCollection(
+                                  provider.domainList.isEmpty?SizedBox():SelectionCollection(
                                       value: domainValue,
                                       valuesList: provider.domainList
                                   ),

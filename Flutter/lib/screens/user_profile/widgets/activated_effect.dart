@@ -9,9 +9,9 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class ActivatedEffect extends StatefulWidget {
-  final ActivatedEffectModel effectModel;
+  final ActivatedEffectModel activatedEffect;
   const ActivatedEffect({
-    required this.effectModel,
+    required this.activatedEffect,
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class _ActivatedEffectState extends State<ActivatedEffect> {
   void initState() {
     super.initState();
     try{
-      effectModel=EffectData.effectData.firstWhere((element) => element.id==widget.effectModel.effectId);
+      effectModel=EffectData.effectData.firstWhere((element) => element.id==widget.activatedEffect.effectId);
 
     // ignore: empty_catches
     }catch(e){
@@ -117,7 +117,7 @@ class _ActivatedEffectState extends State<ActivatedEffect> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Text(
-                                  "Activated Till \n31/12/31",
+                                  "Activated At \n${widget.activatedEffect.activatedDate}",
                                   textAlign: TextAlign.center,
                                   style: Styles.smallHeading,
                                 ),
