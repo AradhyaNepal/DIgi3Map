@@ -11,6 +11,78 @@ from rest_framework.response import Response
 from .serializer import ChangePasswordSerializer,UserProfileSerializer,UserImageSerializer
 from rest_framework.permissions import IsAuthenticated  
 
+@permission_classes(IsAuthenticated)
+@api_view(['GET'])
+def updateWorkout(request,oneForYes):
+    user=get_user_model().objects.get(id=request.user.id)
+    if oneForYes==1:
+        user.finess_points=user.finess_points+5
+        user.workout_progress=user.workout_progress+10
+        if user.progress_percentage<2:
+            user.progress_percentage=user.progress_percentage+0.05
+    elif user.progress_percentage>0.5:
+        user.progress_percentage=user.progress_percentage-0.05
+    
+    user.save()
+    return Response(
+        {"details":"Sucessfully Added"},
+    
+    )
+
+@permission_classes(IsAuthenticated)
+@api_view(['GET'])
+def updateLearning(request,oneForYes):
+    user=get_user_model().objects.get(id=request.user.id)
+    if oneForYes==1:
+        user.carrer_points=user.carrer_points+5
+        user.learning_progress=user.learning_progress+10
+        if user.progress_percentage<2:
+            user.progress_percentage=user.progress_percentage+0.05
+    elif user.progress_percentage>0.5:
+        user.progress_percentage=user.progress_percentage-0.05
+    
+    user.save()
+    return Response(
+        {"details":"Sucessfully Added"},
+    
+    )
+
+@permission_classes(IsAuthenticated)
+@api_view(['GET'])
+def updateImplementing(request,oneForYes):
+    user=get_user_model().objects.get(id=request.user.id)
+    if oneForYes==1:
+        user.carrer_points=user.carrer_points+5
+        user.implementing_progress=user.implementing_progress+10
+        if user.progress_percentage<2:
+            user.progress_percentage=user.progress_percentage+0.05
+    elif user.progress_percentage>0.5:
+        user.progress_percentage=user.progress_percentage-0.05
+    
+    user.save()
+    return Response(
+        {"details":"Sucessfully Added"},
+    
+    )
+
+@permission_classes(IsAuthenticated)
+@api_view(['GET'])
+def updateDiet(request,oneForYes):
+    user=get_user_model().objects.get(id=request.user.id)
+    if oneForYes==1:
+        user.finess_points=user.finess_points+5
+        user.diet_progress=user.diet_progress+10
+        if user.progress_percentage<2:
+            user.progress_percentage=user.progress_percentage+0.05
+    elif user.progress_percentage>0.5:
+        user.progress_percentage=user.progress_percentage-0.05
+    
+    user.save()
+    return Response(
+        {"details":"Sucessfully Added"},
+    
+    )
+
 @api_view(['Post'])
 def login_api(request):
     serializer=AuthTokenSerializer(data=request.data)

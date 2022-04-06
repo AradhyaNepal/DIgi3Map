@@ -1,12 +1,9 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_edit.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
-import 'package:digi3map/screens/fitness_page/widgets/fitness_widget.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class FitnessPage extends StatelessWidget {
   const FitnessPage({Key? key}) : super(key: key);

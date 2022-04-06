@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'Coins',
     'chain',
     'GroupPortal',
-    'TrophyAndEffect'
+    'TrophyAndEffect',
+    'Task'
 ]
 AUTH_USER_MODEL = 'auth_pg.CustomUser'
 
@@ -65,7 +66,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-ALLOWED_HOSTS = ['192.168.254.32', 'localhost']
+ALLOWED_HOSTS = ['192.168.42.189', 'localhost']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

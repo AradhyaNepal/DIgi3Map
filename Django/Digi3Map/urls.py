@@ -34,5 +34,6 @@ urlpatterns = [
     path('',include('chain.urls')),
     path('',include('GroupPortal.urls')),
     path('',include('TrophyAndEffect.urls')),
+    path('',include('Task.urls')),
     *static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ]

@@ -34,7 +34,16 @@ class AssetsLocation{
   static const breakfastImageLocation="assets/images/breakfast.png";
   static const snacksImageLocation="assets/images/snacks.jpg";
   static const dinnerImageLocation="assets/images/dinner.jpg";
+
   static const deadLiftImageLocation="assets/images/deadlift.png";
-  static const calfImageLocation="assets/images/calf.png";
+  static const squadImageLocation="assets/images/squat.jpg";
+  static const benchPressImageLocation="assets/images/benchpress.jpg";
+  static const shoulderPressImageLocation="assets/images/shoulderpress.jpg";
+  static const pullDownImageLocation="assets/images/pulldown.jpg";
+  static const morningStudyImageLocation="assets/images/morning.jpg";
+  static const eveningStudyImageLocation="assets/images/evening.jpg";
+  static const nightStudyImageLocation="assets/images/night.jpg";
+
+
 }
 

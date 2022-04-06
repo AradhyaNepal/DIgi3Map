@@ -1,4 +1,3 @@
-
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/data/models/diet_model.dart';
 import 'package:digi3map/screens/diet/widgets/failed_success_diet_widget.dart';
@@ -68,7 +67,7 @@ class DietWidget extends StatelessWidget {
             diet.description
           ),
           Constants.kSmallBox,
-          FailedSuccessDietWidget(),
+          FailedSuccessDietWidget(dietId: diet.id,),
 
         ],
       );
@@ -99,7 +98,7 @@ class DietWidget extends StatelessWidget {
           Text("Fat Intake:${diet.fat}"),
           Text("Carbs Intake:${diet.carbs}"),
           Constants.kSmallBox,
-          FailedSuccessDietWidget(),
+          FailedSuccessDietWidget(dietId: diet.id,),
         ],
       );
     }

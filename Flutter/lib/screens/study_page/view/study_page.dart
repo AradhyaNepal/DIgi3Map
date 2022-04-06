@@ -1,14 +1,20 @@
 import 'package:digi3map/common/constants.dart';
-import 'package:digi3map/data/services/assets_location.dart';
-import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/screens/study_page/provider/implementing_provider.dart';
+import 'package:digi3map/screens/study_page/provider/learning_provider.dart';
 import 'package:digi3map/screens/study_page/widgets/heading_widget.dart';
-import 'package:digi3map/screens/study_page/widgets/study_widget.dart';
-import 'package:digi3map/theme/colors.dart';
+import 'package:digi3map/screens/study_page/widgets/implement_widget.dart';
+import 'package:digi3map/screens/study_page/widgets/learning_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StudyPage extends StatelessWidget {
-  const StudyPage({Key? key}) : super(key: key);
+  final bool forImplementing;
+  const StudyPage({
+    required this.forImplementing,
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +29,14 @@ class StudyPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                  "Study Routine",
+                  forImplementing?"Implement Practically (Te)":"Learn Theory (Ti)",
                 style: Styles.bigHeading
               ),
               Constants.kVerySmallBox,
               HeadingWidget(),
               Constants.kVerySmallBox,
               Expanded(
-                child: StudyListView(),
+                child: forImplementing?ImplementListVew():StudyListView(),
                 ),
                 ]
               )
@@ -48,12 +54,67 @@ class StudyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: [
-        for(int i=1;i<25;i++)
-          StudyWidget(number: i,)
-      ],
+    return ChangeNotifierProvider(
+      create: (context)=>LearningProvider(),
+      child: Consumer<LearningProvider>(
+        builder: (context,provider,child) {
+          return provider.isLoading?
+          Center(
+            child: CircularProgressIndicator(),
+          ):
+          provider.learningList.isEmpty?
+          Center(
+            child: Text(
+              "Congratulation, No Have Completed All Your Learnings For Today",
+              textAlign: TextAlign.center,
+            ),
+          ):
+          ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context,index){
+              return LearningWidget(learningModel: provider.learningList[index]);
+            },
+            itemCount: provider.learningList.length,
+          );
+        }
+      ),
     );
   }
 }
+
+
+class ImplementListVew extends StatelessWidget {
+  const ImplementListVew({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context)=>ImplementingProvider(),
+      child: Consumer<ImplementingProvider>(
+        builder: (context,provider,child) {
+          return provider.isLoading?
+          Center(
+            child: CustomCircularIndicator(),
+          ):
+              provider.implementingList.isEmpty?
+                  Center(
+                    child: Text(
+                        "Congratulations, You Had Completed All The Implementing Tasks For Today.",
+                      textAlign: TextAlign.center,
+                    ),
+                  ):
+          ListView.builder(
+            physics: const BouncingScrollPhysics(),
+           itemCount: provider.implementingList.length,
+            itemBuilder: (_,index){
+              return ImplementingWidget(implementingModel: provider.implementingList[index],);
+            },
+          );
+        }
+      ),
+    );
+  }
+}
+

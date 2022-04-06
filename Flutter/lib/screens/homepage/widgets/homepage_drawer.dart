@@ -3,12 +3,14 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
+import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/authentication/views/change_password_oldpass.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/play_sound_switch.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePageDrawer extends StatelessWidget {
   final BuildContext oldContext;

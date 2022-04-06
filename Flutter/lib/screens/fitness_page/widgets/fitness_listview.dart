@@ -1,8 +1,9 @@
-
-import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/screens/fitness_page/provider/fitness_provider.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FitnessListView extends StatelessWidget {
   const FitnessListView({
@@ -11,32 +12,28 @@ class FitnessListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: [
-        for(int i=1;i<11;i++)
-          i%2==0?
-          FitnessWidget(
-            number: i,
-            name: 'Deadlift',
-            musclesTargeted: [
-              'Hams',
-              'Glutes',
-              'Core',
-              'Back'
-            ],
-            image: AssetsLocation.deadLiftImageLocation,
-
-          ):
-          FitnessWidget(
-            number: i,
-            name: 'Calf',
-            musclesTargeted: [
-              'Calf'
-            ],
-            image: AssetsLocation.calfImageLocation,
-          )
-      ],
+    return ChangeNotifierProvider(
+      create: (context)=>FitnessProvider(),
+      child: Consumer<FitnessProvider>(
+        builder: (context,provider,child) {
+          return provider.isLoading?
+          Center(child: CustomCircularIndicator()):
+              provider.fitnessList.isEmpty?
+                  Center(
+                    child:Text(
+                        "Congratulation You Have Completed All Fitness Task",
+                      textAlign: TextAlign.center,
+                    )
+                  ):
+          ListView.builder(
+            physics: BouncingScrollPhysics(),
+              itemBuilder:(context,index){
+                return FitnessWidget(fitnessModel: provider.fitnessList[index]);
+              },
+            itemCount: provider.fitnessList.length,
+          );
+        }
+      ),
     );
   }
 }

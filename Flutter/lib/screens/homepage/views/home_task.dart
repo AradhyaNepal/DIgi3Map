@@ -20,6 +20,25 @@ class HomeTask extends StatefulWidget {
 }
 
 class _HomeTaskState extends State<HomeTask> {
+  final List<String> headingList=[
+    "Diet",
+    "Workout",
+    "Learning Theory(Ti)",
+    "Implementing Practically(Te)"
+  ];
+  final List<Widget> listViewList=[
+    DietListView(),
+    FitnessListView(),
+    StudyListView(),
+    ImplementListVew(),
+
+  ];
+  final List<Widget> pageList=[
+    DietPage(),
+    FitnessPage(),
+    StudyPage(forImplementing: false),
+    StudyPage(forImplementing: true),
+  ];
   int pageNumber=1;
   @override
   Widget build(BuildContext context) {
@@ -81,14 +100,14 @@ class _HomeTaskState extends State<HomeTask> {
                         children: [
                           Flexible(
                             child: Text(
-                                pageNumber==0?"Diet":pageNumber==1?"Workout":"Study",
+                                headingList[pageNumber],
                               style: Styles.mediumHeading,
                             ),
                           ),
                           TextButton(
                               onPressed: (){
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => pageNumber==0?DietPage():pageNumber==1?FitnessPage():StudyPage()));
+                                    MaterialPageRoute(builder: (context) => pageList[pageNumber]));
 
                               },
                               child: Text(
@@ -99,7 +118,7 @@ class _HomeTaskState extends State<HomeTask> {
                       ),
                       Constants.kVerySmallBox,
                       Expanded(
-                          child:  pageNumber==0?DietListView():pageNumber==1?FitnessListView():StudyListView(),
+                          child:  listViewList[pageNumber],
                       ),
                       Constants.kVerySmallBox,
                       Row(
@@ -137,7 +156,7 @@ class _HomeTaskState extends State<HomeTask> {
                           ),
                           SizedBox(width: 10,),
                           Expanded(
-                              child: pageNumber==2?SizedBox():ElevatedButton(
+                              child: pageNumber==3?SizedBox():ElevatedButton(
                                 onPressed: (){
                                   setState(() {
                                     pageNumber++;
