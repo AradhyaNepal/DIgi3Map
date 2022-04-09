@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     UserMissions(),
     MileStonePage(),
     LeaderboardInGroup(),
-    Settings(),
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -72,13 +72,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(
                 FontAwesomeIcons.gamepad
               ),
-              label: "Competition",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                  Icons.settings
-              ),
-              label: "Settings",
+              label: "Compete",
             ),
           ],
         ),

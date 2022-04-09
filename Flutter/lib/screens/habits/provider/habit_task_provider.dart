@@ -63,41 +63,29 @@ class HabitTaskProvider with ChangeNotifier{
       currentHabitsList.removeWhere((element) => element.id==map['habitId']);
     }
 
-    if(currentHabitsList.length>1){
-      //If length is less than one then it does not make any sense to do sorting
-      double domainPlusPriorityPoints=(5/3)*domainPoints;// 60% From Domain Balanced, 40 % from domain priority
-      double priorityPoints=domainPlusPriorityPoints-domainPoints;
-      int totalPriorityBasedFactor=5*highCount+3*mediumCount+2*lowCount+1;//Plus one to avoid infinite error
-      highExtraPoints=((highCount/totalPriorityBasedFactor)*priorityPoints).toInt();
-      lowExtraPoints=((lowCount/totalPriorityBasedFactor)*priorityPoints).toInt();
-      mediumExtraPoints=((mediumCount/totalPriorityBasedFactor)*priorityPoints).toInt();
-      for (int index=0;index<currentHabitsList.length;index++) {
-        Habit current=currentHabitsList[index];
-        if(current.domainPriority=="High"){
-          current.points=current.points??0-highExtraPoints;
-        }
-        else if(current.domainPriority=="Medium"){
-          current.points=current.points??0-mediumExtraPoints;
+    currentHabitsList.sort((a,b)=>(a.points??0).compareTo(b.points??0));
 
-        }
-        else{
-          current.points=current.points??0-lowExtraPoints;
+    final List<Habit> highPriorityList=currentHabitsList.where((element) => element.domainPriority=="High").toList();
+    //highPriorityList.sort((a,b)=>(a.points??0).compareTo(b.points??0));
+    List<Habit> mediumPriorityList=currentHabitsList.where((element) => element.domainPriority=="Medium").toList();
+    //mediumPriorityList.sort((a,b)=>a.points??0.compareTo(b.points??0));
+    List<Habit> lowPriorityList=currentHabitsList.where((element) => element.domainPriority=="Low").toList();
+    //lowPriorityList.sort((a,b)=>a.points??0.compareTo(b.points??0));
 
-        }
-        currentHabitsList[index]=current;
-      }
+    print("\n\n\n");
+    currentHabitsList.clear();
+    currentHabitsList.addAll(highPriorityList);
+    currentHabitsList.addAll(mediumPriorityList);
+    currentHabitsList.addAll(lowPriorityList);
 
-
-
-
-      currentHabitsList.sort((a,b)=>a.points??0.compareTo(b.points??0));
+    for(Habit habit in currentHabitsList){
+      print(habit.domainName+" "+habit.points.toString());
     }
-
-
     isLoading=false;
     notifyListeners();
 
   }
+
 
 
   Future<void> addTransaction({required int habitId,bool failed=false}) async{

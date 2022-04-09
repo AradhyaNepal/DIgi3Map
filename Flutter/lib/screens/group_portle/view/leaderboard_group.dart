@@ -37,13 +37,14 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                 iconTheme: const IconThemeData(color: Colors.black),
                 elevation: 0,
                 backgroundColor: Colors.white,
-                title:  const SizedBox(
-                    height: 30,
-                    width: 100,
-                    child: FittedBox(
-                        child: LogoWidget()
-                    )
-                ),
+                title:  FittedBox(
+                  child: Text(
+                    "Monthly Leaderboard",
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
+                )
               ),
               body: Container(
                 height: size.height,
@@ -81,11 +82,6 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text(
-                            "Monthly Leaderboard",
-                          style: Styles.bigHeading,
-                        ),
-                        Constants.kSmallBox,
                         const Text(
                           "Top Player",
                           style: Styles.mediumHeading,

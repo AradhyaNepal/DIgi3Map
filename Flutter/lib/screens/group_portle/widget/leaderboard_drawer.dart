@@ -8,6 +8,7 @@ import 'package:digi3map/screens/effect_shop/view/shop_page.dart';
 import 'package:digi3map/screens/group_portle/view/friendly_competition.dart';
 import 'package:digi3map/screens/group_portle/view/group_chat.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
+import 'package:digi3map/screens/settings/settings.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -95,6 +96,22 @@ class LeaderBoardDrawer extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.4),
                       ),
                       title: Text("Friendly Leaderboard"),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 5,
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>  Settings()));
+                    },
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.settings,
+                        color: Colors.grey.withOpacity(0.4),
+                      ),
+                      title: Text("Settings"),
                     ),
                   ),
                 ),
