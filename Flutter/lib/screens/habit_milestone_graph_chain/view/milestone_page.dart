@@ -83,13 +83,19 @@ class _MileStonePageState extends State<MileStonePage> {
                           if(isLast){
                             widget=Column(
                               children: [
-                                MileStoneWidget(mileStone: provider.milestoneList[i]),
+                                MileStoneWidget(
+                                    mileStone: provider.milestoneList[i],
+                                  provider: provider,
+                                ),
                                 SizedBox(height: 40,)
                               ],
                             );
                           }
                           else{
-                            widget=MileStoneWidget(mileStone: provider.milestoneList[i]);
+                            widget=MileStoneWidget(
+                                mileStone: provider.milestoneList[i],
+                              provider: provider,
+                            );
                           }
                           return widget;
                         },

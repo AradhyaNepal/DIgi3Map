@@ -4,8 +4,8 @@ import 'package:digi3map/screens/habits/widgets/habit_task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HabitTaskList extends StatelessWidget {
-  const HabitTaskList({Key? key}) : super(key: key);
+class UserMissionsList extends StatelessWidget {
+  const UserMissionsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class HabitTaskList extends StatelessWidget {
                   ),
                 );
               }
-              return ListView.builder(
+              return PageView.builder(
                 physics: BouncingScrollPhysics(),
                   itemBuilder:(context,index){
                     return HabitTaskWidget(habitModal: provider.currentHabitsList[index]);

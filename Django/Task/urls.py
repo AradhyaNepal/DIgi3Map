@@ -7,7 +7,7 @@ urlpatterns = [
     path('addFitnessTransaction/',addFitnessTransaction),
     path('getExcludedDiet/',getExcludedDiet),
     path('addDietTransaction/',addDietTransaction),
-    path('getExcludedLearning/',getExcludedLearning),
+    path('getExcludedLearningV2/',getExcludedLearning),
     path('addLearningTransaction/',addLearningTransaction),
     path('getExcludedImplementing/',getExcludedImplementing),
     path('randomTask/',RandomTaskView.as_view()),

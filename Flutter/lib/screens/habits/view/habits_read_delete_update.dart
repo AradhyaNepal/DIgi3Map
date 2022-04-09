@@ -240,43 +240,46 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                           builder: (context,provider,child) {
                             return isDeleteEditLoading?Center(
                               child: CustomCircularIndicator(),
-                            ):ElevatedButton(
-                                style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
-                                onPressed: (){
-                                  if(formKey.currentState!.validate()){
-                                    formKey.currentState!.save();
-                                    setState(() {
-                                      isDeleteEditLoading=true;
-                                    });
-                                    provider.addUpdateHabit(
-                                        Habit(
-                                            id: habit.id,
-                                            domainName: domainValue.value,
-                                            name: nameValue.value,
-                                            domainId: provider.idCalculator(domainValue.value),
-                                            photoUrl: imageValue.value??"",
-                                            widgetType: RandomTaskModal.widgetTypeList[widgetTypeIndex],
-                                            description: descriptionValue.value,
-                                            progress: progress,
-                                            time: time,
-                                            sets: sets,
-                                            rest: rest
-                                        ),
-                                        haveNewImage:imageSelectedProvider.value
-                                    ).then((value) {
-                                      CustomSnackBar.showSnackBar(context, "Successfully Edited");
-                                      Navigator.pop(context);
-
-                                    }).onError((error, stackTrace) {
-                                      CustomSnackBar.showSnackBar(context, error.toString());
+                            ):SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
+                                  onPressed: (){
+                                    if(formKey.currentState!.validate()){
+                                      formKey.currentState!.save();
                                       setState(() {
-                                        isDeleteEditLoading=false;
+                                        isDeleteEditLoading=true;
                                       });
-                                    });
-                                  }
+                                      provider.addUpdateHabit(
+                                          Habit(
+                                              id: habit.id,
+                                              domainName: domainValue.value,
+                                              name: nameValue.value,
+                                              domainId: provider.idCalculator(domainValue.value),
+                                              photoUrl: imageValue.value??"",
+                                              widgetType: RandomTaskModal.widgetTypeList[widgetTypeIndex],
+                                              description: descriptionValue.value,
+                                              progress: progress,
+                                              time: time,
+                                              sets: sets,
+                                              rest: rest
+                                          ),
+                                          haveNewImage:imageSelectedProvider.value
+                                      ).then((value) {
+                                        CustomSnackBar.showSnackBar(context, "Successfully Edited");
+                                        Navigator.pop(context);
 
-                                },
-                                child: const Text('Save')
+                                      }).onError((error, stackTrace) {
+                                        CustomSnackBar.showSnackBar(context, error.toString());
+                                        setState(() {
+                                          isDeleteEditLoading=false;
+                                        });
+                                      });
+                                    }
+
+                                  },
+                                  child: const Text('Save')
+                              ),
                             );
                           }
                         ),

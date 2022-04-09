@@ -1,8 +1,9 @@
 import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
-import 'package:digi3map/screens/homepage/views/home_task.dart';
+import 'package:digi3map/screens/homepage/views/user_missions.dart';
 import 'package:digi3map/screens/homepage/views/random_task_list.dart';
+import 'package:digi3map/screens/settings/settings.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,10 +18,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _currentPage = 0;
   List<Widget> screens = [
-    HomeTask(),
-    LeaderboardInGroup(),
     DomainList(),
+    UserMissions(),
     MileStonePage(),
+    LeaderboardInGroup(),
+    Settings(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -51,28 +53,32 @@ class _HomePageState extends State<HomePage> {
           selectedIconTheme: IconThemeData(color: ColorConstant.kBlueColor),
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
-
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.gamepad
-              ),
-              label: "Compete",
-            ),
-
-
-            BottomNavigationBarItem(
               icon: Icon(
                   FontAwesomeIcons.chartBar
               ),
               label: "Domains",
             ),
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.bitcoin),
-              label: "Milestone",
+              icon: Icon(Icons.task),
+              label: "Missions",
 
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.bitcoin),
+              label: "Milestones",
+
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.gamepad
+              ),
+              label: "Competition",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                  Icons.settings
+              ),
+              label: "Settings",
             ),
           ],
         ),

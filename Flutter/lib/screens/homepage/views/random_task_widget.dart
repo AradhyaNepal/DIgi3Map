@@ -30,128 +30,93 @@ class _RandomTaskWidgetState extends State<RandomTaskWidget> {
   Widget build(BuildContext context) {
 
     final size=MediaQuery.of(context).size;
-    return Consumer<RandomProvider>(
-      builder: (context,provider,child) {
-        return Container(
-          width: size.width,
-          margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-          child: Card(
-            elevation: 5,
-            color: ColorConstant.kGreyCardColor,
-            margin: const EdgeInsets.all(0),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Stack(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Card(
-                          margin: const EdgeInsets.all(0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: SizedBox(
-                              height: 100,
-                              child: Image.network(
-                                Service.baseApiNoDash+widget.randomTaskModal.imagePath,
-                                fit: BoxFit.cover,
+    return FittedBox(
+      child: Consumer<RandomProvider>(
+        builder: (context,provider,child) {
+          return Container(
+            width: size.width,
+            margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+            child: Card(
+              elevation: 5,
+              color: ColorConstant.kGreyCardColor,
+              margin: const EdgeInsets.all(0),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Stack(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Card(
+                            margin: const EdgeInsets.all(0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: SizedBox(
+                                height: 100,
+                                child: Image.network(
+                                  Service.baseApiNoDash+widget.randomTaskModal.imagePath,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                        ) ,
-                      ),
-                      SizedBox(width: 10,),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    widget.randomTaskModal.name,
-                                    style: Styles.mediumHeading,
+                          ) ,
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      widget.randomTaskModal.name,
+                                      style: Styles.mediumHeading,
+                                    ),
                                   ),
-                                ),
-                                IconButton(
-                                  onPressed: (){
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context)=>RandomTaskAddEdit(
-                                                provider: provider,
-                                              modal: widget.randomTaskModal,
-                                            )
-                                        )
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.edit,
-                                    color: ColorConstant.kIconColor,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Constants.kVerySmallBox,
-                            getDescription(),
+                                  IconButton(
+                                    onPressed: (){
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context)=>RandomTaskAddEdit(
+                                                  provider: provider,
+                                                modal: widget.randomTaskModal,
+                                              )
+                                          )
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: ColorConstant.kIconColor,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Constants.kVerySmallBox,
+                              getDescription(),
 
-                            Constants.kVerySmallBox,
-                            isLoading?
-                            Center(
-                              child: CustomCircularIndicator(),
-                            ):Consumer<RandomProvider>(
-                                builder: (context,provider,child) {
-                                  return Row(
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(primary: Colors.red),
-                                            onPressed: (){
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context){
-                                                    return  CustomAlertDialog(
-                                                      heading: "Give Up",
-                                                      subText:  "Do You Really Want To Give Up?",
-
-                                                    );
-                                                  }
-                                              ).then((value) async{
-                                                if(value==true){
-                                                  setState(() {
-                                                    isLoading=true;
-                                                  });
-                                                  try{
-                                                    await provider.deleteRandomTask(widget.randomTaskModal.id??0);
-
-                                                  }
-                                                  catch (e){
-                                                    CustomSnackBar.showSnackBar(context, e.toString());
-                                                  }
-
-                                                  setState(() {
-                                                    isLoading=false;
-                                                  });
-                                                }
-                                              });
-                                            },
-                                            child: Text("Failed")
-                                        ),
-                                      ),
-                                      Constants.kSmallBox,
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            onPressed: (){
-                                              if(widget.randomTaskModal.type=="Todo"){
+                              Constants.kVerySmallBox,
+                              isLoading?
+                              Center(
+                                child: CustomCircularIndicator(),
+                              ):Consumer<RandomProvider>(
+                                  builder: (context,provider,child) {
+                                    return Row(
+                                      children: [
+                                        Expanded(
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(primary: Colors.red),
+                                              onPressed: (){
                                                 showDialog(
                                                     context: context,
                                                     builder: (context){
                                                       return  CustomAlertDialog(
-                                                        heading: "Completed",
-                                                        subText:  "Had You Completed The Task?",
+                                                        heading: "Give Up",
+                                                        subText:  "Do You Really Want To Give Up?",
 
                                                       );
                                                     }
@@ -173,53 +138,90 @@ class _RandomTaskWidgetState extends State<RandomTaskWidget> {
                                                     });
                                                   }
                                                 });
-                                              }
-                                              else if(widget.randomTaskModal.type=="Timer"){
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context)=>RandomTimerDoing(randomModal: widget.randomTaskModal, provider: provider)
-                                                    )
-                                                );
-                                              }
-                                              else if(widget.randomTaskModal.type=="Sets & Task"){
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context)=>RandomTaskSetsTask(randomTaskModal: widget.randomTaskModal, randomProvider: provider)
-                                                    )
-                                                );
-                                              }
-                                              else{
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context)=>RandomSetsTimerDoing(randomModal: widget.randomTaskModal, provider: provider)
-                                                    )
-                                                );
-                                              }
-
-                                            },
-                                            child: Text(widget.randomTaskModal.type=="Todo"?"Done":"Start")
+                                              },
+                                              child: Text("Failed")
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                }
-                            )
-                          ],
+                                        Constants.kSmallBox,
+                                        Expanded(
+                                          child: ElevatedButton(
+                                              onPressed: (){
+                                                if(widget.randomTaskModal.type=="Todo"){
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context){
+                                                        return  CustomAlertDialog(
+                                                          heading: "Completed",
+                                                          subText:  "Had You Completed The Task?",
+
+                                                        );
+                                                      }
+                                                  ).then((value) async{
+                                                    if(value==true){
+                                                      setState(() {
+                                                        isLoading=true;
+                                                      });
+                                                      try{
+                                                        await provider.deleteRandomTask(widget.randomTaskModal.id??0);
+
+                                                      }
+                                                      catch (e){
+                                                        CustomSnackBar.showSnackBar(context, e.toString());
+                                                      }
+
+                                                      setState(() {
+                                                        isLoading=false;
+                                                      });
+                                                    }
+                                                  });
+                                                }
+                                                else if(widget.randomTaskModal.type=="Timer"){
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context)=>RandomTimerDoing(randomModal: widget.randomTaskModal, provider: provider)
+                                                      )
+                                                  );
+                                                }
+                                                else if(widget.randomTaskModal.type=="Sets & Task"){
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context)=>RandomTaskSetsTask(randomTaskModal: widget.randomTaskModal, randomProvider: provider)
+                                                      )
+                                                  );
+                                                }
+                                                else{
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context)=>RandomSetsTimerDoing(randomModal: widget.randomTaskModal, provider: provider)
+                                                      )
+                                                  );
+                                                }
+
+                                              },
+                                              child: Text(widget.randomTaskModal.type=="Todo"?"Done":"Start")
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
 
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }
+          );
+        }
+      ),
     );
   }
 

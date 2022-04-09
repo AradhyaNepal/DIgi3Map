@@ -17,6 +17,8 @@ class Habit{
 
   dynamic id,progress;
 
+  int? points;
+  String? domainPriority;
   int? sets,rest,time;
   late String domainName;
   Habit({
@@ -24,6 +26,7 @@ class Habit{
     this.sets,
     this.rest,
     this.time,
+    this.domainPriority,
     required this.domainName,
     required this.name,
     required this.domainId,
@@ -38,7 +41,7 @@ class Habit{
   }){
     id=map[idJson];
     name=map[nameJson];
-    domainId=map[domainJson].toString();
+    domainId=(map[domainJson]["id"]).toString();
     photoUrl=map[photoJson];
     widgetType=map[widgetJson];
     description=map[descriptionJson];
@@ -46,7 +49,9 @@ class Habit{
     time=map[timeJson];
     sets=map[setsJson];
     rest=map[restJson];
-    print("Time $time");
+    domainName=map[domainJson]["name"];
+    domainPriority=map[domainJson]["priority"];
+    points=map[domainJson]["points"];
   }
 
   MileStone getMilestone({bool showNavigator=true}){
@@ -74,16 +79,19 @@ class HabitsProvider with ChangeNotifier{
     addingAllowed=totalDomains.length<3;
     List<Domain> totalAvailableDomain=await DomainProvider().getDomainList(forHabit: true);
     domainList= totalAvailableDomain.map((e) => e.domainName).toList();
+    await getIdCalculator();
+    isDomainLoading=false;
+    notifyListeners();
 
+
+  }
+  Future<void> getIdCalculator() async{
+    List<Domain> totalAvailableDomain=await DomainProvider().getDomainList(forHabit: false);
     idCalculator=(String domainName){
       String index= totalAvailableDomain.firstWhere((element) => domainName==element.domainName).domainId.toString();
 
       return index;
     };
-    isDomainLoading=false;
-    notifyListeners();
-
-
   }
 
 

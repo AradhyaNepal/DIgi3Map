@@ -1,6 +1,8 @@
 import 'package:digi3map/common/constants.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/screens/diet/view/diet_page.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
 import 'package:digi3map/screens/habits/view/habit_task_list.dart';
@@ -16,38 +18,68 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-class HomeTask extends StatefulWidget {
-  HomeTask({Key? key}) : super(key: key);
+class UserMissions extends StatefulWidget {
+  UserMissions({Key? key}) : super(key: key);
 
   @override
-  State<HomeTask> createState() => _HomeTaskState();
+  State<UserMissions> createState() => _UserMissionsState();
 }
 
-class _HomeTaskState extends State<HomeTask> {
-  final List<String> headingList=[
-    "Diet",
-    "Workout",
-    "Learning Theory(Ti)",
-    "Implementing Practically(Te)",
-    "Random Task",
-    "Daily Habits"
-  ];
-  final List<Widget> listViewList=[
-    DietListView(),
-    FitnessListView(),
-    StudyListView(),
-    ImplementListVew(),
-    RandomTaskList(),
-    HabitTaskList(),
+class _UserMissionsState extends State<UserMissions> {
+  final List<String> headingList=[];
+  final List<Widget> listViewList=[];
+  final List<Widget> pageList=[];
+  int pageNumber=0;
 
-  ];
-  final List<Widget> pageList=[
-    DietPage(),
-    FitnessPage(),
-    StudyPage(forImplementing: false),
-    StudyPage(forImplementing: true),
-  ];
-  int pageNumber=5;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUpList();
+  }
+  bool isLoading=true;
+  void setUpList() async{
+    FitnessCareerPoints points=await DomainProvider().getFitnessCareerPoints();
+    headingList.add("Custom Habits \n(Swipe For Next)");
+    listViewList.add(UserMissionsList());
+    pageList.add(SizedBox());
+    if(points.careerPoints>points.fitnessPoint){
+      //That means fitness is less focused
+      addFitness();
+      addCareer();
+    }else{
+      //That means career is less focused
+      addCareer();
+      addFitness();
+    }
+    headingList.add("Random Task \n(Swipe For Next)");
+    listViewList.add(RandomTaskList());
+    pageList.add(SizedBox());
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      setState(() {
+        isLoading=false;
+      });
+    });
+
+  }
+  void addFitness(){
+    headingList.add("Workout",);
+    listViewList.add(FitnessListView());
+    pageList.add(FitnessPage());
+
+    headingList.add("Diet");
+    listViewList.add(DietListView());
+    pageList.add(DietPage());
+  }
+  void addCareer(){
+    headingList.add("Implement Practically(Te)",);
+    listViewList.add(ImplementListVew());
+    pageList.add(StudyPage(forImplementing: true));
+
+    headingList.add("Learning Theory(Ti)",);
+    listViewList.add(StudyListView());
+    pageList.add(StudyPage(forImplementing: false));
+  }
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
@@ -55,19 +87,7 @@ class _HomeTaskState extends State<HomeTask> {
       create: (context)=>RandomProvider(),
       child: SafeArea(
         child: Scaffold(
-          endDrawer: Drawer(child: HomePageDrawer(oldContext: context,)),
-          appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.black),
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title:  SizedBox(
-                height: 30,
-                width: 100,
-                child: FittedBox(
-                    child: LogoWidget()
-                )
-            ),
-          ),
+
           body: Container(
             height: size.height,
             width: size.width,
@@ -75,6 +95,7 @@ class _HomeTaskState extends State<HomeTask> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Constants.kSmallBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -103,19 +124,27 @@ class _HomeTaskState extends State<HomeTask> {
                 Expanded(
                   child: SizedBox(
                     width: size.width,
-                    child: Column(
+                    child: isLoading?
+                    Center(
+                      child: CustomCircularIndicator(),
+                    ):Column(
 
                       children: [
+                        SizedBox(height: pageNumber==0 || pageNumber==
+                            5?10:0,),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
                           children: [
+
                             Flexible(
                               child: Text(
                                   headingList[pageNumber],
-                                style: Styles.mediumHeading,
+                                style: Styles.semiMedium,
                               ),
                             ),
-                            pageNumber!=4 && pageNumber!=5?TextButton(
+                            pageNumber!=0 && pageNumber!=5?TextButton(
                                 onPressed: (){
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) => pageList[pageNumber]));
@@ -124,7 +153,7 @@ class _HomeTaskState extends State<HomeTask> {
                                 child: Text(
                                     "Open Page"
                                 )
-                            ):Spacer()
+                            ):SizedBox()
                           ],
                         ),
                         Constants.kVerySmallBox,

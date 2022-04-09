@@ -22,7 +22,7 @@ class DomainGraphProvider{
     return await http.get(uri).then((response) async{
       final responseData=json.decode(response.body);
       if(response.statusCode>299) throw HttpException(message: responseData.toString());
-      Points points=await DomainProvider().getPoints();
+      FitnessCareerPoints points=await DomainProvider().getFitnessCareerPoints();
       List<String> xAxis=["Fitness","Career"];
       List<int> yAxis=[points.fitnessPoint,points.careerPoints];
       for(Map<String,dynamic> domainMap in responseData){

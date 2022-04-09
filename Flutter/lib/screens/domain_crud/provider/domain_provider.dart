@@ -36,9 +36,9 @@ class Domain{
 
 }
 
-class Points{
+class FitnessCareerPoints{
   int fitnessPoint,careerPoints;
-  Points({
+  FitnessCareerPoints({
     required this.fitnessPoint,
     required this.careerPoints
   });
@@ -48,7 +48,7 @@ class DomainProvider with ChangeNotifier{
   bool _domainLoading=true;
   bool get domainLoading=>_domainLoading;
   List<Domain> get domainList=>_domainList;
-  Points points=Points(fitnessPoint: 0,careerPoints: 0);
+  FitnessCareerPoints points=FitnessCareerPoints(fitnessPoint: 0,careerPoints: 0);
 
   static Future<String> getDomainName({required String id}) async{
     Uri uri=Uri.parse(Service.baseApi+Service.domains+"$id/");
@@ -62,7 +62,7 @@ class DomainProvider with ChangeNotifier{
     notifyListeners();
     final sharedPrefs=await SharedPreferences.getInstance();
     DomainGraphModel pointsValue= await DomainGraphProvider().getDomainGraph();
-    points=Points(fitnessPoint: pointsValue.yAxis[0], careerPoints: pointsValue.yAxis[1]);
+    points=FitnessCareerPoints(fitnessPoint: pointsValue.yAxis[0], careerPoints: pointsValue.yAxis[1]);
     String middleUrl=forHabit?Service.userAvailableDomains:Service.userDomains;
     Uri uri=Uri.parse(Service.baseApi+middleUrl+"${sharedPrefs.getInt(Service.userId)}/");
 
@@ -81,7 +81,7 @@ class DomainProvider with ChangeNotifier{
   }
 
   static const String fitnessPointsJson="finess_points",careerPointsJson="carrer_points";
-  Future<Points> getPoints() async{
+  Future<FitnessCareerPoints> getFitnessCareerPoints() async{
     final sharedPrefs=await SharedPreferences.getInstance();
     int userId=sharedPrefs.getInt(Service.userId)??0;
     Uri uri=Uri.parse(Service.baseApi+Service.userJson+"$userId/");
@@ -89,7 +89,7 @@ class DomainProvider with ChangeNotifier{
     http.Response response=await http.get(uri);
     if(response.statusCode>299) throw HttpException(message: json.decode(response.body).toString());
     final responseData=json.decode(response.body);
-    return Points(fitnessPoint: responseData[fitnessPointsJson], careerPoints: responseData[careerPointsJson]);
+    return FitnessCareerPoints(fitnessPoint: responseData[fitnessPointsJson], careerPoints: responseData[careerPointsJson]);
 
   }
 

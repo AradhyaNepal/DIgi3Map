@@ -27,7 +27,7 @@ class Service{
   static const String addLearningTransactionApi="addLearningTransaction/";
   static const String addImplementingTransactionApi="addImplementingTransaction/";
   static const String getExcludedFitnessApi="getExcludedFitness/";
-  static const String getExcludedLearningApi="getExcludedLearning/";
+  static const String getExcludedLearningApi="getExcludedLearningV2/";
   static const String getExcludedImplementingApi="getExcludedImplementing/";
   static const String userTrophyApi="getUserTrophy/";
   static const String updateProfileApi="api/updateImage/";

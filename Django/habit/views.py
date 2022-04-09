@@ -1,5 +1,5 @@
 from .models import Habit, HabitTransaction
-from .serializer import HabitSerializer, HabitTransactionSerializer
+from .serializer import HabitDepthSerializer, HabitSerializer, HabitTransactionSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -30,7 +30,7 @@ class HabitDetailApiView(APIView):
         try:
             habit= Habit.objects.get(id=id)
         
-            serializer=HabitSerializer(habit)
+            serializer=HabitDepthSerializer(habit)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         except Habit.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -72,7 +72,7 @@ class UserHabitApiView(APIView):
                     habitsList.append(habit.id)
             
             userHabits=Habit.objects.filter(pk__in=habitsList)
-            serializer=HabitSerializer(userHabits,many=True)
+            serializer=HabitDepthSerializer(userHabits,many=True)
             return Response(serializer.data)
         except Habit.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)

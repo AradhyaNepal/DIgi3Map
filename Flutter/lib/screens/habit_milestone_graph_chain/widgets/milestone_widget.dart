@@ -11,6 +11,7 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class MileStone{
+
   int habitId;
   String heading, subheading, imageUrl;
   int progress,coins;
@@ -29,9 +30,10 @@ class MileStone{
 class MileStoneWidget extends StatefulWidget {
 
   final MileStone mileStone;
-
+  MileStoneProvider? provider;
   MileStoneWidget({
     required this.mileStone,
+    this.provider,
     Key? key,
   }) : super(key: key);
 
@@ -57,7 +59,11 @@ class _MileStoneWidgetState extends State<MileStoneWidget> {
       child: InkWell(
         onTap: (widget.mileStone.showNavigator && !widget.mileStone.compulsoryHabit)?(){
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) =>  HabitsReadDeleteUpdate(id: widget.mileStone.habitId,)));
+              MaterialPageRoute(
+                  builder: (context) =>  HabitsReadDeleteUpdate(id: widget.mileStone.habitId,))
+          ).then((value) {
+            if(widget.provider!=null) widget.provider!.getMilestones();
+          });
         }:null,
         child: FittedBox(
           child: Container(
@@ -77,9 +83,9 @@ class _MileStoneWidgetState extends State<MileStoneWidget> {
                         Image.asset(
                             widget.mileStone.imageUrl
                         ):
-                            Image.network(
-                              Service.baseApiNoDash+widget.mileStone.imageUrl
-                            )
+                        Image.network(
+                            Service.baseApiNoDash+widget.mileStone.imageUrl
+                        )
                     ),
                     SizedBox(
                       width: 10,
@@ -105,7 +111,7 @@ class _MileStoneWidgetState extends State<MileStoneWidget> {
                                           MaterialPageRoute(builder: (context) =>  HabitChain(habitId: widget.mileStone.habitId,)));
                                     },
                                     icon: Icon(
-                                      Icons.pie_chart
+                                        Icons.pie_chart
                                     )
                                 ):SizedBox()
                               ],
@@ -181,10 +187,10 @@ class _MileStoneWidgetState extends State<MileStoneWidget> {
                                         });
                                         await Provider.of<MileStoneProvider>(context,listen: false)
                                             .clearHabit(widget.mileStone.habitId).then((value){
-                                              setState(() {
-                                                progress=0;
-                                                collectingPoints=false;
-                                              });
+                                          setState(() {
+                                            progress=0;
+                                            collectingPoints=false;
+                                          });
                                         }).onError((error, stackTrace) {
                                           CustomSnackBar.showSnackBar(context, error.toString());
                                           setState(() {

@@ -10,9 +10,9 @@ import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/domain_crud/widget/password_to_delete_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_heading_editable_widget.dart';
+import 'package:digi3map/screens/domain_list_graph/provider/domain_graph_provider.dart';
 import 'package:digi3map/screens/domain_list_graph/view/domain_graph.dart';
 import 'package:digi3map/screens/domain_list_graph/widget/focus_widget.dart';
-import 'package:digi3map/screens/fitness_page/view/fitness_edit.dart';
 import 'package:digi3map/screens/habits/view/habits_create.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -125,8 +125,22 @@ class _DomainProfilePageState extends State<DomainProfilePage> {
                     children: [
                       Expanded(
                         flex:3,
-                          child: FocusWidget(
-                            percentage: widget.domain.percentage??0,
+                          child: FutureBuilder<DomainGraphModel>(
+                            future:  DomainGraphProvider().getDomainGraph(),
+                              builder: (context,snapShot) {
+                              if(snapShot.connectionState==ConnectionState.waiting){
+                                return Center(
+                                  child: CustomCircularIndicator(),
+                                );
+                              }
+
+                              DomainGraphModel data=snapShot.data!;
+                              int index=data.xAxis.indexWhere((element) => widget.domain.domainName==element);
+                              int percentage=data.yAxis[index];
+                              return FocusWidget(
+                                percentage: percentage,
+                              );
+                            }
                           )
                       ),
                       Spacer(),

@@ -22,7 +22,7 @@ class RandomTaskList extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ):
-        ListView.builder(
+        PageView.builder(
           physics: BouncingScrollPhysics(),
           itemBuilder: (context,index){
             return RandomTaskWidget(

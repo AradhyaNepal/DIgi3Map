@@ -98,36 +98,7 @@ class LeaderBoardDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Card(
-                  elevation: 5,
-                  child: InkWell(
-                    onTap: (){
-                      showDialog(
-                          context: context,
-                          builder: (context){
-                            return  CustomAlertDialog(heading: "Log Out",subText:  "Do You Really Want To Log Out",);
-                          }
-                      ).then((value) {
-                        if (value==true) {
-                          CustomSnackBar.showSnackBar(context, "Successfully Logged Out");
-                          Auth().logOut();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>  SplashPage()));
-                        }
 
-                      }
-                      );
-
-                    },
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.logout,
-                        color: Colors.grey.withOpacity(0.4),
-                      ),
-                      title: Text("Log Out"),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

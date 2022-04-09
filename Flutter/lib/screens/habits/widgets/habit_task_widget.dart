@@ -6,6 +6,7 @@ import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/habits/provider/habit_task_provider.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
 import 'package:digi3map/screens/habits/view/habit_timer_doing.dart';
+import 'package:digi3map/screens/habits/view/habits_read_delete_update.dart';
 import 'package:digi3map/screens/habits/widgets/habit_sets_task_doing.dart';
 import 'package:digi3map/screens/habits/widgets/habit_task_timer_doing.dart';
 import 'package:digi3map/screens/homepage/provides/random_provider.dart';
@@ -35,174 +36,188 @@ class _HabitTaskWidgetState extends State<HabitTaskWidget> {
   Widget build(BuildContext context) {
 
     final size=MediaQuery.of(context).size;
-    return Consumer<HabitTaskProvider>(
-        builder: (context,provider,child) {
-          return Container(
-            width: size.width,
-            margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-            child: Card(
-              elevation: 5,
-              color: ColorConstant.kGreyCardColor,
-              margin: const EdgeInsets.all(0),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Stack(
-                  children: [
-                    Row(
+    return FittedBox(
+      child: Consumer<HabitTaskProvider>(
+          builder: (context,provider,child) {
+            return InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context)=>HabitsReadDeleteUpdate(id: widget.habitModal.id)
+                    )
+                ).then((value) {
+                  provider.getHabitsList();
+                });
+              },
+              child: Container(
+                width: size.width,
+                margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+                child: Card(
+                  elevation: 5,
+                  color: ColorConstant.kGreyCardColor,
+                  margin: const EdgeInsets.all(0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Stack(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Card(
-                            margin: const EdgeInsets.all(0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: SizedBox(
-                                height: 100,
-                                child: Image.network(
-                                  Service.baseApiNoDash+widget.habitModal.photoUrl,
-                                  fit: BoxFit.cover,
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Card(
+                                margin: const EdgeInsets.all(0),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: SizedBox(
+                                    height: 100,
+                                    child: Image.network(
+                                      Service.baseApiNoDash+widget.habitModal.photoUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ) ,
                             ),
-                          ) ,
-                        ),
-                        SizedBox(width: 10,),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                widget.habitModal.name,
-                                style: Styles.mediumHeading,
-                              ),
-                              Constants.kVerySmallBox,
-                              getDescription(),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    widget.habitModal.name,
+                                    style: Styles.mediumHeading,
+                                  ),
+                                  Constants.kVerySmallBox,
+                                  getDescription(),
 
-                              Constants.kVerySmallBox,
-                              isLoading?
-                              Center(
-                                child: CustomCircularIndicator(),
-                              ):Consumer<HabitTaskProvider>(
-                                  builder: (context,provider,child) {
-                                    return Row(
-                                      children: [
-                                        Expanded(
-                                          child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(primary: Colors.red),
-                                              onPressed: (){
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context){
-                                                      return  CustomAlertDialog(
-                                                        heading: "Give Up",
-                                                        subText:  "Do You Really Want To Give Up?",
+                                  Constants.kVerySmallBox,
+                                  isLoading?
+                                  Center(
+                                    child: CustomCircularIndicator(),
+                                  ):Consumer<HabitTaskProvider>(
+                                      builder: (context,provider,child) {
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                                                  onPressed: (){
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context){
+                                                          return  CustomAlertDialog(
+                                                            heading: "Give Up",
+                                                            subText:  "Do You Really Want To Give Up?",
 
+                                                          );
+                                                        }
+                                                    ).then((value) async{
+                                                      if(value==true){
+                                                        setState(() {
+                                                          isLoading=true;
+                                                        });
+                                                        try{
+                                                          await provider.addTransaction(habitId: widget.habitModal.id,failed: true);
+
+                                                        }
+                                                        catch (e){
+                                                          print(e.toString());
+                                                          CustomSnackBar.showSnackBar(context, e.toString());
+                                                        }
+
+                                                        setState(() {
+                                                          isLoading=false;
+                                                        });
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Text("Failed")
+                                              ),
+                                            ),
+                                            Constants.kSmallBox,
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                  onPressed: (){
+                                                    if(widget.habitModal.widgetType=="Todo"){
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (context){
+                                                            return  CustomAlertDialog(
+                                                              heading: "Completed",
+                                                              subText:  "Had You Completed The Task?",
+
+                                                            );
+                                                          }
+                                                      ).then((value) async{
+                                                        if(value==true){
+                                                          setState(() {
+                                                            isLoading=true;
+                                                          });
+                                                          try{
+                                                            await provider.addTransaction(habitId: widget.habitModal.id,failed: false);
+
+                                                          }
+                                                          catch (e){
+                                                            CustomSnackBar.showSnackBar(context, e.toString());
+                                                          }
+
+                                                          setState(() {
+                                                            isLoading=false;
+                                                          });
+                                                        }
+                                                      });
+                                                    }
+                                                    else if(widget.habitModal.widgetType=="Timer"){
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context)=>HabitTimerDoing(habitModal: widget.habitModal, provider: provider)
+                                                          )
                                                       );
                                                     }
-                                                ).then((value) async{
-                                                  if(value==true){
-                                                    setState(() {
-                                                      isLoading=true;
-                                                    });
-                                                    try{
-                                                      await provider.addTransaction(habitId: widget.habitModal.id,failed: true);
-
+                                                    else if(widget.habitModal.widgetType=="Sets & Task"){
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context)=>HabitSetsTaskDoing(habitModal: widget.habitModal, provider: provider)
+                                                          )
+                                                      );
                                                     }
-                                                    catch (e){
-                                                      print(e.toString());
-                                                      CustomSnackBar.showSnackBar(context, e.toString());
+                                                    else{
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context)=>HabitSetsTimerDoing(habitModal: widget.habitModal, provider: provider)
+                                                          )
+                                                      );
                                                     }
 
-                                                    setState(() {
-                                                      isLoading=false;
-                                                    });
-                                                  }
-                                                });
-                                              },
-                                              child: Text("Failed")
-                                          ),
-                                        ),
-                                        Constants.kSmallBox,
-                                        Expanded(
-                                          child: ElevatedButton(
-                                              onPressed: (){
-                                                if(widget.habitModal.widgetType=="Todo"){
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context){
-                                                        return  CustomAlertDialog(
-                                                          heading: "Completed",
-                                                          subText:  "Had You Completed The Task?",
-
-                                                        );
-                                                      }
-                                                  ).then((value) async{
-                                                    if(value==true){
-                                                      setState(() {
-                                                        isLoading=true;
-                                                      });
-                                                      try{
-                                                        await provider.addTransaction(habitId: widget.habitModal.id,failed: false);
-
-                                                      }
-                                                      catch (e){
-                                                        CustomSnackBar.showSnackBar(context, e.toString());
-                                                      }
-
-                                                      setState(() {
-                                                        isLoading=false;
-                                                      });
-                                                    }
-                                                  });
-                                                }
-                                                else if(widget.habitModal.widgetType=="Timer"){
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context)=>HabitTimerDoing(habitModal: widget.habitModal, provider: provider)
-                                                      )
-                                                  );
-                                                }
-                                                else if(widget.habitModal.widgetType=="Sets & Task"){
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context)=>HabitSetsTaskDoing(habitModal: widget.habitModal, provider: provider)
-                                                      )
-                                                  );
-                                                }
-                                                else{
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context)=>HabitSetsTimerDoing(habitModal: widget.habitModal, provider: provider)
-                                                      )
-                                                  );
-                                                }
-
-                                              },
-                                              child: Text(widget.habitModal.widgetType=="Todo"?"Done":"Start")
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }
-                              )
-                            ],
-                          ),
+                                                  },
+                                                  child: Text(widget.habitModal.widgetType=="Todo"?"Done":"Start")
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+
+
                       ],
                     ),
-
-
-                  ],
+                  ),
                 ),
               ),
-            ),
-          );
-        }
+            );
+          }
+      ),
     );
   }
 

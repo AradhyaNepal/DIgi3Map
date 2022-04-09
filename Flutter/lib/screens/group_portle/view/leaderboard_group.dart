@@ -30,8 +30,10 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
         child: Consumer<LeaderboardProvider>(
           builder: (context,provider,child) {
             return Scaffold(
+              drawer: Drawer(child: LeaderBoardDrawer()),
               endDrawer: Drawer(child: LeaderBoardDrawer()),
               appBar: AppBar(
+                centerTitle: true,
                 iconTheme: const IconThemeData(color: Colors.black),
                 elevation: 0,
                 backgroundColor: Colors.white,

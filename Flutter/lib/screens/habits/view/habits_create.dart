@@ -101,7 +101,10 @@ class _AddHabitsState extends State<AddHabits> {
                                 );
                               }
                               if(provider.domainList.length==0 && provider.addingAllowed==false){
-                                return Text("Cannot Add, All Domains Are Occupied With 2 Habits");
+                                return Text(
+                                    "Cannot Add, All Domains Are Occupied With 2 Habits",
+                                  textAlign: TextAlign.center,
+                                );
                               }
                               return Wrap(
                                 children: [
@@ -221,7 +224,7 @@ class _AddHabitsState extends State<AddHabits> {
                                   child: CustomCircularIndicator(),
                                 );
                               }
-                              if(provider.domainList.length==0 || provider.addingAllowed==false){
+                              if(provider.domainList.length==0 && provider.addingAllowed==false){
                                 return Text("Cannot Add, All Domains Are Occupied With 2 Habits",textAlign: TextAlign.center,);
                               }
 

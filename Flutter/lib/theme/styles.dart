@@ -57,6 +57,12 @@ class Styles{
       fontSize: 15
   );
 
+  static const TextStyle semiMedium=TextStyle(
+      fontFamily: AssetsLocation.twCenName,
+      fontWeight: FontWeight.bold,
+      fontSize: 19
+  );
+
   static const TextStyle blueHighlight=TextStyle(
     color: Colors.blue,
       fontFamily: AssetsLocation.twCenName,

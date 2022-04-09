@@ -94,7 +94,7 @@ class _HabitSetsTaskDoingState extends State<HabitSetsTaskDoing> {
                         ),
                         SizedBox(height: itsRest?0:10,),
                         itsRest?SizedBox():Text(
-                          widget.habitModal.description??"",
+                          widget.habitModal.description,
                           textAlign: TextAlign.center,
                           style: Styles.bigHeading,
                         ),

@@ -47,8 +47,7 @@ class LearningProvider with ChangeNotifier {
     http.Response response =
         await http.get(uri, headers: {"Authorization": "Token $token"});
     final responseData = json.decode(response.body);
-    if (response.statusCode > 299)
-      throw HttpException(message: responseData.toString());
+    if (response.statusCode > 299) throw HttpException(message: responseData.toString());
   }
 
   Future<void> getTodayLearning() async {
@@ -58,8 +57,7 @@ class LearningProvider with ChangeNotifier {
     http.Response response =
         await http.get(uri, headers: {"Authorization": "Token $token"});
     final responseData = json.decode(response.body);
-    if (response.statusCode > 299)
-      throw HttpException(message: responseData.toString());
+    if (response.statusCode > 299) throw HttpException(message: responseData.toString());
     for (Map<String, dynamic> map in responseData) {
       try {
         _learningList.removeWhere((element) => element.id == map["study_id"]);
