@@ -5,6 +5,7 @@ import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/study_page/provider/implementing_provider.dart';
+import 'package:digi3map/screens/study_page/view/implement_doing.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _ImplementingWidgetState extends State<ImplementingWidget> {
                           children: [
                             Flexible(
                               child: Text(
-                                '${widget.implementingModel.id}) ${widget.implementingModel.name}',
+                                widget.implementingModel.name,
                                 style: Styles.mediumHeading,
                               ),
                             ),
@@ -132,11 +133,16 @@ class _ImplementingWidgetState extends State<ImplementingWidget> {
                                       child: Text("Failed")
                                   ),
                                 ),
-                                SizedBox(width: 5,),
+                                Constants.kSmallBox,
                                 Expanded(
                                   child: ElevatedButton(
                                       onPressed: (){
-
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context)=>ImplementingDoing(implementingProvider: provider, implementingModel: widget.implementingModel)
+                                            )
+                                        );
                                       },
                                       child: Text("Start")
                                   ),

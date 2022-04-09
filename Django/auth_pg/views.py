@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
+
+from Task.models import RandomTask
 from .serializer import RegisterSerializer, UserProgressSerializer
 from rest_framework import status
 from rest_framework import generics
@@ -64,6 +66,15 @@ def updateImplementing(request,oneForYes):
         {"details":"Sucessfully Added"},
     
     )
+
+
+
+def increaseDecreaseProgress(user,oneForYes):
+    if oneForYes==1: 
+        if user.progress_percentage<2:
+            user.progress_percentage=user.progress_percentage+0.05
+    elif user.progress_percentage>0.5:
+        user.progress_percentage=user.progress_percentage-0.05
 
 @permission_classes(IsAuthenticated)
 @api_view(['GET'])

@@ -7,12 +7,10 @@ urlpatterns=[
     path('user/<int:pk>/',views.get_user_data),
     path('register/',views.register_api),
     path('userProfile/',views.getUserProfile),
-
     path('updateWorkout/<int:oneForYes>/',views.updateWorkout),
     path('updateDiet/<int:oneForYes>/',views.updateDiet),
     path('updateLearning/<int:oneForYes>/',views.updateLearning),
     path('updateImplementing/<int:oneForYes>/',views.updateImplementing),
-    
     path('updateImage/',views.updateImage),
     path('logout/',knox_view.LogoutView.as_view()),
     path('userProgressUpdate/<int:id>/',views.update_user),

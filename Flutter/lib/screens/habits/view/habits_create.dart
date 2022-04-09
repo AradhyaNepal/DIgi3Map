@@ -7,6 +7,8 @@ import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/domain_crud/view/add_domain.dart';
 import 'package:digi3map/screens/domain_crud/widget/image_picker.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
+import 'package:digi3map/screens/homepage/provides/random_provider.dart';
+import 'package:digi3map/screens/homepage/provides/selection_notification.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +23,15 @@ class AddHabits extends StatefulWidget {
 }
 
 class _AddHabitsState extends State<AddHabits> {
+  int widgetTypeIndex=0;
+  int? time;
+  int? rest;
+  int? sets;
   final GlobalKey<FormState> _formKey=GlobalKey();
 
   ValueNotifier<String> domainValue=ValueNotifier("Fitness");
 
-  ValueNotifier<String> widgetValue=ValueNotifier("Todo");
+  late ValueNotifier<String> widgetValue;
 
   String name="",description="";
 
@@ -35,6 +41,7 @@ class _AddHabitsState extends State<AddHabits> {
   @override
   void initState() {
     if(widget.defaultDomain!=null) domainValue.value=widget.defaultDomain??"Fitness";
+    widgetValue=ValueNotifier(RandomTaskModal.widgetTypeList[widgetTypeIndex]);
     super.initState();
   }
   @override
@@ -83,7 +90,7 @@ class _AddHabitsState extends State<AddHabits> {
                             },
                           ),
                           Constants.kSmallBox,
-                          Text('Domain',style: Styles.forgotPasswordStyle,),
+                          Text('Domain (Unmodifiable)',style: Styles.forgotPasswordStyle,),
                           Constants.kVerySmallBox,
 
                           Consumer<HabitsProvider>(
@@ -120,14 +127,92 @@ class _AddHabitsState extends State<AddHabits> {
                             }
                           ),
                           Constants.kSmallBox,
-                          Text('Domain',style: Styles.forgotPasswordStyle,),
+                          Text('Widget Type',style: Styles.forgotPasswordStyle,),
                           Constants.kVerySmallBox,
-                          SelectionCollection(
+                          NotificationListener<SelectionNotification>(
+                            onNotification: (value){
+                              setState(() {
+                                widgetTypeIndex=value.index;
+                              });
+                              return true;
+                            },
+                            child: SelectionCollection(
 
-                              value: widgetValue,
-                              valuesList: Habit.widgetList
+                                value: widgetValue,
+                                valuesList: RandomTaskModal.widgetTypeList
+                            ),
                           ),
                           Constants.kSmallBox,
+                          (widgetTypeIndex==2 || widgetTypeIndex==3)?Column(
+                            children: [
+                              TextFormField(
+                                  initialValue: sets!=null?sets.toString():null,
+                                  validator: (value){
+                                    if(value!.isEmpty) return "Please Enter Sets";
+                                    return null;
+                                  },
+                                  onSaved: (value){
+                                    try{
+                                      sets=int.parse(value!);
+                                    }catch (e){
+
+                                    }
+                                  },
+
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.number,
+                                  decoration:Styles.getDecorationWithLable("Sets")
+                              ),
+                              Constants.kSmallBox,
+                            ],
+                          ):SizedBox(),
+
+                          (widgetTypeIndex==2 || widgetTypeIndex==3)?Column(
+                            children: [
+                              TextFormField(
+                                  initialValue: rest!=null?rest.toString():null,
+                                  validator: (value){
+                                    if(value!.isEmpty) return "Please Enter Rest Time";
+                                    return null;
+                                  },
+                                  onSaved: (value){
+                                    try{
+                                      rest=int.parse(value!);
+                                    }catch (e){
+
+                                    }
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.number,
+                                  decoration:Styles.getDecorationWithLable("Rest (Minutes)")
+                              ),
+                              Constants.kSmallBox,
+                            ],
+                          ):SizedBox(),
+
+                          (widgetTypeIndex==1 || widgetTypeIndex==3)?Column(
+                            children: [
+                              TextFormField(
+                                  initialValue: time!=null?time.toString():null,
+                                  validator: (value){
+                                    if(value!.isEmpty) return "Please Enter Time";
+                                    return null;
+                                  },
+                                  onSaved: (value){
+                                    try{
+                                      time=int.parse(value!);
+                                    }catch (e){
+
+                                    }
+                                  },
+                                  keyboardType: TextInputType.number,
+
+                                  textInputAction: (widgetTypeIndex==1 || widgetTypeIndex==3)?TextInputAction.done:TextInputAction.next,
+                                  decoration:Styles.getDecorationWithLable("Time (Minutes)")
+                              ),
+                              Constants.kSmallBox,
+                            ],
+                          ):SizedBox(),
 
                           Consumer<HabitsProvider>(
                             builder: (context,provider,child) {
@@ -136,9 +221,10 @@ class _AddHabitsState extends State<AddHabits> {
                                   child: CustomCircularIndicator(),
                                 );
                               }
-                              if(provider.domainList.length==0 && provider.addingAllowed==false){
-                                return Text("Cannot Add, All Domains Are Occupied With 2 Habits");
+                              if(provider.domainList.length==0 || provider.addingAllowed==false){
+                                return Text("Cannot Add, All Domains Are Occupied With 2 Habits",textAlign: TextAlign.center,);
                               }
+
                               return CustomBlueButton(
                                   text: 'Add',
                                   onPressed: () async{
@@ -157,8 +243,11 @@ class _AddHabitsState extends State<AddHabits> {
                                               domainName:domainValue.value,
                                               domainId: provider.idCalculator(domainValue.value),
                                               photoUrl: imageValue.value??"",
-                                              widgetType: widgetValue.value,
+                                              widgetType: RandomTaskModal.widgetTypeList[widgetTypeIndex],
                                               description: description,
+                                              sets: sets,
+                                              rest: rest,
+                                              time: time,
                                               progress: widgetValue.value
                                           )).then((value) {
                                             CustomSnackBar.showSnackBar(context, "Habit Successfully Added");

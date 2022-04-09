@@ -98,6 +98,8 @@ class _LearningDoingState extends State<LearningDoing> {
                           widget.learningModel.image
                       ),
                     ),
+
+                    Constants.kSmallBox,
                     Text(
                       "Every Single Day Counts",
                       style: Styles.mediumHeading,

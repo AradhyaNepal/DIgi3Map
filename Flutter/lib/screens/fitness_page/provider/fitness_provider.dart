@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FitnessProvider with ChangeNotifier{
+class RandomProvider with ChangeNotifier{
   bool isLoading=true;
-  FitnessProvider(){
+  RandomProvider(){
     getTodayFitness();
   }
   final List<FitnessModel> _fitnessList=[
@@ -40,6 +40,7 @@ class FitnessProvider with ChangeNotifier{
     Uri uri=Uri.parse(Service.baseApi+Service.getExcludedFitnessApi);
     final sharedPrefs=await SharedPreferences.getInstance();
     String token=sharedPrefs.getString(Service.tokenPrefKey)??"";
+    print(uri.toString());
     http.Response response=await http.get(
       uri,
       headers: {

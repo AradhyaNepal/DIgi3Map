@@ -2,6 +2,7 @@ import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/common/widgets/selection_collection.dart';
+import 'package:digi3map/common/widgets/selection_unit.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/provider/deleted_notification.dart';
@@ -16,6 +17,8 @@ import 'package:digi3map/screens/habit_milestone_graph_chain/view/habits_graph.d
 import 'package:digi3map/screens/habit_milestone_graph_chain/widgets/milestone_widget.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
 import 'package:digi3map/screens/habits/widgets/open_chain_navigation_widget.dart';
+import 'package:digi3map/screens/homepage/provides/random_provider.dart';
+import 'package:digi3map/screens/homepage/provides/selection_notification.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,10 @@ class HabitsReadDeleteUpdate extends StatefulWidget {
 }
 
 class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
+  int widgetTypeIndex=0;
+  int? time;
+  int? sets;
+  int? rest;
   ValueNotifier<String> domainValue=ValueNotifier("Fitness");
 
   bool isLoading=true;
@@ -38,7 +45,7 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
   bool isLoadingDomainFirst=true;
   ValueNotifier<String> nameValue=ValueNotifier("");
 
-
+  final GlobalKey<FormState> formKey=GlobalKey();
 
   final ValueNotifier<bool> imageSelectedProvider=ValueNotifier(false);
   ValueNotifier<String> descriptionValue=ValueNotifier("");
@@ -56,12 +63,17 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
   }
   void getValues() async{
     habit=await HabitsProvider.getHabit(id: widget.id);
+    sets=habit.sets;
+    time=habit.time;
+    rest=habit.rest;
     domainValue.value=habit.domainName;
     imageValue.value=habit.photoUrl;
     nameValue.value=habit.name;
     descriptionValue.value=habit.description;
     progress=habit.progress;
     widgetValue=ValueNotifier(habit.widgetType);
+    widgetTypeIndex=RandomTaskModal.widgetTypeList.indexWhere((element) => element==widgetValue.value);
+    if(widgetTypeIndex==-1) widgetTypeIndex=0;
     isLoading=false;
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       setState(() {
@@ -101,7 +113,7 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                       :SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomImagePicker(fromServer: true,
                             imageLocation: imageValue,
@@ -117,51 +129,13 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                         ),
                         Constants.kVerySmallBox,
                         Text(
-                          "Domain",
+                          "Domain (Unmodifiable)",
                           style: Styles.opacityHeadingStyle,
                         ),
                         Constants.kVerySmallBox,
-                        Consumer<HabitsProvider>(
-                            builder: (context,provider,child) {
-                              if(isLoadingDomainFirst){
-                                provider.getDomain();
-                                isLoadingDomainFirst=false;
-                              }
-                              if(provider.isDomainLoading) {
-                                return Center(
-                                  child: CustomCircularIndicator(),
-                                );
-                              }
-                              if(provider.domainList.length==0 && provider.addingAllowed==false){
-                                return Text(
-                                    "Cannot Add, All Domains Are Occupied With 2 Habits"
-                                );
-                              }
-                              print("Domain Value "+domainValue.value);
-                              return Wrap(
-                                children: [
-                                  SelectionCollection(
-                                      defaultValue: domainValue.value,
-                                      value: domainValue,
-                                      valuesList: provider.domainList
-                                  ),
-                                  provider.addingAllowed?
-                                  ElevatedButton(
-                                      onPressed: (){
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder: (context) => AddDomain(
-                                              provider: DomainProvider(),
-                                            ))).then((value) {
-                                          provider.getDomain();
-                                        });
-                                      },
-                                      child: Text(
-                                        "Add",
-                                      )
-                                  ):SizedBox()
-                                ],
-                              );
-                            }
+                        SelectionUnit(
+                            isSelected: true,
+                            value: domainValue.value
                         ),
                         Constants.kVerySmallBox,
                         Text(
@@ -169,12 +143,99 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                           style: Styles.opacityHeadingStyle,
                         ),
                         Constants.kVerySmallBox,
-                        SelectionCollection(
-                          defaultValue: widgetValue.value,
-                            value: widgetValue,
-                            valuesList:Habit.widgetList
+                        NotificationListener<SelectionNotification>(
+                          onNotification: (value){
+                            setState(() {
+                              widgetTypeIndex=value.index;
+                            });
+                            return true;
+                          },
+                          child: SelectionCollection(
+                            defaultValue: RandomTaskModal.widgetTypeList[widgetTypeIndex],
+                              value: widgetValue,
+                              valuesList:RandomTaskModal.widgetTypeList
+                          ),
                         ),
-                        Constants.kVerySmallBox,
+                        Constants.kSmallBox,
+                        Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              (widgetTypeIndex==2 || widgetTypeIndex==3)?Column(
+                                children: [
+                                  TextFormField(
+                                      initialValue: sets!=null?sets.toString():null,
+                                      validator: (value){
+                                        if(value!.isEmpty) return "Please Enter Sets";
+                                        return null;
+                                      },
+                                      onSaved: (value){
+                                        try{
+                                          sets=int.parse(value!);
+                                        }catch (e){
+
+                                        }
+                                      },
+
+                                      textInputAction: TextInputAction.next,
+                                      keyboardType: TextInputType.number,
+                                      decoration:Styles.getDecorationWithLable("Sets")
+                                  ),
+                                  Constants.kSmallBox,
+                                ],
+                              ):SizedBox(),
+
+
+                              (widgetTypeIndex==2 || widgetTypeIndex==3)?Column(
+                                children: [
+                                  TextFormField(
+                                      initialValue: rest!=null?rest.toString():null,
+                                      validator: (value){
+                                        if(value!.isEmpty) return "Please Enter Rest Time";
+                                        return null;
+                                      },
+                                      onSaved: (value){
+                                        try{
+                                          rest=int.parse(value!);
+                                        }catch (e){
+
+                                        }
+                                      },
+                                      textInputAction: TextInputAction.next,
+                                      keyboardType: TextInputType.number,
+                                      decoration:Styles.getDecorationWithLable("Rest (Minutes)")
+                                  ),
+                                  Constants.kSmallBox,
+                                ],
+                              ):SizedBox(),
+
+                              (widgetTypeIndex==1 || widgetTypeIndex==3)?Column(
+                                children: [
+                                  TextFormField(
+                                      initialValue: time!=null?time.toString():null,
+                                      validator: (value){
+                                        if(value!.isEmpty) return "Please Enter Time";
+                                        return null;
+                                      },
+                                      onSaved: (value){
+                                        try{
+                                          time=int.parse(value!);
+                                        }catch (e){
+
+                                        }
+                                      },
+                                      keyboardType: TextInputType.number,
+
+                                      textInputAction: (widgetTypeIndex==1 || widgetTypeIndex==3)?TextInputAction.done:TextInputAction.next,
+                                      decoration:Styles.getDecorationWithLable("Time (Minutes)")
+                                  ),
+                                  Constants.kSmallBox,
+                                ],
+                              ):SizedBox(),
+                            ],
+                          ),
+                        ),
+
                         Consumer<HabitsProvider>(
                           builder: (context,provider,child) {
                             return isDeleteEditLoading?Center(
@@ -182,31 +243,38 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                             ):ElevatedButton(
                                 style: ElevatedButton.styleFrom(primary: ColorConstant.kBlueColor),
                                 onPressed: (){
-                                  setState(() {
-                                    isDeleteEditLoading=true;
-                                  });
-                                  provider.addUpdateHabit(
-                                      Habit(
-                                        id: habit.id,
-                                          domainName: domainValue.value,
-                                          name: nameValue.value,
-                                          domainId: provider.idCalculator(domainValue.value),
-                                          photoUrl: imageValue.value??"",
-                                          widgetType: widgetValue.value,
-                                          description: descriptionValue.value,
-                                          progress: progress
-                                      ),
-                                      haveNewImage:imageSelectedProvider.value
-                                  ).then((value) {
-                                    CustomSnackBar.showSnackBar(context, "Successfully Edited");
-                                    Navigator.pop(context);
-
-                                  }).onError((error, stackTrace) {
-                                    CustomSnackBar.showSnackBar(context, error.toString());
+                                  if(formKey.currentState!.validate()){
+                                    formKey.currentState!.save();
                                     setState(() {
-                                      isDeleteEditLoading=false;
+                                      isDeleteEditLoading=true;
                                     });
-                                  });
+                                    provider.addUpdateHabit(
+                                        Habit(
+                                            id: habit.id,
+                                            domainName: domainValue.value,
+                                            name: nameValue.value,
+                                            domainId: provider.idCalculator(domainValue.value),
+                                            photoUrl: imageValue.value??"",
+                                            widgetType: RandomTaskModal.widgetTypeList[widgetTypeIndex],
+                                            description: descriptionValue.value,
+                                            progress: progress,
+                                            time: time,
+                                            sets: sets,
+                                            rest: rest
+                                        ),
+                                        haveNewImage:imageSelectedProvider.value
+                                    ).then((value) {
+                                      CustomSnackBar.showSnackBar(context, "Successfully Edited");
+                                      Navigator.pop(context);
+
+                                    }).onError((error, stackTrace) {
+                                      CustomSnackBar.showSnackBar(context, error.toString());
+                                      setState(() {
+                                        isDeleteEditLoading=false;
+                                      });
+                                    });
+                                  }
+
                                 },
                                 child: const Text('Save')
                             );
@@ -218,7 +286,9 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                           style: Styles.opacityHeadingStyle,
                         ),
                         Constants.kVerySmallBox,
-                        OpenChainNavigationWidget(habitId: habit.id,habitName: habit.name,),
+                        OpenChainNavigationWidget(
+                          habitId: habit.id,habitName: habit.name,
+                        ),
                         Constants.kVerySmallBox,
                         HabitsGraph(),
                         Constants.kSmallBox,
@@ -234,16 +304,19 @@ class _HabitsReadDeleteUpdateState extends State<HabitsReadDeleteUpdate> {
                           builder: (context,habitProvider,child) {
                             return isDeleteEditLoading?Center(
                               child: CustomCircularIndicator(),
-                            ):ElevatedButton(
-                                style: ElevatedButton.styleFrom(primary: Colors.red),
-                                onPressed: (){
-                                  showPasswordModal(
-                                      context: context,
-                                      id: habit.id.toString(),
-                                    provider: habitProvider
-                                  );
-                                },
-                                child: const Text('Delete')
+                            ):SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                                  onPressed: (){
+                                    showPasswordModal(
+                                        context: context,
+                                        id: habit.id.toString(),
+                                      provider: habitProvider
+                                    );
+                                  },
+                                  child: const Text('Delete')
+                              ),
                             );
                           }
                         ),

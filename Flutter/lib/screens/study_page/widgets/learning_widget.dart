@@ -52,7 +52,7 @@ class _LearningWidgetState extends State<LearningWidget> {
                       children: [
                         Flexible(
                           child: Text(
-                            "${widget.learningModel.id}) ${widget.learningModel.heading}",
+                            widget.learningModel.heading,
                             style: Styles.mediumHeading,
                           ),
                         ),

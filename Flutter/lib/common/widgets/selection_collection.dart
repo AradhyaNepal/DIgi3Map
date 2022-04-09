@@ -1,4 +1,5 @@
 import 'package:digi3map/common/widgets/selection_unit.dart';
+import 'package:digi3map/screens/homepage/provides/selection_notification.dart';
 import 'package:flutter/material.dart';
 
 class SelectionCollection extends StatefulWidget {
@@ -26,7 +27,6 @@ class _SelectionCollectionState extends State<SelectionCollection> {
   void initState() {
     widget.value.value=widget.valuesList[selectedIndex];
     selectedIndex=widget.valuesList.indexWhere((element) => element==widget.defaultValue);
-    print("Selected Index"+selectedIndex.toString());
     if(selectedIndex==-1) selectedIndex=0;
     super.initState();
   }
@@ -47,6 +47,7 @@ class _SelectionCollectionState extends State<SelectionCollection> {
                 }
 
               });
+              SelectionNotification(index: selectedIndex).dispatch(context);
             },
               child: SelectionUnit(
                 selectionUnitSize: SelectionUnitSize.big,

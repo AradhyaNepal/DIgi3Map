@@ -1,7 +1,7 @@
 import imp
 from django.urls import path
 
-from Task.views import addDietTransaction, addFitnessTransaction, addImplementingTransaction, addLearningTransaction, getExcludedDiet, getExcludedFitness, getExcludedImplementing, getExcludedLearning
+from Task.views import RandomTaskDetailView, RandomTaskView, addDietTransaction, addFitnessTransaction, addImplementingTransaction, addLearningTransaction, getExcludedDiet, getExcludedFitness, getExcludedImplementing, getExcludedLearning
 urlpatterns = [
     path('getExcludedFitness/',getExcludedFitness),
     path('addFitnessTransaction/',addFitnessTransaction),
@@ -10,5 +10,8 @@ urlpatterns = [
     path('getExcludedLearning/',getExcludedLearning),
     path('addLearningTransaction/',addLearningTransaction),
     path('getExcludedImplementing/',getExcludedImplementing),
+    path('randomTask/',RandomTaskView.as_view()),
+    path('randomTask/<int:task_id>/',RandomTaskDetailView.as_view()),
     path('addImplementingTransaction/',addImplementingTransaction),
 ]
+

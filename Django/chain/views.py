@@ -11,29 +11,31 @@ class ChainAddView(APIView):
        
         serializer=ChainSerialzier(data=request.data)
         if serializer.is_valid():
-            userId=0
+            habitId=0
             dateCollected=""
             try:
-                data=json.loads(request.data)
-                userId=int(data['user_id'])
-                dateCollected=data['collected_date']
+                habitId=serializer.validated_data['habit_id']
+                dateCollected=serializer.validated_data['collected_date']
             except:
-                try:
-                    data=request.POST
-                    userId=int(data['user_id'])
-                    dateCollected=data['collected_date']
-                except:
-                    print("fds") 
-
-           
+                return Response(
+                        {
+                            "details":"Bello"
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                   
             try:
-                chainValue=Chain.objects.get(user_id=userId,collected_date=dateCollected)
-                
+                chainValue=Chain.objects.get(habit_id=habitId,collected_date=dateCollected)
             except Chain.DoesNotExist:
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             except Chain.MultipleObjectsReturned:
-                print("Bello")
+                return Response(
+                    {
+                        "details":"Bello"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             return Response(
                 {
                     "Chain Already Created":"Yo Yo"

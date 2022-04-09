@@ -7,9 +7,9 @@ import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class OpenChainNavigationWidget extends StatelessWidget {
-  int habitId;
-  String habitName;
-  OpenChainNavigationWidget({
+  final int habitId;
+  final String habitName;
+  const OpenChainNavigationWidget({
     required this.habitId,
     required this.habitName,
     Key? key,

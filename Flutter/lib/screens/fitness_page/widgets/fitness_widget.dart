@@ -78,7 +78,7 @@ class _FitnessWidgetState extends State<FitnessWidget> {
                         children: [
                           Flexible(
                             child: Text(
-                                "${widget.fitnessModel.id}) ${widget.fitnessModel.name}",
+                              widget.fitnessModel.name,
                               style: Styles.mediumHeading,
                             ),
                           ),
@@ -124,12 +124,12 @@ class _FitnessWidgetState extends State<FitnessWidget> {
                         ],
                       ),
                       Constants.kVerySmallBox,
-                      Consumer<FitnessProvider>(
+                      Consumer<RandomProvider>(
                         builder: (context,provider,child) {
                           return isLoading?Center(child: CircularProgressIndicator(),):Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Flexible(
+                              Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(primary: Colors.red),
                                     onPressed: (){
@@ -164,13 +164,13 @@ class _FitnessWidgetState extends State<FitnessWidget> {
                                     },
                                     child: Text(
                                       "Skip",
-                                      style: Styles.mediumHeading,
                                     )
                                 ),
                               ),
-                              SizedBox(width: 5,),
-                              Flexible(
-                                child: Consumer<FitnessProvider>(
+
+                              Constants.kSmallBox,
+                              Expanded(
+                                child: Consumer<RandomProvider>(
                                   builder: (context,provider,child) {
                                     return ElevatedButton(
                                         onPressed: (){
@@ -183,7 +183,6 @@ class _FitnessWidgetState extends State<FitnessWidget> {
                                         },
                                         child: Text(
                                           "Start",
-                                          style: Styles.mediumHeading,
                                         )
                                     );
                                   }

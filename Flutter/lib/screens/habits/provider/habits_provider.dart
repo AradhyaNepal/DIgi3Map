@@ -10,14 +10,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 class Habit{
-  static const idJson="id",nameJson="name",photoJson="photo_url",todoName="Todo",timerName="Timer",setsAndRepsName="Sets And Reps",
-  widgetJson="widget_type",descriptionJson="description",progressJson="progress",domainJson="domain_id";
-  static const List<String> widgetList=[todoName,timerName,setsAndRepsName];
+  static const idJson="id",nameJson="name",photoJson="photo_url",todoName="Todo",timerName="Timer",setsAndRepsName="Sets & Reps",
+  widgetJson="widget_type",descriptionJson="description",progressJson="progress",domainJson="domain_id",setsJson="sets",restJson="rest",timeJson="time";
+  //static const List<String> widgetList=[todoName,timerName,setsAndRepsName];
   late String name,domainId,photoUrl,widgetType,description;
+
   dynamic id,progress;
+
+  int? sets,rest,time;
   late String domainName;
   Habit({
     this.id,
+    this.sets,
+    this.rest,
+    this.time,
     required this.domainName,
     required this.name,
     required this.domainId,
@@ -37,6 +43,10 @@ class Habit{
     widgetType=map[widgetJson];
     description=map[descriptionJson];
     progress=map[progressJson];
+    time=map[timeJson];
+    sets=map[setsJson];
+    rest=map[restJson];
+    print("Time $time");
   }
 
   MileStone getMilestone({bool showNavigator=true}){
@@ -64,6 +74,7 @@ class HabitsProvider with ChangeNotifier{
     addingAllowed=totalDomains.length<3;
     List<Domain> totalAvailableDomain=await DomainProvider().getDomainList(forHabit: true);
     domainList= totalAvailableDomain.map((e) => e.domainName).toList();
+
     idCalculator=(String domainName){
       String index= totalAvailableDomain.firstWhere((element) => domainName==element.domainName).domainId.toString();
 
@@ -117,6 +128,11 @@ class HabitsProvider with ChangeNotifier{
     request.fields[Habit.domainJson] = habit.domainId;
     request.fields[Habit.widgetJson] = habit.widgetType;
     request.fields[Habit.descriptionJson] = habit.description;
+    print(habit.time.runtimeType);
+    print(habit.time);
+    if(habit.rest!=null)request.fields[Habit.restJson] = habit.rest.toString();
+    if(habit.time!=null)request.fields[Habit.timeJson] = habit.time.toString();
+    if(habit.sets!=null)request.fields[Habit.setsJson] = habit.sets.toString();
 
     print(request.fields);
     await request.send().then((streamValue) {

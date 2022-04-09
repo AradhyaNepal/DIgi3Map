@@ -1,3 +1,4 @@
+import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
@@ -29,7 +30,7 @@ class _FailedSuccessDietWidgetState extends State<FailedSuccessDietWidget> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
+            Expanded(
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   onPressed: (){
@@ -55,7 +56,9 @@ class _FailedSuccessDietWidgetState extends State<FailedSuccessDietWidget> {
                   )
               ),
             ),
-            Flexible(
+
+            Constants.kSmallBox,
+            Expanded(
               child: ElevatedButton(
                   onPressed: (){
                     showDialog(

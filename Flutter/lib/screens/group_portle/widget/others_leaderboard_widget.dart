@@ -43,7 +43,8 @@ class OthersLeaderboardIndividual extends StatelessWidget {
                       child: player.userImage==null|| player.userImage==""?Image.asset(
                           AssetsLocation.userDummyProfileLocation
                       ):Image.network(
-                          Service.baseApi+"media/"+(player.userImage??"")
+                          Service.baseApi+"media/"+(player.userImage??""),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

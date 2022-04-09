@@ -50,7 +50,7 @@ class DietWidget extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                    "${diet.id}) ${diet.name}",
+                    diet.name,
                   style: Styles.mediumHeading,
                 ),
               ),
@@ -80,7 +80,7 @@ class DietWidget extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  "${diet.id}) ${diet.name}",
+                  diet.name,
                   style: Styles.mediumHeading,
                 ),
               ),

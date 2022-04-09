@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
-import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/screens/fitness_page/provider/fitness_provider.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_widget.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -12,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class WorkoutDoing extends StatefulWidget {
   final FitnessModel fitnessModel;
-  final FitnessProvider fitnessProvider;
+  final RandomProvider fitnessProvider;
   const WorkoutDoing({
     required this.fitnessProvider,
     required this.fitnessModel,
@@ -87,7 +85,14 @@ class _WorkoutDoingState extends State<WorkoutDoing> {
                           ),
                         ),
                         itsRest?SizedBox():Text(
-                          widget.fitnessModel.weightAndRep,
+                            "Sets :$currentSet/${widget.fitnessModel.setsCount}",
+                          textAlign: TextAlign.center,
+                          style: Styles.mediumHeading
+                        ),
+                        SizedBox(height: itsRest?0:10,),
+                        itsRest?SizedBox():Text(
+                         widget.fitnessModel.weightAndRep,
+                          textAlign: TextAlign.center,
                           style: Styles.bigHeading,
                         ),
                         const SizedBox(height: 10,),
@@ -178,7 +183,7 @@ class _WorkoutDoingState extends State<WorkoutDoing> {
     try{
       if(!itsRest){
         if(!skipButton)completedSets++;
-        if(currentSet==5){
+        if(currentSet==widget.fitnessModel.setsCount){
           setState(() {
             isDoingTransaction=true;
           });

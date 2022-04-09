@@ -2,6 +2,7 @@ import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
 import 'package:digi3map/screens/homepage/views/home_task.dart';
+import 'package:digi3map/screens/homepage/views/random_task_list.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
