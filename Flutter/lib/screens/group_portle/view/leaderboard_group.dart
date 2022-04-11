@@ -74,7 +74,16 @@ class _LeaderboardInGroupState extends State<LeaderboardInGroup> {
 
                       return const Center(
                         child: Text(
-                          "Waiting For Other Players To Join"
+                          "Waiting For Other Players To Join",
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+                    if(provider.reported){
+                      return Center(
+                        child: Text(
+                          provider.reportedValue,
+                          textAlign: TextAlign.center,
                         ),
                       );
                     }

@@ -18,13 +18,11 @@ class HabitTaskProvider with ChangeNotifier{
     String token= sharedPref.getString(Service.tokenPrefKey)??"";
     int userId=sharedPref.getInt(Service.userId)??0;
     Uri userHabits=Uri.parse(Service.baseApi+Service.userHabits+"$userId/");
-
     http.Response response=await http.get(
       userHabits,
       headers: {
         "Authorization":"Token $token"
       }
-
     );
     final userHabitsData=json.decode(response.body);
     Uri excludedHabits=Uri.parse(Service.baseApi+Service.excludedHabit);
@@ -34,56 +32,33 @@ class HabitTaskProvider with ChangeNotifier{
         headers: {
           "Authorization":"Token $token"
         }
-
     );
     final excludedHabitsData=json.decode(response.body);
     if(response.statusCode>299) throw HttpException(message: excludedHabitsData.toString());
-    int domainPoints=0;
     currentHabitsList.clear();
-    int highCount=0;
-    int lowCount=0;
-    int mediumCount=0;
-    int highExtraPoints=0;
-    int lowExtraPoints=0;
-    int mediumExtraPoints=0;
     for (Map<String,dynamic> map in userHabitsData){
       Habit habit=Habit.fromMap(map: map);
       currentHabitsList.add(habit);
-      domainPoints+=habit.points??0;
-      if(habit.domainPriority=="High"){
-        highCount++;
-      }else if(habit.domainPriority=="Medium"){
-        mediumCount++;
-      }
-      else{
-        lowCount++;
-      }
     }
     for (Map<String,dynamic> map in excludedHabitsData){
       currentHabitsList.removeWhere((element) => element.id==map['habitId']);
     }
-
-    currentHabitsList.sort((a,b)=>(a.points??0).compareTo(b.points??0));
-
-    final List<Habit> highPriorityList=currentHabitsList.where((element) => element.domainPriority=="High").toList();
-    //highPriorityList.sort((a,b)=>(a.points??0).compareTo(b.points??0));
-    List<Habit> mediumPriorityList=currentHabitsList.where((element) => element.domainPriority=="Medium").toList();
-    //mediumPriorityList.sort((a,b)=>a.points??0.compareTo(b.points??0));
-    List<Habit> lowPriorityList=currentHabitsList.where((element) => element.domainPriority=="Low").toList();
-    //lowPriorityList.sort((a,b)=>a.points??0.compareTo(b.points??0));
-
-    print("\n\n\n");
-    currentHabitsList.clear();
-    currentHabitsList.addAll(highPriorityList);
-    currentHabitsList.addAll(mediumPriorityList);
-    currentHabitsList.addAll(lowPriorityList);
-
-    for(Habit habit in currentHabitsList){
-      print(habit.domainName+" "+habit.points.toString());
+    if(currentHabitsList.length>1){
+      //If length is less than one then it does not make any sense to do sorting
+      for (int index=0;index<currentHabitsList.length;index++) {
+        Habit current=currentHabitsList[index];
+        if(current.domainPriority=="High"){
+          current.points=((current.points??0)-(current.points??0)*0.4).toInt();
+        }
+        else if(current.domainPriority=="Medium"){
+          current.points=((current.points??0)-(current.points??0)*0.2).toInt();
+        }
+        currentHabitsList[index]=current;
+      }
+      currentHabitsList.sort((a,b)=>(a.points??0).compareTo(b.points??0));
     }
     isLoading=false;
     notifyListeners();
-
   }
 
 

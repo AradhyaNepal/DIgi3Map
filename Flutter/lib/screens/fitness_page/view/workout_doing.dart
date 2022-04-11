@@ -91,7 +91,7 @@ class _WorkoutDoingState extends State<WorkoutDoing> {
                         ),
                         SizedBox(height: itsRest?0:10,),
                         itsRest?SizedBox():Text(
-                         widget.fitnessModel.weightAndRep,
+                          "${widget.fitnessModel.weight} Kg with ${widget.fitnessModel.reps} reps",
                           textAlign: TextAlign.center,
                           style: Styles.bigHeading,
                         ),
@@ -134,7 +134,7 @@ class _WorkoutDoingState extends State<WorkoutDoing> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    itsRest?"Next ${widget.fitnessModel.weightAndRep}":"Next ${widget.fitnessModel.restMinute} min rest",
+                    itsRest?"Next ${widget.fitnessModel.weight} Kg with ${widget.fitnessModel.reps} reps":"Next ${widget.fitnessModel.restMinute} min rest",
                     style: Styles.mediumHeading,
                   ),
                 ),

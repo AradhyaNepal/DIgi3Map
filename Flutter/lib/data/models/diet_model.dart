@@ -40,8 +40,8 @@ class DietData{
     Diet(
 
         id: "3",
-        image: AssetsLocation.snacksImageLocation,
-        name: "All Snacks",
+        image: AssetsLocation.dinnerImageLocation,
+        name: "Dinner",
         protein: "25 g",
         fat: "25 g",
         carbs: "25 g",
@@ -50,12 +50,23 @@ class DietData{
     Diet(
 
         id: "4",
-        image: AssetsLocation.dinnerImageLocation,
-        name: "Dinner",
+        image: AssetsLocation.snacksImageLocation,
+        name: "Noon Snacks",
         protein: "25 g",
         fat: "25 g",
         carbs: "25 g",
         description: ""
     ),
+    Diet(
+
+        id: "5",
+        image: AssetsLocation.nightStudyImageLocation,
+        name: "Night Snacks",
+        protein: "25 g",
+        fat: "25 g",
+        carbs: "25 g",
+        description: ""
+    ),
+
   ];
 }

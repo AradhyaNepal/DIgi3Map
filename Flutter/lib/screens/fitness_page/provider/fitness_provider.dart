@@ -13,11 +13,11 @@ class RandomProvider with ChangeNotifier{
     getTodayFitness();
   }
   final List<FitnessModel> _fitnessList=[
-    FitnessModel(id:1,name: "BenchPress",  image: AssetsLocation.benchPressImageLocation, musclesTargeted: ["Chest","Triceps"], weightAndRep: "20 Kg With 8 Reps", setsCount: 5, restMinute: 1),
-    FitnessModel(id:2,name: "Machine Pull Down",  image: AssetsLocation.pullDownImageLocation, musclesTargeted: ["Back","Bicep"], weightAndRep: "45 Kg With 8 Reps",setsCount: 5, restMinute: 2),
-    FitnessModel(id:3,name: "Shoulder Press",  image: AssetsLocation.shoulderPressImageLocation, musclesTargeted: ["Shoulder","Triceps"], weightAndRep: "10 Kg With 8 Reps",setsCount: 5, restMinute: 1),
-    FitnessModel(id:4,name: "Squat",  image:AssetsLocation.squadImageLocation, musclesTargeted: ["Hams","Core"], weightAndRep: "40 Kg With 7 Reps",setsCount: 5, restMinute: 3),
-    FitnessModel(id:5,name: "Deadlift",  image: AssetsLocation.deadLiftImageLocation, musclesTargeted: ["Quads","Glutes","Back","Core"], weightAndRep: "55 Kg With 6 Reps",setsCount: 5, restMinute: 4),
+    FitnessModel(id:1,name: "BenchPress",  image: AssetsLocation.benchPressImageLocation, musclesTargeted: ["Chest","Triceps"], weight:20,reps:8, setsCount: 5, restMinute: 1),
+    FitnessModel(id:2,name: "Machine Pull Down",  image: AssetsLocation.pullDownImageLocation, musclesTargeted: ["Back","Bicep"], weight:45,reps:8,setsCount: 5, restMinute: 2),
+    FitnessModel(id:3,name: "Shoulder Press",  image: AssetsLocation.shoulderPressImageLocation, musclesTargeted: ["Shoulder","Triceps"],weight:10,reps:8, setsCount: 5, restMinute: 1),
+    FitnessModel(id:4,name: "Squat",  image:AssetsLocation.squadImageLocation, musclesTargeted: ["Hams","Core"], weight:40,reps:7,setsCount: 5, restMinute: 3),
+    FitnessModel(id:5,name: "Deadlift",  image: AssetsLocation.deadLiftImageLocation, musclesTargeted: ["Quads","Glutes","Back","Core"],weight:55,reps:6, setsCount: 5, restMinute: 4),
 
   ];
 

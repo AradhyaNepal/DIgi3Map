@@ -76,6 +76,27 @@ class GroupChatProvider with ChangeNotifier{
     getMessage();
 
   }
+
+  Future<void> reportUser(int reportedUser) async{
+    Uri uri=Uri.parse(Service.baseApi+Service.reportUser);
+    String dateReported=DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString();
+    http.Response response=await http.post(
+        uri,
+      body: json.encode({
+        "reported_date":dateReported,
+        "leaderbaord_id":leaderboardId,
+        "reporter_id":userId,
+        "reported_user":reportedUser
+      }),
+      headers: {
+          "Content-Type":"application/json"
+      }
+
+    );
+    final responseData=json.decode(response.body);
+    if(response.statusCode>299) throw HttpException(message: responseData["details"]??responseData.toString());
+
+  }
 }
 
 
@@ -86,8 +107,10 @@ class ChatModel{
   String? image;
   String effectTime;
   String username;
+  bool forTesting;
   ChatModel({
     required this.username,
+    this.forTesting=false,
     required this.message,
     required this.image,
     required this.chatEffect,

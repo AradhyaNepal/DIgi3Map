@@ -18,9 +18,12 @@ class LeaderboardProvider with ChangeNotifier{
     });
   }
   static const String waitingValue="Waiting";
+  String reportedValue="You Have Been Banned For 7 Days From Game Due To Misbehaving In Previous Leaderbaord.";
   static const String detailsKey="details";
   List<int> unCollectedTrophy=[];
   bool _waiting=false;
+  bool _reported=false;
+  bool get reported=>_reported;
   bool get waiting=>_waiting;
   final List<LeaderboardPlayers> playersList=[];
   int highestUserId=0;
@@ -68,7 +71,10 @@ class LeaderboardProvider with ChangeNotifier{
       playersList.clear();
       if(responseData[detailsKey]==waitingValue){
         _waiting=true;
-      }else{
+      }else if(responseData[detailsKey]==reportedValue){
+        _reported=true;
+      }
+      else{
        getValue(responseData, userId);
       }
     }catch(e){

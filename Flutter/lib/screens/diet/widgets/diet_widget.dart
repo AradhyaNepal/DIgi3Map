@@ -14,27 +14,30 @@ class DietWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-      color: ColorConstant.kGreyCardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-                child: Card(
-                  child: Image.asset(
-                      diet.image
-                  ),
-                )
-            ),
-            SizedBox(width: 5,),
-            Expanded(
-              flex: 3,
-                child: getDietDetails()
-            ),
-          ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+        color: ColorConstant.kGreyCardColor,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                  child: Card(
+                    child: Image.asset(
+                        diet.image
+                    ),
+                  )
+              ),
+              SizedBox(width: 5,),
+              Expanded(
+                flex: 3,
+                  child: getDietDetails()
+              ),
+            ],
+          ),
         ),
       ),
     );

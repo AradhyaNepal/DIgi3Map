@@ -40,7 +40,7 @@ class _UserMissionsState extends State<UserMissions> {
   bool isLoading=true;
   void setUpList() async{
     FitnessCareerPoints points=await DomainProvider().getFitnessCareerPoints();
-    headingList.add("Custom Habits \n(Swipe For Next)");
+    headingList.add("Custom Habits");
     listViewList.add(UserMissionsList());
     pageList.add(SizedBox());
     if(points.careerPoints>points.fitnessPoint){
@@ -52,7 +52,7 @@ class _UserMissionsState extends State<UserMissions> {
       addCareer();
       addFitness();
     }
-    headingList.add("Random Task \n(Swipe For Next)");
+    headingList.add("Random Task");
     listViewList.add(RandomTaskList());
     pageList.add(SizedBox());
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -64,20 +64,20 @@ class _UserMissionsState extends State<UserMissions> {
   }
   void addFitness(){
     headingList.add("Workout",);
-    listViewList.add(FitnessListView());
+    listViewList.add(FitnessListView(fromHome: true,));
     pageList.add(FitnessPage());
 
     headingList.add("Diet");
-    listViewList.add(DietListView());
+    listViewList.add(DietListView(fromHome: true,));
     pageList.add(DietPage());
   }
   void addCareer(){
     headingList.add("Implement Practically(Te)",);
-    listViewList.add(ImplementListVew());
+    listViewList.add(ImplementListVew(fromHomePage: true,));
     pageList.add(StudyPage(forImplementing: true));
 
     headingList.add("Learning Theory(Ti)",);
-    listViewList.add(StudyListView());
+    listViewList.add(StudyListView(fromHomePage: true,));
     pageList.add(StudyPage(forImplementing: false));
   }
   @override

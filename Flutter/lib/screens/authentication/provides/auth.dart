@@ -43,7 +43,7 @@ class Auth with ChangeNotifier{
     return sharedPreferences.getString(Service.tokenPrefKey)!=Service.emptyTokenValue;
   }
 
-  void logOut() async{
+  Future<void> logOut() async{
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     sharedPreferences.setString(Service.tokenPrefKey, Service.emptyTokenValue);
     sharedPreferences.setString(Service.passwordPrefKey, Service.emptyTokenValue);

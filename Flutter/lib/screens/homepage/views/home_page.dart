@@ -2,8 +2,6 @@ import 'package:digi3map/screens/domain_list_graph/view/domain_list.dart';
 import 'package:digi3map/screens/group_portle/view/leaderboard_group.dart';
 import 'package:digi3map/screens/habit_milestone_graph_chain/view/milestone_page.dart';
 import 'package:digi3map/screens/homepage/views/user_missions.dart';
-import 'package:digi3map/screens/homepage/views/random_task_list.dart';
-import 'package:digi3map/screens/settings/settings.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,8 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _currentPage = 0;
   List<Widget> screens = [
-    DomainList(),
     UserMissions(),
+    DomainList(),
     MileStonePage(),
     LeaderboardInGroup(),
 
@@ -53,16 +51,17 @@ class _HomePageState extends State<HomePage> {
           selectedIconTheme: IconThemeData(color: ColorConstant.kBlueColor),
           items: [
             BottomNavigationBarItem(
+              icon: Icon(Icons.task),
+              label: "Missions",
+
+            ),
+            BottomNavigationBarItem(
               icon: Icon(
                   FontAwesomeIcons.chartBar
               ),
               label: "Domains",
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.task),
-              label: "Missions",
 
-            ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.bitcoin),
               label: "Milestones",

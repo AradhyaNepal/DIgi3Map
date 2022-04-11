@@ -48,7 +48,9 @@ class StudyPage extends StatelessWidget {
 }
 
 class StudyListView extends StatelessWidget {
+  final bool fromHomePage;
   const StudyListView({
+    this.fromHomePage=false,
     Key? key,
   }) : super(key: key);
 
@@ -69,6 +71,19 @@ class StudyListView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ):
+              fromHomePage?
+              PageView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context,index){
+                  return FittedBox(
+                    child: LearningWidget(
+                        learningModel: provider.learningList[index]
+                    ),
+                  );
+                },
+                itemCount: provider.learningList.length,
+              )
+                  :
           ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context,index){
@@ -84,7 +99,9 @@ class StudyListView extends StatelessWidget {
 
 
 class ImplementListVew extends StatelessWidget {
+  final bool fromHomePage;
   const ImplementListVew({
+    this.fromHomePage=false,
     Key? key,
   }) : super(key: key);
 
@@ -105,6 +122,18 @@ class ImplementListVew extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ):
+              fromHomePage?
+              PageView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: provider.implementingList.length,
+                itemBuilder: (_,index){
+                  return FittedBox(
+                    child: ImplementingWidget(
+                      implementingModel: provider.implementingList[index],
+                    ),
+                  );
+                },
+              ):
           ListView.builder(
             physics: const BouncingScrollPhysics(),
            itemCount: provider.implementingList.length,

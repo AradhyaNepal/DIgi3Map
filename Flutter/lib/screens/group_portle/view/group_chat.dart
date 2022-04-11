@@ -93,27 +93,27 @@ class _GroupChatState extends State<GroupChat> {
     switch(chatModel.chatEffect){
       case 1:
         return DeathEffect(
-          userImage: chatModel.image,
+          chatModal:chatModel,
             message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign,
         );
       case 2:
         return LightingEffect(
-            userImage: chatModel.image,
+            chatModel:chatModel,
             message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
         );
       case 3:
         return VengeanceEffect(
-            userImage: chatModel.image,
+            chatModel:chatModel,
             message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
         );
       case 4:
         return PassionEffect(
-            userImage: chatModel.image,
+            chatModel:chatModel,
             message: chatModel.message, sender: chatModel.username, time: chatModel.effectTime,leftAlign: leftAlign
         );
       case 5:
         return HopeEffect(
-            userImage: chatModel.image,
+            chatModel:chatModel,
             message: chatModel.message, sender: chatModel.username, time:chatModel.effectTime,leftAlign: leftAlign
         );
 
@@ -123,7 +123,7 @@ class _GroupChatState extends State<GroupChat> {
             sender: chatModel.username,
             time:chatModel.effectTime,
             leftAlign: leftAlign,
-          image: chatModel.image,
+          chatModal:chatModel,
         );
     }
   }

@@ -1,13 +1,17 @@
 
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
+import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
+import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/data/services/assets_location.dart';
+import 'package:digi3map/screens/group_portle/provider/group_chat_provider.dart';
 import 'package:digi3map/screens/user_profile/view/user_others_profile.dart';
 import 'package:digi3map/screens/user_profile/widgets/follower_widget.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 
 class UserProfilePopupTesting extends StatelessWidget {
@@ -46,12 +50,23 @@ class UserProfilePopupTesting extends StatelessWidget {
   }
 }
 
-class AnonyGroupWidget extends StatelessWidget {
+class AnonyGroupWidget extends StatefulWidget {
+  final ChatModel? chatModel;
+
   AnonyGroupWidget({
+    this.chatModel,
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<AnonyGroupWidget> createState() => _AnonyGroupWidgetState();
+}
+
+class _AnonyGroupWidgetState extends State<AnonyGroupWidget> {
+  bool isReporting=false;
+
   final normalBorder=Radius.circular(30);
+
   final spikeBorder=Radius.circular(5);
 
   @override
@@ -71,7 +86,7 @@ class AnonyGroupWidget extends StatelessWidget {
               ),
               Constants.kVerySmallBox,
               Text(
-                "Kiran Acharya",
+                widget.chatModel!=null?widget.chatModel!.username:"Aradhya Nepal",
                 style: Styles.mediumHeading,
               ),
               Row(
@@ -95,17 +110,51 @@ class AnonyGroupWidget extends StatelessWidget {
                 style: Styles.smallHeading,
               ),
               FollowerWidget(),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: (){
-                  showDialog(
-                      context: context,
-                      builder: (context){
-                        return CustomAlertDialog(heading: "Report", subText: "Do You Really Want To Report The User");
-                      }
+              Consumer<GroupChatProvider>(
+                builder: (context,provider,child) {
+                  return isReporting?
+                  Center(
+                    child: CustomCircularIndicator(),
+                  ):ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                      onPressed: (){
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return CustomAlertDialog(
+                                heading: "Report",
+                                subText: "Do You Really Want To Report The User"
+                            );
+                          }
+                      ).then((value) async{
+                        if(value==true){
+
+                          if(widget.chatModel!=null){
+                            setState(() {
+                              isReporting=true;
+                            });
+                            try{
+
+                              await provider.reportUser(widget.chatModel!.userId);
+                              CustomSnackBar.showSnackBar(context,"Successfully Reported");
+
+                            }catch (e){
+                              CustomSnackBar.showSnackBar(context, e.toString());
+                            }
+                            setState(() {
+                              isReporting=false;
+                            });
+                          }
+
+
+
+
+                        }
+                      });
+                      },
+                      child: Text("Report")
                   );
-                  },
-                  child: Text("Report")
+                }
               )
 
 
@@ -128,13 +177,22 @@ class AnonyGroupWidget extends StatelessWidget {
 }
 
 
-class NormalGroupWidget extends StatelessWidget {
+class NormalGroupWidget extends StatefulWidget {
+  final ChatModel? chatModel;
   NormalGroupWidget({
+    this.chatModel,
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<NormalGroupWidget> createState() => _NormalGroupWidgetState();
+}
+
+class _NormalGroupWidgetState extends State<NormalGroupWidget> {
   final normalBorder=Radius.circular(30);
+
   final spikeBorder=Radius.circular(5);
+  bool isReporting=false;
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +208,7 @@ class NormalGroupWidget extends StatelessWidget {
             children: [
 
               Text(
-                "Kiran Acharya",
+                widget.chatModel!=null?widget.chatModel!.username:"Kiran Don",
                 style: Styles.bigHeading,
               ),
               Row(
@@ -182,17 +240,42 @@ class NormalGroupWidget extends StatelessWidget {
                   },
                   child: Text("View Profile")
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: (){
-                    showDialog(
-                        context: context,
-                        builder: (context){
-                          return CustomAlertDialog(heading: "Report", subText: "Do You Really Want To Report The User");
-                        }
-                    );
-                  },
-                  child: Text("Report")
+              Consumer<GroupChatProvider>(
+                builder: (context,provider,child) {
+                  return isReporting?
+                  Center(
+                    child: CustomCircularIndicator(),
+                  ):ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
+                      onPressed: (){
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                              return CustomAlertDialog(heading: "Report", subText: "Do You Really Want To Report The User");
+                            }
+                        ).then((value)  async{
+                          if(widget.chatModel!=null){
+                            setState(() {
+                              isReporting=true;
+                            });
+                            try{
+
+                              await provider.reportUser(widget.chatModel!.userId);
+
+                              CustomSnackBar.showSnackBar(context,"Successfully Reported");
+
+                            }catch (e){
+                              CustomSnackBar.showSnackBar(context, e.toString());
+                            }
+                            setState(() {
+                              isReporting=false;
+                            });
+                          }
+                        });
+                      },
+                      child: Text("Report")
+                  );
+                }
               ),
 
 

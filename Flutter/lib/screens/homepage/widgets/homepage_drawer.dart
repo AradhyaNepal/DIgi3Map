@@ -128,10 +128,10 @@ class HomePageDrawer extends StatelessWidget {
                           builder: (context){
                             return  CustomAlertDialog(heading: "Log Out",subText:  "Do You Really Want To Log Out",);
                           }
-                      ).then((value) {
+                      ).then((value) async {
                         if (value==true) {
+                          await Auth().logOut();
                           CustomSnackBar.showSnackBar(oldContext, "Successfully Logged Out");
-                          Auth().logOut();
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) =>  SplashPage()));
                         }

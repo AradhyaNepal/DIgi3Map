@@ -4,6 +4,8 @@ import 'package:digi3map/common/classes/PlayAudio.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/widget/profile_editable_description_widget.dart';
+import 'package:digi3map/screens/group_portle/provider/group_chat_provider.dart';
+import 'package:digi3map/screens/group_portle/widget/basic_effect.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +15,12 @@ class VengeanceEffect extends StatefulWidget {
   final String sender;
   final String time;
   final bool leftAlign;
-  final String? userImage;
+  final ChatModel chatModel;
   const VengeanceEffect({
     required this.message,
     required this.sender,
     required this.time,
-    this.userImage,
+    required this.chatModel,
     this.leftAlign=true,
     Key? key
   }) : super(key: key);
@@ -173,23 +175,8 @@ class _VengeanceEffectState extends State<VengeanceEffect> with TickerProviderSt
                   ),
                 ),
               ),
-              Align(
-                alignment: widget.leftAlign?Alignment.centerLeft:Alignment.centerRight,
-                child: ClipOval(
-                  child:  widget.userImage!=null?
-                  Image.network(
-                    Service.baseApiNoDash+widget.userImage!,
-                    height: imageSize,
-                    width: imageSize,
+              UserImageInChat(leftAlign: widget.leftAlign, chatModal: widget.chatModel)
 
-                    fit: BoxFit.cover,
-                  ):Image.asset(
-                    AssetsLocation.userDummyProfileLocation,
-                    height: imageSize,
-                    width: imageSize,
-                  ),
-                ),
-              )
             ],
           ),
         );

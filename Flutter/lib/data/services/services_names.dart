@@ -47,6 +47,7 @@ class Service{
   static const String chainCoinApi="getChainCoin/";
   static const String totalCoin="userCoins/";
   static const String coinJson="coin/";
+  static const String reportUser="reportUser/";
 
 
   static const String registerApi="api/register/";

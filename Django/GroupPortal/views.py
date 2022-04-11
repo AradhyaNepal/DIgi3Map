@@ -1,17 +1,17 @@
 from asyncio.windows_events import NULL
-from calendar import month
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from GroupPortal.serealizer import ReportUserSerializer
 from auth_pg.models import CustomUser
-from .models import Leaderboard,LeaderboardPlayers
+from .models import Leaderboard,LeaderboardPlayers, ReportUser
 import datetime
-from rest_framework.permissions import IsAuthenticated
 from datetime import timedelta
 from Coins.models import Coin
 from chain.models import Chain
 from habit.models import Habit
 from habit.models import Domain
-import json
+from rest_framework import status
+from rest_framework.decorators import api_view
 
 class UnCollectedLeaderboardApi(APIView):
     def get(self,request,user_id):
@@ -20,6 +20,42 @@ class UnCollectedLeaderboardApi(APIView):
         for single in leaderboards.iterator():
             listOfLeaderboard.append(single.id)
         return Response(listOfLeaderboard)
+
+@api_view(['POST'])
+def reportUser(request):
+    serializer=ReportUserSerializer(data=request.data)
+    if serializer.is_valid():
+        if(serializer.validated_data["reporter_id"]==serializer.validated_data["reported_user"]):
+            return Response(
+                {
+                    "details":"You Cannot Report Yourself"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            reportUser=ReportUser.objects.get(leaderbaord_id=serializer.validated_data["leaderbaord_id"],reporter_id=serializer.validated_data["reporter_id"],reported_user=serializer.validated_data["reported_user"])
+            return Response(
+                {
+                    "details":"Already Reported"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except ReportUser.DoesNotExist:
+            serializer.save()
+            return Response(
+                serializer.data
+            )
+    return Response(
+        serializer.errors,
+        status=status.HTTP_400_BAD_REQUEST
+    )
+        
+def isUserBanned(userId):
+    oneWeekPreviousDate=datetime.datetime.now()-timedelta(days=7)
+    reportedQuerySet=ReportUser.objects.filter(reported_user=userId,reported_date__gte=oneWeekPreviousDate)
+    reportedTimes=reportedQuerySet.count()
+    return reportedTimes>=5
+
 
 class LeaderboardApi(APIView):
     #permission_classes = [IsAuthenticated]
@@ -35,6 +71,11 @@ class LeaderboardApi(APIView):
 
 
     def addOrCreateLeaderBoard(self,user_id):
+        
+        if(isUserBanned(user_id)):
+            return Response(
+                {"details":"You Have Been Banned For 7 Days From Game Due To Misbehaving In Previous Leaderbaord."}
+            )
         availableLeaderboard=self.addToAvailableLeaderboard()
         if(availableLeaderboard != NULL):
             try:

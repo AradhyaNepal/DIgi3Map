@@ -6,10 +6,10 @@ import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/fitness_page/view/workout_doing.dart';
 import 'package:digi3map/screens/habits/provider/habit_task_provider.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
-import 'package:digi3map/screens/homepage/provides/random_provider.dart';
-import 'package:digi3map/screens/study_page/provider/learning_provider.dart';
+import 'package:digi3map/screens/homepage/provides/multiplication_provider.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HabitTimerDoing extends StatefulWidget {
   final Habit habitModal;
@@ -30,10 +30,10 @@ class _HabitTimerDoingState extends State<HabitTimerDoing> {
   late Timer periodicTimer;
   late Timer totalTimer;
   bool isLoading=false;
+
   @override
   void initState() {
     super.initState();
-    totalSeconds=(widget.habitModal.time??0)*60;
     print("$totalSeconds\n${widget.habitModal.time}");
     startTimer();
   }

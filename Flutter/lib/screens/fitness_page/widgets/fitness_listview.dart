@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FitnessListView extends StatelessWidget {
+  final bool fromHome;
   const FitnessListView({
+    this.fromHome=false,
     Key? key,
   }) : super(key: key);
 
@@ -25,6 +27,20 @@ class FitnessListView extends StatelessWidget {
                       textAlign: TextAlign.center,
                     )
                   ):
+                  fromHome?
+                  PageView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder:(context,index){
+                     return FittedBox(
+                       child: FitnessWidget(
+                           fitnessModel: provider.fitnessList[index]
+                       ),
+                     );
+
+                    },
+                    itemCount: provider.fitnessList.length,
+                  )
+                      :
           ListView.builder(
             physics: BouncingScrollPhysics(),
               itemBuilder:(context,index){
