@@ -6,6 +6,7 @@ import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
 import 'package:digi3map/screens/habits/view/habit_task_list.dart';
+import 'package:digi3map/screens/homepage/provides/multiplication_provider.dart';
 import 'package:digi3map/screens/homepage/provides/random_provider.dart';
 import 'package:digi3map/screens/homepage/views/random_task_add_edit.dart';
 import 'package:digi3map/screens/homepage/views/random_task_list.dart';
@@ -129,105 +130,106 @@ class _UserMissionsState extends State<UserMissions> {
                       child: CustomCircularIndicator(),
                     ):Column(
 
-                      children: [
-                        SizedBox(height: pageNumber==0 || pageNumber==
-                            5?10:0,),
-                        Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
                           children: [
+                            SizedBox(height: pageNumber==0 || pageNumber==
+                                5?10:0,),
+                            Row(
+                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
 
-                            Flexible(
-                              child: Text(
-                                  headingList[pageNumber],
-                                style: Styles.semiMedium,
-                              ),
-                            ),
-                            pageNumber!=0 && pageNumber!=5?TextButton(
-                                onPressed: (){
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => pageList[pageNumber]));
-
-                                },
-                                child: Text(
-                                    "Open Page"
-                                )
-                            ):SizedBox()
-                          ],
-                        ),
-                        Constants.kVerySmallBox,
-                        Expanded(
-                            child:  listViewList[pageNumber],
-                        ),
-                        Constants.kVerySmallBox,
-                        Row(
-                          children: [
-                            Expanded(
-                                child:pageNumber==0?SizedBox(): ElevatedButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      pageNumber--;
-                                    });
-                                  },
+                                Flexible(
                                   child: Text(
-                                    "Previous",
-                                    style: Styles.smallHeading,
+                                      headingList[pageNumber],
+                                    style: Styles.semiMedium,
                                   ),
-                                )
-                            ),
-                            SizedBox(width: 10,),
-                            Consumer<RandomProvider>(
-                              builder: (context,provider,child) {
-                                return ClipOval(
-                                  child: InkWell(
-                                    splashColor: Colors.red,
-                                    onTap: (){
+                                ),
+                                pageNumber!=0 && pageNumber!=5?TextButton(
+                                    onPressed: (){
                                       Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => RandomTaskAddEdit(
-                                            provider: provider,
-                                          )));
+                                          MaterialPageRoute(builder: (context) => pageList[pageNumber]));
+
                                     },
-                                    child: Container(
-                                      color: ColorConstant.kBlueColor,
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 60,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
+                                    child: Text(
+                                        "Open Page"
+                                    )
+                                ):SizedBox()
+                              ],
                             ),
-                            SizedBox(width: 10,),
+                            Constants.kVerySmallBox,
                             Expanded(
-                                child: pageNumber==5?SizedBox():ElevatedButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      pageNumber++;
-                                      print(pageNumber);
-                                    });
-                                  },
-                                  child: Text(
-                                    "Next",
-                                    style: Styles.smallHeading,
-                                  ),
-                                )
+                                child:  listViewList[pageNumber],
                             ),
+                            Constants.kVerySmallBox,
+                            Row(
+                              children: [
+                                Expanded(
+                                    child:pageNumber==0?SizedBox(): ElevatedButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          pageNumber--;
+                                        });
+                                      },
+                                      child: Text(
+                                        "Previous",
+                                        style: Styles.smallHeading,
+                                      ),
+                                    )
+                                ),
+                                SizedBox(width: 10,),
+                                Consumer<RandomProvider>(
+                                  builder: (context,provider,child) {
+                                    return ClipOval(
+                                      child: InkWell(
+                                        splashColor: Colors.red,
+                                        onTap: (){
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) => RandomTaskAddEdit(
+                                                provider: provider,
+                                              )));
+                                        },
+                                        child: Container(
+                                          color: ColorConstant.kBlueColor,
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 60,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                ),
+                                SizedBox(width: 10,),
+                                Expanded(
+                                    child: pageNumber==5?SizedBox():ElevatedButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          pageNumber++;
+                                          print(pageNumber);
+                                        });
+                                      },
+                                      child: Text(
+                                        "Next",
+                                        style: Styles.smallHeading,
+                                      ),
+                                    )
+                                ),
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                        ),
+                      ),
+                    )
 
 
-              ],
-            ),
+                  ],
+                ),
+              )
+
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -31,6 +31,23 @@ def updateWorkout(request,oneForYes):
     
     )
 
+
+
+@api_view(['GET'])
+def getOnePercentage(request,userId):
+    try:
+        user=get_user_model().objects.get(id=userId)
+        return Response(
+            {
+                "details":user.progress_percentage
+            }
+        )
+    except get_user_model().DoesNotExist:
+        return Response(
+            {"details":"Wrong User"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
 @permission_classes(IsAuthenticated)
 @api_view(['GET'])
 def updateLearning(request,oneForYes):

@@ -78,6 +78,26 @@ class UserHabitApiView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
     
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getChainWhetherBroken(request):
+    chainIsBroken=False
+    brokenChainNames=""
+    domain=Domain.objects.filter(user_id=request.user)
+    for single in domain:
+        habit=Habit.objects.filter(domain_id=single)
+        for single in habit:
+            date=datetime.now().strftime("%Y-%m-%d")
+            transaction=HabitTransaction.objects.filter(habitId=single,completed_date=date)
+            if(transaction.count()==0):
+                chainIsBroken=True
+                brokenChainNames=brokenChainNames+" "+single.name
+    return Response(
+        {
+            "chainBroken":chainIsBroken,
+            "brokenChainNames":brokenChainNames
+        }
+    )
 
 
 

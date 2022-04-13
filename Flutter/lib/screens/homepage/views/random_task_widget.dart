@@ -35,6 +35,7 @@ class _RandomTaskWidgetState extends State<RandomTaskWidget> {
       child: Consumer<MultiplicationProvider>(
         builder: (context,provider,child) {
           RandomTaskModal randomTaskModal=RandomTaskModal(
+            id: widget.randomTaskModal.id,
               name: widget.randomTaskModal.name,
               imagePath: widget.randomTaskModal.imagePath,
               priority: widget.randomTaskModal.priority,

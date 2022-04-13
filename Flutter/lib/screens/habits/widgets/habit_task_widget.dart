@@ -36,6 +36,7 @@ class _HabitTaskWidgetState extends State<HabitTaskWidget> {
       child: Consumer<MultiplicationProvider>(
         builder: (context,provider,child) {
           Habit habitModal=Habit(
+            id: widget.habitModal.id,
               domainName: widget.habitModal.domainName,
               name: widget.habitModal.name,
               domainId: widget.habitModal.domainId,

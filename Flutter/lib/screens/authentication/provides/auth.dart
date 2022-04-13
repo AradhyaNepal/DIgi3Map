@@ -40,7 +40,7 @@ class Auth with ChangeNotifier{
 
   Future<bool> isLogged() async{
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    return sharedPreferences.getString(Service.tokenPrefKey)!=Service.emptyTokenValue;
+    return sharedPreferences.getString(Service.tokenPrefKey)!=Service.emptyTokenValue && sharedPreferences.getString(Service.tokenPrefKey)!=null;
   }
 
   Future<void> logOut() async{

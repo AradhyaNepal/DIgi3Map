@@ -7,6 +7,7 @@ urlpatterns=[
     path('user/<int:pk>/',views.get_user_data),
     path('register/',views.register_api),
     path('userProfile/',views.getUserProfile),
+    path('getOnePercentage/<int:userId>/',views.getOnePercentage),
     path('updateWorkout/<int:oneForYes>/',views.updateWorkout),
     path('updateDiet/<int:oneForYes>/',views.updateDiet),
     path('updateLearning/<int:oneForYes>/',views.updateLearning),

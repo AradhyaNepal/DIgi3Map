@@ -66,7 +66,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     
 }
-ALLOWED_HOSTS = ['10.0.2.2', '127.0.0.1','localhost','192.168.254.32']
+ALLOWED_HOSTS = ['10.0.2.2', '127.0.0.1','localhost','192.168.42.177']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -111,8 +111,12 @@ WSGI_APPLICATION = 'Digi3Map.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Digi3Map',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': 'MySql1001',
     }
 }
 

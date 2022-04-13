@@ -1,5 +1,6 @@
 class Service{
   static const String tokenPrefKey="token";
+  static const String getOnePercentageJson="api/getOnePercentage/";
   static const String getMessageJson="getMessage/";
   static const String sendMessageJson="sendMessage/";
   static const String leaderboardPrefKey="leaderboard";
@@ -15,9 +16,10 @@ class Service{
   static const String activateEffect="activateEffect/";
   static const String activatedEffectApi="getUserActivatedEffects/";
   static const String emptyTokenValue="null";
-  static const String baseApiNoDash="http://192.168.254.32:8000";
+  static const String baseApiNoDash="http://192.168.42.177:8000";
   static const String baseApi=baseApiNoDash+"/";
   static const String activatedEffectId="activatedEffectId";
+  static const String getChainWhetherBroken="getChainWhetherBroken/";
   static const String randomTaskLocation="randomTask/";
   static const String leaderboardApi="getLeaderboard/";
   static const String userProfileApi="api/userProfile/";
