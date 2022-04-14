@@ -1,0 +1,12 @@
+Must
+1) Bug Fix
+2) Net Fix
+3) Default 4 Habit Complete
+4) Other Feutures Improvement
+
+Maybe or in near future
+1)Security
+2) Stream API
+3) Google/FB login
+4) All feutures professional not just for FYP
+4) Playstore and server launch
