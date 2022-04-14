@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
@@ -89,8 +90,8 @@ class _HabitTaskWidgetState extends State<HabitTaskWidget> {
                                       padding: const EdgeInsets.all(5),
                                       child: SizedBox(
                                         height: 100,
-                                        child: Image.network(
-                                          Service.baseApiNoDash+habitModal.photoUrl,
+                                        child: CachedNetworkImage(
+                                          imageUrl:Service.baseApiNoDash+habitModal.photoUrl,
                                           fit: BoxFit.cover,
                                         ),
                                       ),

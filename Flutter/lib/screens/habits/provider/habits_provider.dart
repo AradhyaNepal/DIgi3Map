@@ -36,8 +36,29 @@ class Habit{
     required this.progress,
   });
 
+  Habit.fromDatabase({
+    required Map<dynamic,dynamic> map,
+  }){
+    id=map[idJson];
+    name=map[nameJson];
+
+    photoUrl=map[photoJson];
+    widgetType=map[widgetJson];
+    description=map[descriptionJson];
+    progress=map[progressJson];
+    time=map[timeJson];
+    sets=map[setsJson];
+    rest=map[restJson];
+
+
+    domainName="";
+    domainPriority="";
+    points=0;
+
+    domainId="0";
+  }
   Habit.fromMap({
-    required Map<String,dynamic> map,
+    required Map<dynamic,dynamic> map,
   }){
     id=map[idJson];
     name=map[nameJson];

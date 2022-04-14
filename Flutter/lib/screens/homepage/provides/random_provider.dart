@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
+
 class RandomTaskModal{
 
   static const String idJson="id",nameJson="name",imageJson="image",

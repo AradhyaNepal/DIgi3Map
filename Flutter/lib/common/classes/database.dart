@@ -1,10 +1,13 @@
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
+import 'package:digi3map/screens/habits/provider/habits_provider.dart';
 import 'package:digi3map/screens/homepage/provides/random_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 
 const String domainTable="Domain";
+const String habitTable="Habit";
+const String habitTransactionTable="HabitTransaction";
 const String randomTable="Random";
 const String randomTransactionTable="RandomTransaction";
 Future<Database> initializeDatabase() async{
@@ -35,13 +38,39 @@ Future<Database> initializeDatabase() async{
               '${RandomTaskModal.taskTypeJson} TEXT,'
               '${RandomTaskModal.taskMinuteJson} INTEGER)',
         );
+
+
+        await db.execute(
+          'CREATE TABLE $habitTable ('
+              '${Habit.idJson} INTEGER PRIMARY KEY,'
+              ' ${Habit.nameJson} TEXT,'
+              ' ${Habit.photoJson} TEXT,'
+              '${Habit.widgetJson} TEXT,'
+              ' ${Habit.descriptionJson} TEXT,'
+              '${Habit.setsJson} INTEGER,'
+              '${Habit.restJson} INTEGER,'
+              '${Habit.timeJson} INTEGER)',
+        );
+
         String query= 'CREATE TABLE $randomTransactionTable ('
             '${RandomTaskModal.idJson} INTEGER PRIMARY KEY AUTOINCREMENT,'
             '${RandomTaskModal.nameJson} INTEGER)';
+
+
         print(query);
         await db.execute(
            query
         );
+
+        await db.execute(
+            'CREATE TABLE $habitTransactionTable ('
+                '${Habit.idJson} INTEGER PRIMARY KEY AUTOINCREMENT,'
+                '$habitFailed bool,'
+                '$collectedDate value,'
+                '${Habit.nameJson} INTEGER)'
+        );
       });
   return database;
 }
+const String habitFailed="failed";
+const String collectedDate="collectedDate";

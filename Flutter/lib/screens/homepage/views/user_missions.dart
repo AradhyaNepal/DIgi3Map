@@ -39,27 +39,27 @@ class _UserMissionsState extends State<UserMissions> {
     super.initState();
     setUpList();
   }
-  bool isLoading=false;
+  bool isLoading=true;
   void setUpList() async{
     Provider.of<MultiplicationProvider>(context,listen: false);
-    // late FitnessCareerPoints points;
-    // try {
-    //    points=await DomainProvider()
-    //       .getFitnessCareerPoints();
-    // }on SocketException{
-    //   DomainDatabase database=DomainDatabase();
-    //   await database.initializeDatabase();
-    //   List<Map> domainList=await database.getDomain();
-    //   if(domainList.isNotEmpty){
-    //     points=FitnessCareerPoints(fitnessPoint: domainList[0][Domain.pointsJson], careerPoints: domainList[1][Domain.pointsJson]);
-    //   }else{
-    //     points=FitnessCareerPoints(fitnessPoint: 0, careerPoints: 0);
-    //   }
-    // }
+    late FitnessCareerPoints points;
+    try {
+       points=await DomainProvider()
+          .getFitnessCareerPoints();
+    }on SocketException{
+      DomainDatabase database=DomainDatabase();
+      await database.initialize();
+      List<Map> domainList=await database.getDomain();
+      if(domainList.isNotEmpty){
+        points=FitnessCareerPoints(fitnessPoint: domainList[0][Domain.pointsJson], careerPoints: domainList[1][Domain.pointsJson]);
+      }else{
+        points=FitnessCareerPoints(fitnessPoint: 0, careerPoints: 0);
+      }
+    }
     headingList.add("Custom Habits");
     listViewList.add(UserMissionsList());
     pageList.add(SizedBox());
-    if(true){//points.careerPoints>points.fitnessPoint ||
+    if(points.careerPoints>points.fitnessPoint){
       //That means fitness is less focused
       addFitness();
       addCareer();
