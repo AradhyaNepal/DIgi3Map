@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:digi3map/common/classes/HttpException.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_sql.dart';
 import 'package:digi3map/screens/domain_list_graph/provider/domain_graph_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +17,7 @@ class Domain{
   int? percentage;
   int? domainId;
   Domain({
+    this.percentage,
     required this.imagePath,
     required this.domainName,
     required this.description,
@@ -24,7 +26,7 @@ class Domain{
     required this.priority
   });
 
-  Domain.fromMap(Map<String,dynamic> map){
+  Domain.fromMap(Map<dynamic,dynamic> map){
     imagePath=map[imagePathJson];
     domainName=map[domainNameJson];
     description=map[descriptionJson];
@@ -61,26 +63,57 @@ class DomainProvider with ChangeNotifier{
     _domainLoading=true;
     notifyListeners();
     final sharedPrefs=await SharedPreferences.getInstance();
-    DomainGraphModel pointsValue= await DomainGraphProvider().getDomainGraph();
-    points=FitnessCareerPoints(fitnessPoint: pointsValue.yAxis[0], careerPoints: pointsValue.yAxis[1]);
-    String middleUrl=forHabit?Service.userAvailableDomains:Service.userDomains;
-    Uri uri=Uri.parse(Service.baseApi+middleUrl+"${sharedPrefs.getInt(Service.userId)}/");
-
-    http.Response response=await http.get(
-      uri,
-    );
-    List<dynamic> responseData=json.decode(response.body);
-    if(response.statusCode>299) throw HttpException(message:responseData.toString());
     _domainList.clear();
-    for(int i=0;i<responseData.length;i++){
-      _domainList.add(Domain.fromMap(responseData[i]));
+    try{
+      DomainGraphModel pointsValue= await DomainGraphProvider().getDomainGraph();
+      points=FitnessCareerPoints(fitnessPoint: pointsValue.yAxis[0], careerPoints: pointsValue.yAxis[1]);
+      String middleUrl=forHabit?Service.userAvailableDomains:Service.userDomains;
+      Uri uri=Uri.parse(Service.baseApi+middleUrl+"${sharedPrefs.getInt(Service.userId)}/");
+      http.Response response=await http.get(
+        uri,
+      );
+      List<dynamic> responseData=json.decode(response.body);
+      if(response.statusCode>299) throw HttpException(message:responseData.toString());
+
+      for(int i=0;i<responseData.length;i++){
+        _domainList.add(Domain.fromMap(responseData[i]));
+      }
+      await saveToLocalDatabase();
+    }on SocketException{
+      DomainDatabase database=DomainDatabase();
+      await database.initialize();
+      List<Map> databaseDomainList=await database.getDomain();
+      if(databaseDomainList.isNotEmpty){
+        //_domainList.clear();
+        points.fitnessPoint=databaseDomainList[0][Domain.pointsJson];
+        points.careerPoints=databaseDomainList[1][Domain.pointsJson];
+        for (int i=2;i<databaseDomainList.length;i++){
+          _domainList.add(Domain.fromMap(databaseDomainList[i]));
+        }
+      }
+
     }
+
     _domainLoading=false;
     notifyListeners();
     return _domainList;
   }
 
+  Future<void> saveToLocalDatabase() async{
+    DomainDatabase database=DomainDatabase();
+    await database.initialize();
+    await database.deleteAllRows();
+    await database.addFitnessCareer(points.fitnessPoint,points.careerPoints);
+    for(Domain domain in _domainList){
+      await database.insertIntoDomain(domain);
+    }
+    for(Map map in await database.getDomain() ){
+      print(map);
+    }
+  }
   static const String fitnessPointsJson="finess_points",careerPointsJson="carrer_points";
+
+
   Future<FitnessCareerPoints> getFitnessCareerPoints() async{
     final sharedPrefs=await SharedPreferences.getInstance();
     int userId=sharedPrefs.getInt(Service.userId)??0;

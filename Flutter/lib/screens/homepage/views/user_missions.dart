@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
-import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/screens/diet/view/diet_page.dart';
 import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_sql.dart';
 import 'package:digi3map/screens/fitness_page/view/fitness_page.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_listview.dart';
 import 'package:digi3map/screens/habits/view/habit_task_list.dart';
@@ -11,7 +13,6 @@ import 'package:digi3map/screens/homepage/provides/random_provider.dart';
 import 'package:digi3map/screens/homepage/views/random_task_add_edit.dart';
 import 'package:digi3map/screens/homepage/views/random_task_list.dart';
 import 'package:digi3map/screens/homepage/widgets/energy_filter_widget.dart';
-import 'package:digi3map/screens/homepage/widgets/homepage_drawer.dart';
 import 'package:digi3map/screens/study_page/view/study_page.dart';
 import 'package:digi3map/theme/colors.dart';
 import 'package:digi3map/theme/styles.dart';
@@ -38,13 +39,27 @@ class _UserMissionsState extends State<UserMissions> {
     super.initState();
     setUpList();
   }
-  bool isLoading=true;
+  bool isLoading=false;
   void setUpList() async{
-    FitnessCareerPoints points=await DomainProvider().getFitnessCareerPoints();
+    Provider.of<MultiplicationProvider>(context,listen: false);
+    // late FitnessCareerPoints points;
+    // try {
+    //    points=await DomainProvider()
+    //       .getFitnessCareerPoints();
+    // }on SocketException{
+    //   DomainDatabase database=DomainDatabase();
+    //   await database.initializeDatabase();
+    //   List<Map> domainList=await database.getDomain();
+    //   if(domainList.isNotEmpty){
+    //     points=FitnessCareerPoints(fitnessPoint: domainList[0][Domain.pointsJson], careerPoints: domainList[1][Domain.pointsJson]);
+    //   }else{
+    //     points=FitnessCareerPoints(fitnessPoint: 0, careerPoints: 0);
+    //   }
+    // }
     headingList.add("Custom Habits");
     listViewList.add(UserMissionsList());
     pageList.add(SizedBox());
-    if(points.careerPoints>points.fitnessPoint){
+    if(true){//points.careerPoints>points.fitnessPoint ||
       //That means fitness is less focused
       addFitness();
       addCareer();

@@ -6,6 +6,8 @@ import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/authentication/provides/auth.dart';
 import 'package:digi3map/screens/authentication/views/change_password_oldpass.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_sql.dart';
+import 'package:digi3map/screens/homepage/provides/random_sql.dart';
 import 'package:digi3map/screens/homepage/views/splash_page.dart';
 import 'package:digi3map/screens/homepage/widgets/play_sound_switch.dart';
 import 'package:digi3map/screens/user_profile/view/user_self_profile.dart';
@@ -131,6 +133,8 @@ class HomePageDrawer extends StatelessWidget {
                       ).then((value) async {
                         if (value==true) {
                           await Auth().logOut();
+                          await DomainDatabase().logOut();
+                          await RandomDatabase().logOut();
                           CustomSnackBar.showSnackBar(oldContext, "Successfully Logged Out");
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) =>  SplashPage()));

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_alert_dialog.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
@@ -71,8 +72,8 @@ class _RandomTaskWidgetState extends State<RandomTaskWidget> {
                                   padding: const EdgeInsets.all(5),
                                   child: SizedBox(
                                     height: 100,
-                                    child: Image.network(
-                                      Service.baseApiNoDash+randomTaskModal.imagePath,
+                                    child: CachedNetworkImage(
+                                      imageUrl:Service.baseApiNoDash+randomTaskModal.imagePath,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -146,7 +147,10 @@ class _RandomTaskWidgetState extends State<RandomTaskWidget> {
                                                           await provider.deleteRandomTask(randomTaskModal.id??0);
 
                                                         }
-                                                        catch (e){
+                                                        catch (e,s){
+                                                          print("Error Was here");
+                                                          print(e);
+                                                          print(s);
                                                           CustomSnackBar.showSnackBar(context, e.toString());
                                                         }
 

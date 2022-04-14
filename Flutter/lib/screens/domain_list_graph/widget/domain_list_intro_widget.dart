@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
@@ -40,8 +41,8 @@ class DomainListIntroWidget extends StatelessWidget {
               Positioned.fill(
                 child: Opacity(
                   opacity:0.6,
-                  child: Image.network(
-                    Service.baseApiNoDash+domain.imagePath,
+                  child: CachedNetworkImage(
+                    imageUrl:Service.baseApiNoDash+domain.imagePath,
                     fit: BoxFit.fill,
                   ),
                 ),

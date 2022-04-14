@@ -43,6 +43,7 @@ class _RandomTaskAddEditState extends State<RandomTaskAddEdit> {
     typeValue=ValueNotifier(RandomTaskModal.widgetTypeList[widgetTypeIndex]);
     forEdit=widget.modal!=null;
     if(forEdit){
+      print(widget.modal!.id);
       imageValue.value=widget.modal!.imagePath;
       priorityValue.value=widget.modal!.priority;
       typeValue.value=widget.modal!.type;
@@ -269,6 +270,7 @@ class _RandomTaskAddEditState extends State<RandomTaskAddEdit> {
 
                               Navigator.pop(context);
                             }).onError((error, stackTrace) {
+                              print(stackTrace);
                               CustomSnackBar.showSnackBar(context, error.toString());
                               setState(() {
                                 isLoading=false;

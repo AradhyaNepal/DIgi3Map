@@ -12,11 +12,12 @@ class Service{
   static const String userProgressJson="api/userProgressUpdate/";
   static const String playSound="sound";
   static const String buyEffectApi="buyEffect/";
+  static const String databaseName="'digi3map.db";
   static const String randomTaskApi="randomTask/";
   static const String activateEffect="activateEffect/";
   static const String activatedEffectApi="getUserActivatedEffects/";
   static const String emptyTokenValue="null";
-  static const String baseApiNoDash="http://192.168.42.177:8000";
+  static const String baseApiNoDash="http://192.168.254.32:8000";
   static const String baseApi=baseApiNoDash+"/";
   static const String activatedEffectId="activatedEffectId";
   static const String getChainWhetherBroken="getChainWhetherBroken/";
@@ -50,8 +51,7 @@ class Service{
   static const String totalCoin="userCoins/";
   static const String coinJson="coin/";
   static const String reportUser="reportUser/";
-
-
+  static const String onePercentLocal="onePercentLocal";
   static const String registerApi="api/register/";
   static const String changePassApi="api/changepass/";
   static const String resetPassword="api/password_reset/";

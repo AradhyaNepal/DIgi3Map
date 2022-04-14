@@ -8,7 +8,6 @@ class Domain(models.Model):
     
     name=models.CharField(max_length=100)
     photo_url=models.ImageField(upload_to='images/')
-    
     user_id=models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     description=models.CharField(max_length=250)
     points=models.IntegerField(default=0)

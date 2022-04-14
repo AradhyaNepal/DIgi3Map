@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
@@ -81,8 +82,8 @@ class _RandomTaskSetsTaskState extends State<RandomTaskSetsTask> {
                         SizedBox(
                           width: 250,
                           height: 250,
-                          child: Image.network(
-                              Service.baseApiNoDash+widget.randomTaskModal.imagePath
+                          child: CachedNetworkImage(
+                              imageUrl:Service.baseApiNoDash+widget.randomTaskModal.imagePath
                           ),
                         ),
                         Constants.kSmallBox,

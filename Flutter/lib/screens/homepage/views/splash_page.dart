@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:digi3map/common/classes/database.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/logo_widget.dart';
 import 'package:digi3map/data/services/assets_location.dart';

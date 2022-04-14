@@ -8,34 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationManager {
-  GlobalKey<NavigatorState> key;
 
-  NotificationManager(this.key);
+  NotificationManager();
 
   void sendNotification() async {
     await Future.delayed(Duration(seconds: 2));
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    // final AndroidInitializationSettings initializationSettingsAndroid =
-    //     AndroidInitializationSettings('ic_launcher');
-    // final InitializationSettings initializationSettings =
-    //     InitializationSettings(
-    //   android: initializationSettingsAndroid,
-    // );
-    // AndroidNotificationDetails _androidNotificationDetails =
-    //     AndroidNotificationDetails(
-    //   'channel ID',
-    //   'channel name',
-    //   channelDescription: 'channel description',
-    //   playSound: true,
-    //   priority: Priority.high,
-    //   importance: Importance.high,
-    // );
-    // NotificationDetails platformChannelSpecifics = NotificationDetails(
-    //   android: _androidNotificationDetails,
-    // );
-    // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-    //     onSelectNotification: selectNotification);
+
     print("I was in notification");
     String unbalancedNames = "";
     bool isUnbalanced = false;
@@ -54,13 +34,7 @@ class NotificationManager {
 
       print(isUnbalanced);
       if (isUnbalanced) {
-        // await flutterLocalNotificationsPlugin.show(
-        //   0,
-        //   'Domain Unbalanced',
-        //   '$unbalancedNames is Unbalanced. We have prepared best strategy to be balanced in these domains.',
-        //   platformChannelSpecifics,
-        //   payload: 'Notification Payload',
-        // );
+
 
         BigTextStyleInformation bigTextStyleInformation =
         BigTextStyleInformation(
@@ -72,12 +46,14 @@ class NotificationManager {
           htmlFormatSummaryText: true,
         );
         AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails("2", "Domain Unbalanced",
-            styleInformation: bigTextStyleInformation);
+        AndroidNotificationDetails("4", "Domain Unbalanced",
+            styleInformation: bigTextStyleInformation,
+            icon: "ic_launcher"
+        );
         NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
         await flutterLocalNotificationsPlugin.show(
-            2,
+            3,
             "Domain Unbalanced",
             '$unbalancedNames is Unbalanced. We have prepared best strategy to be balanced in these domains.',
             notificationDetails,
@@ -97,18 +73,27 @@ class NotificationManager {
             BigTextStyleInformation(
               "Chain of ${responseData["brokenChainNames"]} is going to break. At least complete one small task to don't loose your points.",
             htmlFormatBigText: true,
+
             contentTitle: 'Chain Is Going To Break',
             htmlFormatContentTitle: true,
             summaryText:  "Chain of ${responseData["brokenChainNames"]} is going to break. At least complete one small task to don't loose your points.",
             htmlFormatSummaryText: true,
         );
         AndroidNotificationDetails androidNotificationDetails =
-            AndroidNotificationDetails("1", "Chain Broken",
-                styleInformation: bigTextStyleInformation);
+            AndroidNotificationDetails(
+                "4", "Chain Broken",
+                styleInformation: bigTextStyleInformation,
+              icon: "ic_launcher"
+            );
         NotificationDetails notificationDetails =
-            NotificationDetails(android: androidNotificationDetails);
+            NotificationDetails(
+                android: androidNotificationDetails
+            );
         await flutterLocalNotificationsPlugin.show(
-            1, 'Chain Is Going To Break', "Chain of ${responseData["brokenChainNames"]} is going to break. At least complete one small task to don't loose your points.", notificationDetails,
+            4, 'Chain Is Going To Break',
+            "Chain of ${responseData["brokenChainNames"]} is going to break. At least complete one small task to don't loose your points.",
+            notificationDetails,
+
             payload: "Chain Is Going To Break");
       }
     } catch (e) {
