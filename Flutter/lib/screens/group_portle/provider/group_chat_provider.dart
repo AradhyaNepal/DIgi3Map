@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:digi3map/common/classes/HttpException.dart';
 import 'package:digi3map/data/services/services_names.dart';
+import 'package:digi3map/screens/user_profile/provider/user_profile_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GroupChatProvider with ChangeNotifier{
   GroupChatProvider(){
+    UserProfileProvider(loadData: false).getActivatedEffect();
     initializeGroupChat();
   }
   bool isLoading=true;

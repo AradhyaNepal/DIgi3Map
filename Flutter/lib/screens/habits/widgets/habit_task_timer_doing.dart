@@ -3,13 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi3map/common/constants.dart';
 import 'package:digi3map/common/widgets/custom_circular_indicator.dart';
 import 'package:digi3map/common/widgets/custom_snackbar.dart';
-import 'package:digi3map/common/widgets/custom_snackbar.dart';
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/fitness_page/view/workout_doing.dart';
 import 'package:digi3map/screens/habits/provider/habit_task_provider.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
-import 'package:digi3map/screens/homepage/provides/random_provider.dart';
-import 'package:digi3map/screens/study_page/provider/implementing_provider.dart';
 import 'package:digi3map/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -100,14 +97,14 @@ class _HabitSetsTimerDoingState extends State<HabitSetsTimerDoing> {
                         ),
                       ),
                       const SizedBox(height: 10,),
-                      Center(
+                      const Center(
                         child: Text(
                             "Every Day Matters",
                             textAlign: TextAlign.center,
                             style:Styles.mediumHeading
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         "${itsRest?"Rest":"Work"} \nTimer: ${WorkoutDoing.getMinuteSeconds(totalSeconds)} Min",
                         textAlign: TextAlign.center,
@@ -125,8 +122,8 @@ class _HabitSetsTimerDoingState extends State<HabitSetsTimerDoing> {
                     style: Styles.mediumHeading,
                   ),
                 ),
-                SizedBox(height: 10,),
-                isDoingTransaction?Center(
+                const SizedBox(height: 10,),
+                isDoingTransaction?const Center(
                   child: CustomCircularIndicator(),
                 ):Row(
                   children: [
@@ -142,8 +139,8 @@ class _HabitSetsTimerDoingState extends State<HabitSetsTimerDoing> {
                           )
                       ),
                     ),
-                    SizedBox(width: 10,),
-                    itsRest?SizedBox():Expanded(
+                    const SizedBox(width: 10,),
+                    itsRest?const SizedBox():Expanded(
                       child:  ElevatedButton(
                           onPressed: (){
                             if(stopped){

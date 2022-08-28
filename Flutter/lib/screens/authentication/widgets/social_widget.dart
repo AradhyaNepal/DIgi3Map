@@ -80,9 +80,8 @@ class _SocialWidgetState extends State<SocialWidget> {
                   await _googleSignIn.signIn().then((value) {
                     try{
                       value!.authentication.then((googleKey){
-                        print("Token ${googleKey.accessToken}");
-                        print("Token id ${googleKey.idToken}");
-                        print("Display Name ${_googleSignIn.currentUser!.displayName}");
+                        print("Google Token ${googleKey.accessToken}");
+                        print("Account Name ${_googleSignIn.currentUser!.displayName}");
                       }).catchError((err){
                         print('inner error');
                       });
@@ -114,7 +113,8 @@ class _SocialWidgetState extends State<SocialWidget> {
                 final LoginResult result = await FacebookAuth.instance.login();
                 if (result.status == LoginStatus.success) {
                   final AccessToken accessToken = result.accessToken!;
-                  print("Token ${accessToken.token}");
+                  print("Facebook Token ${accessToken.token}");
+                  print("Facebook Message ${result.message}");
 
                 } else {
                   print(result.status);

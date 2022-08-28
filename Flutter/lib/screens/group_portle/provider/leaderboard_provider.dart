@@ -20,6 +20,7 @@ class LeaderboardProvider with ChangeNotifier{
   static const String waitingValue="Waiting";
   String reportedValue="You Have Been Banned For 7 Days From Game Due To Misbehaving In Previous Leaderbaord.";
   static const String detailsKey="details";
+
   List<int> unCollectedTrophy=[];
   bool _waiting=false;
   bool _reported=false;
@@ -75,6 +76,7 @@ class LeaderboardProvider with ChangeNotifier{
         _reported=true;
       }
       else{
+        print("Error");
        getValue(responseData, userId);
       }
     }catch(e){
@@ -87,7 +89,14 @@ class LeaderboardProvider with ChangeNotifier{
   }
 
   void getValue(dynamic responseData,int userId) async{
-    highestUserId=responseData[0][LeaderboardPlayers.userIdJson];
+    try{
+      highestUserId=responseData[0][LeaderboardPlayers.userIdJson];
+
+    }catch(e){
+      _waiting=true;
+      notifyListeners();
+      return;
+    }
     int highestCoin=0;
     int leaderboardId=0;
     for (Map<String,dynamic> resultMap in responseData){
@@ -99,6 +108,8 @@ class LeaderboardProvider with ChangeNotifier{
         leaderboardId=resultMap["leaderboard_id"];
       }
     }
+
+
     final sharedPrefs=await SharedPreferences.getInstance();
     sharedPrefs.setInt(Service.leaderboardPrefKey, leaderboardId);
   }

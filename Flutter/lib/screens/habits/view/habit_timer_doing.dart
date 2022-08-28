@@ -36,7 +36,7 @@ class _HabitTimerDoingState extends State<HabitTimerDoing> {
   void initState() {
     super.initState();
     print("$totalSeconds\n${widget.habitModal.time}");
-    totalSeconds=widget.habitModal.time??0;
+    totalSeconds=(widget.habitModal.time??0)*60;
     startTimer();
   }
 

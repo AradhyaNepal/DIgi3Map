@@ -26,6 +26,7 @@ class MultiplicationProvider with ChangeNotifier{
     1.5
   ];
   int _selectedEnergyIndex=2;
+
   int get selectedEnergyIndex=>_selectedEnergyIndex;
   String get defaultValue=>energyFilterList[_selectedEnergyIndex];
   double get multiplication{

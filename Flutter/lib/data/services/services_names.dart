@@ -17,7 +17,7 @@ class Service{
   static const String activateEffect="activateEffect/";
   static const String activatedEffectApi="getUserActivatedEffects/";
   static const String emptyTokenValue="null";
-  static const String baseApiNoDash="http://192.168.254.32:8000";
+  static const String baseApiNoDash="http://10.0.2.2:8000";
   static const String baseApi=baseApiNoDash+"/";
   static const String activatedEffectId="activatedEffectId";
   static const String getChainWhetherBroken="getChainWhetherBroken/";

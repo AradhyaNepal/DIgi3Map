@@ -45,7 +45,7 @@ class CoinAPIViews(APIView):
 
 class CoinUserViews(APIView):
     def get(self,_,id):
-        coin=Coin.objects.filter(user_id=id)
+        coin=Coin.objects.filter(user_id=id,dateCollected__month= datetime.date.today().month)
         totalCoins=0
         for singleCoin in coin.iterator():
             totalCoins=singleCoin.amount+totalCoins

@@ -27,6 +27,7 @@ class _HabitChainState extends State<HabitChain> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         body: ChangeNotifierProvider(
@@ -40,10 +41,10 @@ class _HabitChainState extends State<HabitChain> {
             List<Chain> chainList = provider.chainList;
 
             int currentChainNumber = 0;
+            remainingChain.addAll(chainList);
             if (Chain.activatedChainIndex != -1) {
               currentChainNumber = chainList[Chain.activatedChainIndex].count;
               print(chainList.length);
-              remainingChain.addAll(chainList);
               remainingChain.removeAt(Chain.activatedChainIndex);
               print(chainList.length);
 

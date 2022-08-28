@@ -246,7 +246,10 @@ class _HabitTaskWidgetState extends State<HabitTaskWidget> {
     String type=habitModal.widgetType;
     if(type=="Todo"){
       return Text(
-          habitModal.description
+          habitModal.description,
+        maxLines: 5,
+        overflow: TextOverflow.ellipsis,
+
       );
     }else if(type=="Timer"){
       return Text(
@@ -273,6 +276,9 @@ class _HabitTaskWidgetState extends State<HabitTaskWidget> {
                   setsAndTask?
                   "Sets ${i+1}: ${habitModal.description}":
                   "Sets ${i+1}: ${habitModal.time} Minutes",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+
                 ),
             ],
           ),

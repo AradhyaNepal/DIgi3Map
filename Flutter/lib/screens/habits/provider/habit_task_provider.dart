@@ -9,7 +9,6 @@ import 'package:digi3map/screens/habits/provider/habits_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:sqflite/sqflite.dart';
 
 class HabitTaskProvider with ChangeNotifier{
   bool first=true;

@@ -36,6 +36,7 @@ class MainPage extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Digi3Map",
         theme: ThemeData.light().copyWith(
           colorScheme: const ColorScheme.light().copyWith(primary:ColorConstant.kBlueColor,secondary: ColorConstant.kBlueColor),

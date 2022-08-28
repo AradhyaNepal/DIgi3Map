@@ -143,7 +143,7 @@ class _FitnessWidgetState extends State<FitnessWidget> {
                             ],
                           ),
                           Constants.kVerySmallBox,
-                          Consumer<RandomProvider>(
+                          Consumer<FitnessProvider>(
                             builder: (context,provider,child) {
                               return isLoading?Center(child: CircularProgressIndicator(),):Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,7 +189,7 @@ class _FitnessWidgetState extends State<FitnessWidget> {
 
                                   Constants.kSmallBox,
                                   Expanded(
-                                    child: Consumer<RandomProvider>(
+                                    child: Consumer<FitnessProvider>(
                                       builder: (context,provider,child) {
                                         return ElevatedButton(
                                             onPressed: (){

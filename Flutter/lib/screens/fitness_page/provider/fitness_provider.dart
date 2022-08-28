@@ -1,15 +1,18 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:digi3map/common/classes/HttpException.dart';
 import 'package:digi3map/data/services/assets_location.dart';
 import 'package:digi3map/data/services/services_names.dart';
+import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
+import 'package:digi3map/screens/fitness_page/provider/fitness_database.dart';
 import 'package:digi3map/screens/fitness_page/widgets/fitness_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RandomProvider with ChangeNotifier{
+class FitnessProvider with ChangeNotifier{
   bool isLoading=true;
-  RandomProvider(){
+  FitnessProvider(){
     getTodayFitness();
   }
   final List<FitnessModel> _fitnessList=[
@@ -86,4 +89,30 @@ class RandomProvider with ChangeNotifier{
     if(response.statusCode>299) throw HttpException(message: json.decode(response.body).toString());
     getTodayFitness();
   }
+  // Future<void> sendLocalTransactionToServer() async{
+  //   try{
+  //     await DomainProvider().getFitnessCareerPoints();//TO check network
+  //     print("I was here");
+  //
+  //     List<Map> list=await FitnessDatabase.getTransaction();
+  //     print(list);
+  //     for(Map map in list){
+  //       try{
+  //         await addTransaction(map[Habit.nameJson],failed:map[habitFailed]==1,reFetch: false,date: map[collectedDate]);
+  //         await FitnessDatabase.deleteLocalTransaction(map["id"],);
+  //       }on SocketException{
+  //
+  //       }
+  //       catch(e,s){
+  //         await FitnessDatabase.deleteLocalTransaction(map["id"],);
+  //         print(e);
+  //         print(s);
+  //       }
+  //       print("I was here to deelte the transaction id");
+  //     }
+  //   }on SocketException{
+  //
+  //     print("error by network");
+  //   }
+  // }
 }

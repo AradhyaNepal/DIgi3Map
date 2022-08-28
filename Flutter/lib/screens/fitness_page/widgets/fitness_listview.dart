@@ -15,8 +15,8 @@ class FitnessListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>RandomProvider(),
-      child: Consumer<RandomProvider>(
+      create: (context)=>FitnessProvider(),
+      child: Consumer<FitnessProvider>(
         builder: (context,provider,child) {
           return provider.isLoading?
           Center(child: CustomCircularIndicator()):

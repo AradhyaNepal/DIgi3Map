@@ -33,11 +33,15 @@ class _UserMissionsState extends State<UserMissions> {
   final List<Widget> pageList=[];
   int pageNumber=0;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    setUpList();
+    Provider.of<MultiplicationProvider>(context,listen: false).getOnePercent().then((value) {
+      setUpList();
+
+    });
   }
   bool isLoading=true;
   void setUpList() async{
@@ -59,6 +63,9 @@ class _UserMissionsState extends State<UserMissions> {
     headingList.add("Custom Habits");
     listViewList.add(UserMissionsList());
     pageList.add(SizedBox());
+    headingList.add("Random Task");
+    listViewList.add(RandomTaskList());
+    pageList.add(SizedBox());
     if(points.careerPoints>points.fitnessPoint){
       //That means fitness is less focused
       addFitness();
@@ -68,9 +75,7 @@ class _UserMissionsState extends State<UserMissions> {
       addCareer();
       addFitness();
     }
-    headingList.add("Random Task");
-    listViewList.add(RandomTaskList());
-    pageList.add(SizedBox());
+
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       setState(() {
         isLoading=false;
@@ -160,7 +165,7 @@ class _UserMissionsState extends State<UserMissions> {
                                     style: Styles.semiMedium,
                                   ),
                                 ),
-                                pageNumber!=0 && pageNumber!=5?TextButton(
+                                pageNumber!=0 && pageNumber!=1?TextButton(
                                     onPressed: (){
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) => pageList[pageNumber]));

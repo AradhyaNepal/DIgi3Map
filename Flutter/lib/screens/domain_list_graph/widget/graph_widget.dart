@@ -9,7 +9,7 @@ class GraphWidget extends StatelessWidget {
   final bool forCoin;
   final int? defaultMin;
   final int units;
-  const GraphWidget({
+  const  GraphWidget({
     this.units=5,
     this.defaultMin,
     required this.xAxisStringList,

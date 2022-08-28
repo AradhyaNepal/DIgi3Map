@@ -164,15 +164,18 @@ class UserProfileProvider with ChangeNotifier{
     );
     final responseData=json.decode(response.body);
     if(response.statusCode>299) throw HttpException(message: responseData.toString());
+
     try{
       activatedEffect=ActivatedEffectModel.fromMap(responseData[0]);
       notifyListeners();
-      final sharedPref= await SharedPreferences.getInstance();
+
       sharedPref.setInt(Service.activatedEffectId, responseData[0]["effect_id"]);
       print("I was here for activated effect "+sharedPref.getInt(Service.activatedEffectId).toString());
     // ignore: empty_catches
     }catch(e){
-      rethrow;
+      sharedPref.setInt(Service.activatedEffectId, 0);
+      print("No Effect Found");
+      //rethrow;
     }
 
 

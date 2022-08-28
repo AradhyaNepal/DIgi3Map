@@ -27,7 +27,7 @@ class OpenChainNavigationWidget extends StatelessWidget {
                 future: ChainProvider(habitId: habitId,fromMileStone: false).getChain(),
                 builder: (context,snapShot) {
                   if(snapShot.connectionState==ConnectionState.waiting){
-                    return Center(
+                    return const Center(
                       child: CustomCircularIndicator(),
                     );
                   }
@@ -38,7 +38,7 @@ class OpenChainNavigationWidget extends StatelessWidget {
                 }
               )
           ),
-          Spacer(),
+          const Spacer(),
           Expanded(
               flex: 4,
               child: TextButton(
@@ -46,13 +46,13 @@ class OpenChainNavigationWidget extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) =>  HabitChain(habitId: habitId,habitName: habitName,)));
                 },
-                child: Text(
+                child: const Text(
                   'Open Chain >>',
                   textAlign: TextAlign.right,
                 ),
               )
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
         ],
       ),
     );

@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from operator import ge
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from GroupPortal.serealizer import ReportUserSerializer
@@ -13,6 +14,7 @@ from habit.models import Domain
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+from django.contrib.auth import get_user_model
 class UnCollectedLeaderboardApi(APIView):
     def get(self,request,user_id):
         leaderboards=Leaderboard.objects.filter(winner_id=user_id,trophy_collected=False)
@@ -59,7 +61,15 @@ def isUserBanned(userId):
 
 class LeaderboardApi(APIView):
     #permission_classes = [IsAuthenticated]
-    def get(self,request,user_id):
+    
+    def get(self,_,user_id):
+        try:
+            get_user_model().objects.get(id=user_id)
+        except get_user_model().DoesNotExist:
+            return Response({
+                "details":"User Does Not Exist",
+            
+            })
         self.userWonTrophy()
         if(not self.isInLeaderBoard(id=user_id)):
             print("A")
@@ -97,9 +107,12 @@ class LeaderboardApi(APIView):
         outputList=[]
         for single in leaderboard:
             leaderboardPlayer=LeaderboardPlayers.objects.filter(leaderboard_id=single.id)
+            tempOutputList=[]
+            itsUserLeaderboard=False
             for singlePlayer in leaderboardPlayer:
-                print(singlePlayer.player_id.userImage)
-                outputList.append(
+                if(singlePlayer.player_id.id==user_id):
+                    itsUserLeaderboard=True
+                tempOutputList.append(
                     {
                         "id":singlePlayer.player_id.id,
                         "name":singlePlayer.player_id.username,
@@ -109,7 +122,13 @@ class LeaderboardApi(APIView):
                         "isAnonymous":False
                     }
                 )
-            break
+            if itsUserLeaderboard:
+                outputList.clear()
+                outputList=tempOutputList
+                break
+            else:
+                outputList.clear()
+                tempOutputList.clear()
         if(len(outputList)==0):
             return self.addOrCreateLeaderBoard(user_id=user_id)
         elif(len(outputList)==1):
@@ -121,7 +140,7 @@ class LeaderboardApi(APIView):
         )
     def addToAvailableLeaderboard(self):
         minStartedDate=datetime.datetime.now()-timedelta(days=30)
-        leaderboards=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True)
+        leaderboards=Leaderboard.objects.filter(started_date__gte=minStartedDate,winner_id__isnull=True).order_by("-started_date")
         availableLeaderboard=0
         for single in leaderboards.iterator():
             leaderboardsPlayers=LeaderboardPlayers.objects.filter(leaderboard_id=single.id)
@@ -187,7 +206,7 @@ class LeaderboardApi(APIView):
 
     def getUserTotalCoins(self,user_id):
         
-        mileStoneCoins=Coin.objects.filter(user_id=user_id)
+        mileStoneCoins=Coin.objects.filter(user_id=user_id,dateCollected__month= datetime.date.today().month)
         mileTotalStoneCoin=0
         for singleCoin in mileStoneCoins.iterator():
             mileTotalStoneCoin=singleCoin.amount+mileTotalStoneCoin

@@ -1,5 +1,7 @@
 import 'package:digi3map/data/services/services_names.dart';
 import 'package:digi3map/screens/domain_crud/provider/domain_provider.dart';
+import 'package:digi3map/screens/fitness_page/provider/fitness_database.dart';
+import 'package:digi3map/screens/fitness_page/provider/fitness_provider.dart';
 import 'package:digi3map/screens/habits/provider/habits_provider.dart';
 import 'package:digi3map/screens/homepage/provides/random_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,6 +10,7 @@ import 'package:sqflite/sqflite.dart';
 const String domainTable="Domain";
 const String habitTable="Habit";
 const String habitTransactionTable="HabitTransaction";
+const String workoutTransactionTable="WorkoutTransaction";
 const String randomTable="Random";
 const String randomTransactionTable="RandomTransaction";
 Future<Database> initializeDatabase() async{
@@ -69,6 +72,14 @@ Future<Database> initializeDatabase() async{
                 '$collectedDate value,'
                 '${Habit.nameJson} INTEGER)'
         );
+
+        // db.execute(
+        //     'CREATE TABLE $workoutTransactionTable ('
+        //         '${FitnessDatabase.idCol} INTEGER PRIMARY KEY AUTOINCREMENT,'
+        //         '${FitnessDatabase.failedCol} bool,'
+        //         '${FitnessDatabase.dateCol} value,'
+        //         '${FitnessDatabase.workoutIdCol} INTEGER)'
+        // );
       });
   return database;
 }

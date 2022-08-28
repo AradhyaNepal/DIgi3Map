@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class WorkoutDoing extends StatefulWidget {
   final FitnessModel fitnessModel;
-  final RandomProvider fitnessProvider;
+  final FitnessProvider fitnessProvider;
   const WorkoutDoing({
     required this.fitnessProvider,
     required this.fitnessModel,
