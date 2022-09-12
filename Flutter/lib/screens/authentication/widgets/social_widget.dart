@@ -124,6 +124,11 @@ class _SocialWidgetState extends State<SocialWidget> {
                       String password=accessToken.userId;
                       String username=accessToken.userId;
                       String email=accessToken.userId+"@facebook.jpt";
+                      await auth.socialLogin(email: email, username: username, password: password).then((value){
+                        CustomSnackBar.showSnackBar(context, "Successfully Logged In");
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => const HomePage()));
+                      });
 
                     } else {
                       print(result.status);
