@@ -17,5 +17,6 @@ urlpatterns=[
     path('userProgressUpdate/<int:id>/',views.update_user),
     path('changepass/',views.ChangePasswordView.as_view()),
     path('logoutall/',knox_view.LogoutAllView.as_view()),
+    path('social_register/',views.social_register),
     path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ]

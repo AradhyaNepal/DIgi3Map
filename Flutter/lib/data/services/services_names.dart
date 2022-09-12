@@ -35,6 +35,7 @@ class Service{
   static const String userTrophyApi="getUserTrophy/";
   static const String updateProfileApi="api/updateImage/";
   static const String loginApi="api/login/";
+  static const String socialLoginApi="api/social_register/";
   static const String chainApi="getChain/";
   static const String updateWorkoutPointsApi="api/updateWorkout/";
   static const String updateLearningPointsApi="api/updateLearning/";

@@ -167,6 +167,38 @@ def register_api(request):
         },
         'token':token
     })
+    
+
+@api_view(['POST'])
+def social_register(request):
+    try:
+        serializer=AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user=serializer.validated_data["user"]
+        _,token=AuthToken.objects.create(user)
+        return Response({
+            'user_info':{
+                'id':user.id,
+                'username':user.username,
+                'email':user.email
+            },
+            'token':token
+        })
+    except:
+        serializer=RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user=serializer.save()
+        _,token=AuthToken.objects.create(user)
+        return Response({
+            'user_info':{
+                'id':user.id,
+                'username':user.username,
+                'email':user.email
+            },
+            'token':token
+        })
+    
+
 
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
