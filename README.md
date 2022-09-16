@@ -4,10 +4,10 @@
 **Backend is in local server for now so can't give final apk with backend integrated.
 
 Version 1 means For my College Final Year Project. And its **Public Archived Repo**
+
 Version 2 means For launch. And its  **Private Repo**
-Here is my proposal of my college, enough to give you idea about the project(For the college).
 
-
+#Here is my proposal of my college, enough to give you idea about the project(For the college).
 
 ## 3.0 Expected Outcomes and deliverables 
 The final app which I am going to be develop will be named as “Digi3Map” where “Digi” means digital, and “Map” means direction for the day. The app must give user amazing user interface to perform all the features of the app. 
