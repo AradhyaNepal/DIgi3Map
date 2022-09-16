@@ -1,7 +1,10 @@
 # Digi3Map V1.0.0
-## Link: [Touch Me!!](https://drive.google.com/drive/folders/1Zs-BwcFz5yTtSQJNdNLhuLufk4of-DBg?usp=sharing)	
+## Demostration Youtube Link: [Touch Me!!](https://www.youtube.com/watch?v=t3MzaVPfC-Q)	
+## Only UI APK Link: [Touch Me!!](https://drive.google.com/drive/folders/1Zs-BwcFz5yTtSQJNdNLhuLufk4of-DBg?usp=sharing)	
+**Backend is in local server for now so can't give final apk with backend integrated.
 
-Version 1 means For my College Final Year Project.
+Version 1 means For my College Final Year Project. And its **Public Archived Repo**
+Version 2 means For launch. And its  **Private Repo**
 Here is my proposal of my college, enough to give you idea about the project(For the college).
 
 
@@ -26,5 +29,4 @@ The features the app provide are:
 15.	Energy level filter to sort current goal according to current user energy level to make user don’t break the habit chain even by performing very easy task when his/her energy level is very low.
 16.	Notification feature for alert.
 17.	Progress tracking graph with milestones to keep user motivated of their progress or make them demotivated for skipping their tasks.
-
 

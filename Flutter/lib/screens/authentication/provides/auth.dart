@@ -13,7 +13,40 @@ class Auth with ChangeNotifier{
   static const String tokenKey="token";
   String _token=Service.emptyTokenValue;
 
+
   String get token=>_token;
+
+  Future<void> socialLogin({
+    required String email,
+    required String username,
+    required String password
+  })async{
+    Uri uri=Uri.parse(Service.baseApi+Service.socialLoginApi);
+    http.Response response=await http.post(
+        uri,
+        body: {
+          passwordKey:password,
+          usernameKey:username,
+          emailKey:email
+        }
+    );
+
+    print(response.body);
+    print(response.statusCode);
+    if(response.statusCode<300){
+      final responseData=json.decode(utf8.decode(response.bodyBytes));
+      _token=responseData[tokenKey];
+      SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+      sharedPreferences.setString(Service.tokenPrefKey, _token);
+      sharedPreferences.setString(Service.passwordPrefKey, password);
+      sharedPreferences.setInt(Service.userId,responseData["user_info"]["id"]);
+    }
+    else{
+
+      throw HttpException(message: json.decode(response.body).toString());
+    }
+  }
+
   Future<void> login(String email,String password) async{
     print("Email "+email+" Password "+password);
     Uri uri=Uri.parse(Service.baseApi+Service.loginApi);
